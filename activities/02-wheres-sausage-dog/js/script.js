@@ -14,6 +14,9 @@ const NUM_ANIMALS = 100;
 let animalImages = [];
 let animals = [];
 
+let sausageDogImage = undefined;
+let sausageDog = undefined;
+
 /**
 Description of preload
 */
@@ -22,6 +25,8 @@ function preload() {
     let animalImage = loadImage(`assets/images/animal${i}.png`);
     animalImages.push(animalImage); // adding animalImage into the array
   }
+
+  sausageDogImage = loadImage(`assets/images/sausage-dog.png`);
 }
 
 function setup() {
@@ -35,6 +40,10 @@ function setup() {
     let animal = new Animal(x, y, animalImage); //create an animal based on the 3 codes above and the Animal.js
     animals.push(animal); // adding animal into the animals array
   }
+
+  let x = random(0, width);
+  let y = random(0, height);
+  sausageDog = new SausageDog(x, y, sausageDogImage);
 }
 
 function draw() {
@@ -43,4 +52,10 @@ function draw() {
   for (let i = 0; i < animals.length; i++) {
     animals[i].update(); //update the animal at position i.
   }
+
+  sausageDog.update();
+}
+
+function mousePressed() {
+  sausageDog.mousePressed();
 }
