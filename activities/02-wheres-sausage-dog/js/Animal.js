@@ -19,4 +19,17 @@ class Animal {
     image(this.image, 0, 0);
     pop();
   }
+
+//moving the overlap elements from sausageDog to here is better, cuz now this function becomes generic and can be applied to anything.
+  overlap(x, y) {
+    if (x > this.x - this.image.width / 2 &&
+      x < this.x + this.image.width / 2 &&
+      y > this.y - this.image.height / 2 &&
+      y < this.y + this.image.height / 2) {
+        return true;
+      }
+      else {
+        return false;
+      }
+  }
 }
