@@ -54,6 +54,14 @@ function setup() {
 function draw() {
   background(255, 255, 0);
 
+  if (state === `title`) {
+    title();
+  } else if (state === `game`) {
+    game();
+  } else if (state === `win`) {
+    win();
+  }
+
   for (let i = 0; i < animals.length; i++) {
     animals[i].update(); //update the animal at position i.
   }
