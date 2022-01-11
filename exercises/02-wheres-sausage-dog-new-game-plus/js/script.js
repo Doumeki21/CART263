@@ -18,10 +18,12 @@ const NUM_ANIMALS = 100;
 
 let animalImages = [];
 let animals = [];
+// let animal = undefined;
 
 let sausageDogImage = undefined;
 let sausageDog = undefined;
 
+let shake = true;
 let state = `title`; //different screens: title, game, endings
 
 //Load all images before starting the program.
@@ -83,6 +85,7 @@ function game() {
     animals[i].update(); //update the animal at position i.
   }
   sausageDog.update();
+  // shake();
 }
 
 function win() {
@@ -94,11 +97,22 @@ function win() {
   pop();
 }
 
+// function shake() {
+//   if (shake === true) {
+//     translate(random(-5, 5), random(-5, 5));
+//   }
+// }
+
 //When mouse is pressed on sausage dog, it rotates.
 function mousePressed() {
   if (state === `title`) {
     state = `game`;
   } else if (state === `game`) {
+    // if (animal.overlap()) {
+    //   shake = true;
+    // } else {
+    //   shake = false;
+    // }
       sausageDog.mousePressed();
   } else if (state === `win`) {
     state = `title`;
