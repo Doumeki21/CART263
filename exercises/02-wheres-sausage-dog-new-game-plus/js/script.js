@@ -22,7 +22,7 @@ let animals = [];
 let sausageDogImage = undefined;
 let sausageDog = undefined;
 
-let state = `title`;
+let state = `title`; //different screens: title, game, endings
 
 //Load all images before starting the program.
 function preload() {
@@ -36,6 +36,11 @@ function preload() {
 //Setup of the game.
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  reset();
+}
+
+function reset() {
+  animals = [];
 
   //create animals at random locations
   for (let i = 0; i < NUM_ANIMALS; i++) {
@@ -60,16 +65,42 @@ function draw() {
     game();
   } else if (state === `win`) {
     win();
+    reset();
   }
+}
 
+function title() {
+  push();
+  textSize(100);
+  textAlign(CENTER,CENTER);
+  fill(0);
+  text(`WHERE'S DOGGO`, width/2, height/2)
+  pop();
+}
+
+function game() {
   for (let i = 0; i < animals.length; i++) {
     animals[i].update(); //update the animal at position i.
   }
-
   sausageDog.update();
+}
+
+function win() {
+  push();
+  textSize(100);
+  textAlign(CENTER,CENTER);
+  fill(0);
+  text(`YOU WIN`, width/2, height/2)
+  pop();
 }
 
 //When mouse is pressed on sausage dog, it rotates.
 function mousePressed() {
-  sausageDog.mousePressed();
+  if (state === `title`) {
+    state = `game`;
+  } else if (state === `game`) {
+      sausageDog.mousePressed();
+  } else if (state === `win`) {
+    state = `title`;
+  }
 }

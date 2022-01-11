@@ -17,6 +17,10 @@ class SausageDog extends Animal {
   mousePressed() {
     if (this.overlap(mouseX, mouseY)) {
       this.found = true;
+      setTimeout(function() {
+        state = `win`;
+      }, 2000);
+      // return true;
     }
   }
 }
