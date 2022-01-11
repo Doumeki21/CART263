@@ -22,22 +22,22 @@ let animals = [];
 let sausageDogImage = undefined;
 let sausageDog = undefined;
 
-/**
-Description of preload
-*/
+let state = `title`;
+
+//Load all images before starting the program.
 function preload() {
   for (let i = 0; i < NUM_ANIMAL_IMAGES; i++) {
     let animalImage = loadImage(`assets/images/animal${i}.png`);
     animalImages.push(animalImage); // adding animalImage into the array
   }
-
   sausageDogImage = loadImage(`assets/images/sausage-dog.png`);
 }
 
+//Setup of the game.
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  //create animals
+  //create animals at random locations
   for (let i = 0; i < NUM_ANIMALS; i++) {
     let x = random(0, width);
     let y = random(0, height);
@@ -45,7 +45,7 @@ function setup() {
     let animal = new Animal(x, y, animalImage); //create an animal based on the 3 codes above and the Animal.js
     animals.push(animal); // adding animal into the animals array
   }
-
+  //create sausage dog at random location
   let x = random(0, width);
   let y = random(0, height);
   sausageDog = new SausageDog(x, y, sausageDogImage);
@@ -61,6 +61,7 @@ function draw() {
   sausageDog.update();
 }
 
+//When mouse is pressed on sausage dog, it rotates.
 function mousePressed() {
   sausageDog.mousePressed();
 }
