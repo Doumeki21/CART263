@@ -1,5 +1,5 @@
 /**
-Exercise 02: Where’s Sausage Dog? New Game+
+Exercise 01: Where’s Sausage Dog? New Game+
 Olenka Yuen
 
 Add at least three of the following:
