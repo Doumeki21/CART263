@@ -2,10 +2,10 @@
 Exercise 01: Where’s Sausage Dog? New Game+
 Olenka Yuen
 
-Add at least three of the following:
-. Add start and end screens
-. Add the ability to restart the game after you reach the end
-. Add behavior to incorrect animals when clicked (make a sound, wiggle, do something else?)
+Add at least 3 of the following:
+- Add start and end screens
+- Add the ability to restart the game after you reach the end
+- Add behavior to incorrect animals when clicked (make a sound, wiggle, do something else?)
 . Add selectable difficulty levels (more animals? smaller? movement?)
 . Add a countdown timer
 . Choose which animal is being found randomly and tell the player which one they’re looking for
@@ -23,7 +23,7 @@ let animals = [];
 let sausageDogImage = undefined;
 let sausageDog = undefined;
 
-let shake = true;
+let shake;
 let state = `title`; //different screens: title, game, endings
 
 //Load all images before starting the program.
@@ -59,7 +59,7 @@ function reset() {
 }
 
 function draw() {
-  background(255, 255, 0);
+  background(152, 204, 69);
 
   if (state === `title`) {
     title();
@@ -74,46 +74,55 @@ function draw() {
 function title() {
   push();
   textSize(100);
-  textAlign(CENTER,CENTER);
+  textAlign(CENTER, CENTER);
   fill(0);
-  text(`WHERE'S DOGGO`, width/2, height/2)
+  text(`WHERE'S DOGGO`, width / 2, height / 2);
   pop();
 }
 
 function game() {
+  //shake needs to be put before displaying objects!
+  //
+  if (shake === true) {
+    background(129, 179, 50);
+    translate(random(-5, 5), random(-5, 5));
+    setTimeout(function() {
+      shake = false;
+    }, 200);
+  }
+  // else if (sausageDog.update()) {
+  //   shake = false;
+  // }
+
   for (let i = 0; i < animals.length; i++) {
-    animals[i].update(); //update the animal at position i.
+    animals[i].update(); //always update/ display the animal at position i
   }
   sausageDog.update();
-  // shake();
 }
 
 function win() {
   push();
   textSize(100);
-  textAlign(CENTER,CENTER);
+  textAlign(CENTER, CENTER);
   fill(0);
-  text(`YOU WIN`, width/2, height/2)
+  text(`DOGGO WAS FOUND!`, width / 2, height / 2);
   pop();
 }
-
-// function shake() {
-//   if (shake === true) {
-//     translate(random(-5, 5), random(-5, 5));
-//   }
-// }
 
 //When mouse is pressed on sausage dog, it rotates.
 function mousePressed() {
   if (state === `title`) {
     state = `game`;
   } else if (state === `game`) {
-    // if (animal.overlap()) {
-    //   shake = true;
-    // } else {
-    //   shake = false;
-    // }
-      sausageDog.mousePressed();
+    if (shake === true) {
+      shake = false;
+    } else {
+      shake = true;
+    }
+
+    if (sausageDog.mousePressed()) {
+      shake = false; //doesn't work???
+    }
   } else if (state === `win`) {
     state = `title`;
   }
