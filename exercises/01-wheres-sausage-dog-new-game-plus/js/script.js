@@ -90,9 +90,6 @@ function game() {
       shake = false;
     }, 200);
   }
-  // else if (sausageDog.update()) {
-  //   shake = false;
-  // }
 
   for (let i = 0; i < animals.length; i++) {
     animals[i].update(); //always update/ display the animal at position i
@@ -114,14 +111,10 @@ function mousePressed() {
   if (state === `title`) {
     state = `game`;
   } else if (state === `game`) {
-    if (shake === true) {
+    if (sausageDog.mousePressed()) {
       shake = false;
     } else {
       shake = true;
-    }
-
-    if (sausageDog.mousePressed()) {
-      shake = false; //doesn't work???
     }
   } else if (state === `win`) {
     state = `title`;
