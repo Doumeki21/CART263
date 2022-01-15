@@ -20,7 +20,8 @@ class SausageDog extends Animal {
       setTimeout(function() {
         state = `win`;
       }, 2000);
-      // return true;
-    }
+      return true;
+    } //General rule: Everytime there is a if statement tht consists true, then most likely need return false
+    return false;
   }
 }
