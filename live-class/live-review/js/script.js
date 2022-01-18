@@ -43,7 +43,7 @@ live: review
 let message = {
   text: `NOW YOU SEE ME`,
   visible: true,
-  hideDelay: 2000,
+  hideDelay: 200,
 };
 
 function setup() {
@@ -63,10 +63,13 @@ function draw() {
   }
 }
 
-function hideMessage() {
-  message.visible = false;
+function mousePressed() {
+  setTimeout(function () {
+    message.visible = false;
+  }, message.hideDelay);
+  // hideMessage();
 }
 
-function mousePressed() {
-  SetTimeout(hideMessage, message.hideDelay);
-}
+// function hideMessage() {
+//   message.visible = false;
+// }
