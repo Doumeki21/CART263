@@ -14,7 +14,14 @@ Add at least 3 of the following:
 "use strict";
 
 const NUM_ANIMAL_IMAGES = 10;
-const NUM_ANIMALS = 100;
+
+let easy = 50;
+let normal = 100;
+let hard = 150;
+let currentDifficulty = undefined;
+
+let easyButton = undefined;
+let hardButton = undefined;
 
 let animalImages = [];
 let animals = [];
@@ -22,6 +29,9 @@ let animals = [];
 
 let sausageDogImage = undefined;
 let sausageDog = undefined;
+
+let timer = 10;
+let timerActive = true;
 
 let shake;
 let state = `title`; //different screens: title, game, endings
@@ -38,15 +48,26 @@ function preload() {
 //Setup of the game.
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  currentDifficulty = normal;
+
+  easyButton = createButton(`EASY`);
+  easyButton.position(100, 200);
+  easyButton.mousePressed(setEasyMode);
+
+  hardButton = createButton(`HARD`);
+  hardButton.position(200, 200);
+  hardButton.mousePressed(setHardMode);
   reset();
 }
 
 function reset() {
   animals = [];
+  timer = 10;
+  timerActive = true;
 
   //create animals at random locations
-  for (let i = 0; i < NUM_ANIMALS; i++) {
-    let x = random(0, width);
+  for (let i = 0; i < currentDifficulty; i++) {
+    let x = random(100, width);
     let y = random(0, height);
     let animalImage = random(animalImages);
     let animal = new Animal(x, y, animalImage); //create an animal based on the 3 codes above and the Animal.js
@@ -68,25 +89,40 @@ function draw() {
   } else if (state === `win`) {
     win();
     reset();
+  } else if (state === `lose`) {
+    lose();
+    reset();
   }
 }
 
 function title() {
   push();
-  textSize(100);
+  textSize(80);
   textAlign(CENTER, CENTER);
   fill(0);
-  text(`WHERE'S DOGGO`, width / 2, height / 2);
+  text(`WHERE'S SAUSAGE DOG?`, width / 2, height / 2);
   pop();
 }
 
+function setEasyMode() {
+  currentDifficulty = easy;
+  reset();
+}
+
+function setHardMode() {
+  currentDifficulty = hard;
+  reset();
+}
+
 function game() {
+  // easyButton.hide();
+  // hardButton.hide();
   //shake needs to be put before displaying objects!
   //
   if (shake === true) {
     background(129, 179, 50);
     translate(random(-5, 5), random(-5, 5));
-    setTimeout(function() {
+    setTimeout(function () {
       shake = false;
     }, 200);
   }
@@ -95,14 +131,46 @@ function game() {
     animals[i].update(); //always update/ display the animal at position i
   }
   sausageDog.update();
+
+  checkTimer();
+  displayTimer();
+}
+
+function checkTimer() {
+  if (timerActive) {
+    if (timer <= 0) {
+      timer = 0;
+      state = `lose`;
+    }
+    //count in seconds.
+    timer -= 1 / 60;
+  }
+}
+
+function displayTimer() {
+  push();
+  fill(255);
+  textSize(60);
+  textAlign(CENTER, CENTER);
+  text(round(timer), 30, 200);
+  pop();
 }
 
 function win() {
   push();
-  textSize(100);
+  textSize(80);
   textAlign(CENTER, CENTER);
   fill(0);
-  text(`DOGGO WAS FOUND!`, width / 2, height / 2);
+  text(`THE DOGGO\n WAS FOUND!`, width / 2, height / 2);
+  pop();
+}
+
+function lose() {
+  push();
+  textSize(80);
+  textAlign(CENTER, CENTER);
+  fill(0);
+  text(`OH NO HE RAN AWAY!`, width / 2, height / 2);
   pop();
 }
 
@@ -111,12 +179,17 @@ function mousePressed() {
   if (state === `title`) {
     state = `game`;
   } else if (state === `game`) {
+    easyButton.hide();
+    hardButton.hide();
     if (sausageDog.mousePressed()) {
       shake = false;
+      timerActive = false;
     } else {
       shake = true;
     }
   } else if (state === `win`) {
+    state = `title`;
+  } else if (state === `lose`) {
     state = `title`;
   }
 }
