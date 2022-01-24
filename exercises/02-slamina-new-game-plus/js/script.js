@@ -1,6 +1,15 @@
 /**
-Activity 03: Slamina
+Exercise 02: Slamina New Game+
 Olenka Yuen
+
+REQUIREMENTS (do at least 3):
+. Add start and end screens
+. Add more visual flair when you get an answer right or wrong
+. Add sound effects when you get an answer right and wrong (could be criticism/praise via ResponsiveVoice?)
+. Add a counter for how many correct guesses the user achieves
+
+. Add multiple voice inputs for the user (maybe they can choose between two animals? Which is cuter?)
+. Use the ResponsiveVoice callbacks to add visuals to the program while the voice is talking
 */
 
 "use strict";
@@ -145,6 +154,9 @@ const animals =  [
     let currentAnimal = '';
     let currentAnswer = '';
 
+    let winLetters = [`G`, `R`, `E`, `A`, `T`];
+    let loseLetters = [`W`, `R`, `O`, `N`, `G`];
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
@@ -166,11 +178,25 @@ function draw() {
 
   if (currentAnswer === currentAnimal) {
     fill(0, 255, 0);
+    createWinLetters();
   }
   else {
     fill(255, 0, 0);
   }
   text(currentAnswer, width/2, height/2);
+}
+
+function createWinLetters() {
+  // A loop to add all letters.
+  for (let i = 0; i < winLetters.length; i++) {
+    // Generate a random x on the canvas
+    let x = random(width/2 - 100, width/2 + 100);
+    // Generate a random y ABOVE the canvas (so they fall in)
+    let y = random(-400, -100);
+    // // Create the letter
+    // let winLetter = new WinLetter(x, y, `G`);
+    // // Add the new winLetter to our winLetters array
+    // winLetters.push(winLetter);
 }
 
 function mousePressed() {
