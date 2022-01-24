@@ -157,6 +157,8 @@ let currentAnswer = "";
 let winLetters = [`G`, `R`, `E`, `A`, `T`];
 let loseLetters = [`W`, `R`, `O`, `N`, `G`];
 
+let state = `title`;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
