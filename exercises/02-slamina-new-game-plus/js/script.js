@@ -156,6 +156,24 @@ let currentAnswer = "";
 
 let winLetters = [`G`, `R`, `E`, `A`, `T`];
 let loseLetters = [`W`, `R`, `O`, `N`, `G`];
+//
+// let correct = {
+//   currentScore: 0,
+//   maxScore: 3,
+// };
+//
+// let wrong = {
+//   currentScore: 0,
+//   maxScore: 3,
+// };
+//
+// let life = {
+//   x: undefined,
+//   y: undefined,
+//   size: 50,
+//   fill: 255,
+//   numCircles: 3,
+// };
 
 let state = `title`;
 
@@ -169,7 +187,7 @@ function setup() {
     annyang.addCommands(commands);
     annyang.start();
 
-    textSize(32);
+    textSize(50);
     textStyle(BOLD);
     textAlign(CENTER, CENTER);
   }
@@ -198,6 +216,27 @@ function title() {
 }
 
 function game() {
+  //top screen instructions
+  push();
+  textSize(32)
+  textAlign(CENTER, CENTER);
+  fill(255);
+  text(`"I think it is..."`, width/2, 85);
+  pop();
+  //Bottom screen instructions.
+  push();
+  textSize(32)
+  textAlign(CENTER, CENTER);
+  fill(255, 150);
+  text(`Click to Randomize!`, width/2, height - 85);
+  pop();
+
+  //Check if the answer is correct or not.
+  checkAnswer();
+}
+
+function checkAnswer() {
+  //Check if the answer is correct or not.
   if (currentAnswer === currentAnimal) {
     fill(0, 255, 0);
     createWinLetters();
@@ -227,17 +266,6 @@ function createWinLetters() {
   }
 }
 
-function mousePressed() {
-  if (state === `title`) {
-    state = `game`;
-  }
-  else if (state === `game`) {
-    currentAnimal = random(animals);
-    let reverseAnimal = reverseString(currentAnimal);
-    responsiveVoice.speak(reverseAnimal);
-  }
-}
-
 function guessAnimal(animal) {
   currentAnswer = animal.toLowerCase();
   console.log(currentAnswer);
@@ -255,4 +283,15 @@ function reverseString(string) {
   let result = reverseCharacters.join("");
   // Return the result
   return result;
+}
+
+function mousePressed() {
+  if (state === `title`) {
+    state = `game`;
+  }
+  else if (state === `game`) {
+    currentAnimal = random(animals);
+    let reverseAnimal = reverseString(currentAnimal);
+    responsiveVoice.speak(reverseAnimal);
+  }
 }
