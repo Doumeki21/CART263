@@ -179,12 +179,15 @@ let state = `title`;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  reset();
+}
 
+function reset() {
   correct.currentScore = 0;
 
   if (annyang) {
     let commands = {
-      "I think it is *animal": guessAnimal,
+      "I think it is a *animal": guessAnimal,
     };
     annyang.addCommands(commands);
     annyang.start();
@@ -200,12 +203,11 @@ function draw() {
 
   if (state === `title`) {
     title();
-  }
-  else if (state === `game`) {
+  } else if (state === `game`) {
     game();
-  }
-  else if (state === `win`) {
+  } else if (state === `win`) {
     win();
+    reset();
   }
 }
 
@@ -223,21 +225,19 @@ function title() {
 function game() {
   //top screen instructions
   push();
-  textSize(32)
+  textSize(32);
   textAlign(CENTER, CENTER);
   fill(255);
-  text(`"I think it is..."`, width/2, 85);
+  text(`"I think it is a..."`, width / 2, 85);
   pop();
   //Bottom screen instructions.
   push();
-  textSize(32)
+  textSize(32);
   textAlign(CENTER, CENTER);
   fill(255, 150);
-  text(`Click to Randomize!`, width/2, height - 85);
+  text(`Click to Randomize!`, width / 2, height - 85);
   pop();
 
-  //Check if the answer is correct or not.
-  checkAnswer();
   displayScore();
 }
 
@@ -248,7 +248,7 @@ function win() {
   textStyle(BOLD);
   textAlign(CENTER, CENTER);
   fill(250, 239, 220);
-  text(`VICTORIOUS!`, width/2, height/2);
+  text(`VICTORIOUS!`, width / 2, height / 2);
   pop();
 }
 
@@ -258,6 +258,7 @@ function checkAnswer() {
     fill(0, 255, 0);
     createWinLetters();
     correct.currentScore++;
+    newAnimal();
   } else {
     fill(255, 0, 0);
   }
@@ -300,6 +301,8 @@ function displayScore() {
 function guessAnimal(animal) {
   currentAnswer = animal.toLowerCase();
   console.log(currentAnswer);
+
+  checkAnswer();
 }
 
 /**
@@ -316,13 +319,18 @@ function reverseString(string) {
   return result;
 }
 
+function newAnimal() {
+  currentAnimal = random(animals);
+  let reverseAnimal = reverseString(currentAnimal);
+  responsiveVoice.speak(reverseAnimal);
+}
+
 function mousePressed() {
   if (state === `title`) {
     state = `game`;
-  }
-  else if (state === `game`) {
-    currentAnimal = random(animals);
-    let reverseAnimal = reverseString(currentAnimal);
-    responsiveVoice.speak(reverseAnimal);
+  } else if (state === `game`) {
+    newAnimal();
+  } else if (state === `win`) {
+    state = `title`;
   }
 }
