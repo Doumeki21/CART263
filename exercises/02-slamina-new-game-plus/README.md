@@ -1,5 +1,7 @@
 #Exercise 02: Slamina New Game+
 
+[Play the game here!](https://doumeki21.github.io/CART263/exercises/02-slamina-new-game-plus/)
+
 **Please use Google Chrome for your mic to be compatible with the Annyang! library.**
 
 *GOAL*: Guess the animal!

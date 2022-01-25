@@ -379,7 +379,7 @@ function reverseString(string) {
 function newAnimal() {
   currentAnimal = random(animals);
   let reverseAnimal = reverseString(currentAnimal);
-  responsiveVoice.speak(reverseAnimal);
+  responsiveVoice.speak(reverseAnimal, "Japanese Female");
 }
 
 //proceeds to the next state/ screen after clicking the mouse. clicking during the game generates a new animal.
