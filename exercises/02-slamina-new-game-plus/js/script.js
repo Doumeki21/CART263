@@ -5,8 +5,8 @@ Olenka Yuen
 REQUIREMENTS (do at least 3):
 - Add start and end screens
 - Add more visual flair when you get an answer right or wrong
-. Add sound effects when you get an answer right and wrong (could be criticism/praise via ResponsiveVoice?)
 - Add a counter for how many correct guesses the user achieves
+. Add sound effects when you get an answer right and wrong (could be criticism/praise via ResponsiveVoice?)
 
 . Add multiple voice inputs for the user (maybe they can choose between two animals? Which is cuter?)
 . Use the ResponsiveVoice callbacks to add visuals to the program while the voice is talking
@@ -173,7 +173,9 @@ let life = {
   y: 200,
   size: 50,
   fill: 150,
-  numLives: 3,
+  currentLives: 3,
+  minLives: 0,
+  maxLives: 3,
 };
 
 let state = `title`;
@@ -187,6 +189,7 @@ function reset() {
   correct.currentScore = 0;
   //empty the array
   letters = [];
+  life.currentLives = 3;
 
   if (annyang) {
     let commands = {
@@ -210,6 +213,9 @@ function draw() {
     game();
   } else if (state === `win`) {
     win();
+    reset();
+  } else if (state === `lose`) {
+    lose();
     reset();
   }
 }
@@ -241,7 +247,6 @@ function game() {
   text(`Click to Randomize!`, width / 2, height - 85);
   pop();
 
-
   for (let i = 0; i < letters.length; i++) {
     letters[i].update();
   }
@@ -261,13 +266,24 @@ function win() {
   pop();
 }
 
+function lose() {
+  push();
+  background(72, 86, 133);
+  textSize(60);
+  textStyle(BOLD);
+  textAlign(CENTER, CENTER);
+  fill(250, 239, 220);
+  text(`YOU LOSE`, width / 2, height / 2);
+  pop();
+}
+
 function checkAnswer() {
   //Check if the answer is correct or not.
   if (currentAnswer === currentAnimal) {
     fill(0, 255, 0);
     createLetters(winLetters);
     correct.currentScore++;
-    //check victory/ loss conditions.
+    //check victory conditions.
     if (correct.currentScore === correct.maxScore) {
       state = `win`;
     } else {
@@ -276,6 +292,11 @@ function checkAnswer() {
   } else {
     fill(255, 0, 0);
     createLetters(loseLetters);
+    life.currentLives--;
+    //check lose conditions.
+    if (life.currentLives === life.minLives) {
+      state = `lose`;
+    }
   }
 }
 
@@ -283,7 +304,7 @@ function createLetters(letterSet) {
   // A loop to add all letters.
   for (let i = 0; i < letterSet.length; i++) {
     // Generate a random x on the canvas
-    let x = 100 + i*((width - 200)/letterSet.length);
+    let x = 100 + i * ((width - 200) / letterSet.length);
     // Generate a random y ABOVE the canvas (so they fall in)
     let y = random(-400, -100);
     // Create the letter
@@ -305,14 +326,14 @@ function displayScore() {
 function displayLives() {
   let y = life.y;
 
-  for (let i = 0; i < life.numLives; i++) {
+  for (let i = 0; i < life.currentLives; i++) {
     push();
     stroke(255);
     fill(life.fill);
-    ellipse(width - 80, life.y, life.size);
+    ellipse(width - 80, y, life.size);
     pop();
 
-    y += 40;
+    y += life.size*1.5;
   }
 }
 
@@ -350,6 +371,8 @@ function mousePressed() {
   } else if (state === `game`) {
     newAnimal();
   } else if (state === `win`) {
+    state = `title`;
+  } else if (state === `lose`) {
     state = `title`;
   }
 }
