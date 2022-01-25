@@ -1,4 +1,4 @@
-#Exercise 02: Slamina New Game+
+# Exercise 02: Slamina New Game+
 
 [Play the game here!](https://doumeki21.github.io/CART263/exercises/02-slamina-new-game-plus/)
 
@@ -11,6 +11,6 @@
 3. You have 3 correct answers until you win **and** 3 wrong answers until you lose.
 
 **Reference**
-[The Annyang! Javascript library](https://www.talater.com/annyang/)
-[ResponsiveVoice JS](https://responsivevoice.org/)
-[mroth's common list of animals](https://github.com/dariusk/corpora/blob/master/data/animals/common.json)
+- [The Annyang! Javascript library](https://www.talater.com/annyang/)
+- [ResponsiveVoice JS](https://responsivevoice.org/)
+- [mroth's common list of animals](https://github.com/dariusk/corpora/blob/master/data/animals/common.json)
