@@ -178,6 +178,26 @@ function setup() {
 function draw() {
   background(0);
 
+  if (state === `title`) {
+    title();
+  }
+  else if (state === `game`) {
+    game();
+  }
+}
+
+function title() {
+  push();
+  background(50);
+  textSize(60);
+  textStyle(BOLD);
+  textAlign(CENTER, CENTER);
+  fill(255);
+  text(`What's That Animal?`, width / 2, height / 2);
+  pop();
+}
+
+function game() {
   if (currentAnswer === currentAnimal) {
     fill(0, 255, 0);
     createWinLetters();
@@ -208,9 +228,14 @@ function createWinLetters() {
 }
 
 function mousePressed() {
-  currentAnimal = random(animals);
-  let reverseAnimal = reverseString(currentAnimal);
-  responsiveVoice.speak(reverseAnimal);
+  if (state === `title`) {
+    state = `game`;
+  }
+  else if (state === `game`) {
+    currentAnimal = random(animals);
+    let reverseAnimal = reverseString(currentAnimal);
+    responsiveVoice.speak(reverseAnimal);
+  }
 }
 
 function guessAnimal(animal) {
