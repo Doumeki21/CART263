@@ -3,10 +3,10 @@ Exercise 02: Slamina New Game+
 Olenka Yuen
 
 REQUIREMENTS (do at least 3):
-. Add start and end screens
-. Add more visual flair when you get an answer right or wrong
+- Add start and end screens
+- Add more visual flair when you get an answer right or wrong
 . Add sound effects when you get an answer right and wrong (could be criticism/praise via ResponsiveVoice?)
-. Add a counter for how many correct guesses the user achieves
+- Add a counter for how many correct guesses the user achieves
 
 . Add multiple voice inputs for the user (maybe they can choose between two animals? Which is cuter?)
 . Use the ResponsiveVoice callbacks to add visuals to the program while the voice is talking
@@ -156,6 +156,7 @@ let currentAnswer = "";
 
 let winLetters = [`G`, `R`, `E`, `A`, `T`];
 let loseLetters = [`W`, `R`, `O`, `N`, `G`];
+let letters = [];
 
 let correct = {
   currentScore: 0,
@@ -169,10 +170,10 @@ let correct = {
 
 let life = {
   x: undefined,
-  y: undefined,
+  y: 200,
   size: 50,
-  fill: 255,
-  numCircles: 3,
+  fill: 150,
+  numLives: 3,
 };
 
 let state = `title`;
@@ -184,6 +185,8 @@ function setup() {
 
 function reset() {
   correct.currentScore = 0;
+  //empty the array
+  letters = [];
 
   if (annyang) {
     let commands = {
@@ -238,7 +241,13 @@ function game() {
   text(`Click to Randomize!`, width / 2, height - 85);
   pop();
 
+
+  for (let i = 0; i < letters.length; i++) {
+    letters[i].update();
+  }
+  text(currentAnswer, width / 2, height / 2);
   displayScore();
+  displayLives();
 }
 
 function win() {
@@ -256,37 +265,32 @@ function checkAnswer() {
   //Check if the answer is correct or not.
   if (currentAnswer === currentAnimal) {
     fill(0, 255, 0);
-    createWinLetters();
+    createLetters(winLetters);
     correct.currentScore++;
-    newAnimal();
+    //check victory/ loss conditions.
+    if (correct.currentScore === correct.maxScore) {
+      state = `win`;
+    } else {
+      newAnimal();
+    }
   } else {
     fill(255, 0, 0);
-  }
-  text(currentAnswer, width / 2, height / 2);
-
-  //check victory/ loss conditions.
-  if (correct.currentScore === correct.maxScore) {
-    state = `win`;
+    createLetters(loseLetters);
   }
 }
 
-function createWinLetters() {
+function createLetters(letterSet) {
   // A loop to add all letters.
-  for (let i = 0; i < winLetters.length; i++) {
+  for (let i = 0; i < letterSet.length; i++) {
     // Generate a random x on the canvas
-    let x = random(width / 2 - 100, width / 2 + 100);
+    let x = 100 + i*((width - 200)/letterSet.length);
     // Generate a random y ABOVE the canvas (so they fall in)
     let y = random(-400, -100);
-    // // Create the letter
-    // let winLetter = new WinLetter(x, y, `G`);
-    // // Add the new winLetter to our winLetters array
-    // winLetters.push(winLetter);
-    push();
-    fill(255);
-    textSize(32);
-    textStyle(BOLD);
-    // text();
-    pop();
+    // Create the letter
+    let letter = new Letter(x, y, letterSet[i]);
+    // Add the new letter to our letters array
+    letters.push(letter);
+    console.log(x, y);
   }
 }
 
@@ -296,6 +300,20 @@ function displayScore() {
   fill(255);
   text(correct.currentScore, 80, 200);
   pop();
+}
+
+function displayLives() {
+  let y = life.y;
+
+  for (let i = 0; i < life.numLives; i++) {
+    push();
+    stroke(255);
+    fill(life.fill);
+    ellipse(width - 80, life.y, life.size);
+    pop();
+
+    y += 40;
+  }
 }
 
 function guessAnimal(animal) {
@@ -320,6 +338,7 @@ function reverseString(string) {
 }
 
 function newAnimal() {
+  //generate new animal.
   currentAnimal = random(animals);
   let reverseAnimal = reverseString(currentAnimal);
   responsiveVoice.speak(reverseAnimal);
