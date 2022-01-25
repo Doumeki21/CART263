@@ -14,6 +14,7 @@ REQUIREMENTS (do at least 3):
 
 "use strict";
 
+//Animals array (Reference in the README)
 const animals = [
   "aardvark",
   "alligator",
@@ -151,23 +152,22 @@ const animals = [
   "zebra",
 ];
 
+//Variables to compare your guess to the answer.
 let currentAnimal = "";
 let currentAnswer = "";
 
-let winLetters = [`G`, `R`, `E`, `A`, `T`];
+//The messages that pop in when the player answers
+let winLetters = [`G`, `R`, `E`, `A`, `T`, `!`];
 let loseLetters = [`W`, `R`, `O`, `N`, `G`];
 let letters = [];
 
+//The player score
 let correct = {
   currentScore: 0,
   maxScore: 3,
 };
-//
-// let wrong = {
-//   currentScore: 0,
-//   maxScore: 3,
-// };
 
+//the player's life
 let life = {
   x: undefined,
   y: 200,
@@ -178,34 +178,32 @@ let life = {
   maxLives: 3,
 };
 
-let state = `title`;
+let state = `title`; //different screens: title, game, endings
 
+//Setup the game to window size.
 function setup() {
   createCanvas(windowWidth, windowHeight);
   reset();
 }
 
+//Reset the game everytime a round is finished.
 function reset() {
-  correct.currentScore = 0;
-  //empty the array
-  letters = [];
-  life.currentLives = 3;
-
+  correct.currentScore = 0; //restart the score
+  letters = []; //empty the array
+  life.currentLives = 3; //full life
+  //If annyang! works, execute the commands
   if (annyang) {
     let commands = {
       "I think it is a *animal": guessAnimal,
     };
     annyang.addCommands(commands);
     annyang.start();
-
-    textSize(50);
-    textStyle(BOLD);
-    textAlign(CENTER, CENTER);
   }
 }
 
+//Call all the states/ events of the game
 function draw() {
-  background(0);
+  background(0); //black bg
 
   if (state === `title`) {
     title();
@@ -220,9 +218,10 @@ function draw() {
   }
 }
 
+//title screen
 function title() {
   push();
-  background(30);
+  background(30); //dark grey
   textSize(60);
   textStyle(BOLD);
   textAlign(CENTER, CENTER);
@@ -231,6 +230,7 @@ function title() {
   pop();
 }
 
+//Show the instructions, lives, score, and answer.
 function game() {
   //top screen instructions
   push();
@@ -247,59 +247,66 @@ function game() {
   text(`Click to Randomize!`, width / 2, height - 85);
   pop();
 
+  //Have the (in)correct message play on screen when it appears.
   for (let i = 0; i < letters.length; i++) {
     letters[i].update();
   }
-  text(currentAnswer, width / 2, height / 2);
-  displayScore();
-  displayLives();
+
+  displayAnswer(); //Have the answer visible on screen
+  displayScore(); //(show) Keep track of your score
+  displayLives(); //(show) Keep track of your lives
 }
 
+//win screen
 function win() {
   push();
-  background(93, 128, 85);
+  background(93, 128, 85);//green bg
   textSize(60);
   textStyle(BOLD);
   textAlign(CENTER, CENTER);
-  fill(250, 239, 220);
+  fill(250, 239, 220);//creamy text
   text(`VICTORIOUS!`, width / 2, height / 2);
   pop();
 }
 
+//Lose screen
 function lose() {
   push();
-  background(72, 86, 133);
+  background(72, 86, 133);//blue bg
   textSize(60);
   textStyle(BOLD);
   textAlign(CENTER, CENTER);
-  fill(250, 239, 220);
+  fill(250, 239, 220);//creamy text
   text(`YOU LOSE`, width / 2, height / 2);
   pop();
 }
 
+//check whether the answer is correct or not.
 function checkAnswer() {
-  //Check if the answer is correct or not.
+  //If it's correct,
   if (currentAnswer === currentAnimal) {
-    fill(0, 255, 0);
-    createLetters(winLetters);
-    correct.currentScore++;
-    //check victory conditions.
+    fill(0, 255, 0); //answer in green text
+    createLetters(winLetters); //correct message falls in
+    correct.currentScore++; //Score adds up by 1.
+    //If you get a total of 3 answers correct,
     if (correct.currentScore === correct.maxScore) {
-      state = `win`;
+      state = `win`; // you win
     } else {
-      newAnimal();
+      newAnimal(); //else, you continue the game
     }
+    //If answer is incorrect,
   } else {
-    fill(255, 0, 0);
-    createLetters(loseLetters);
-    life.currentLives--;
-    //check lose conditions.
+    fill(255, 0, 0); //answer in red text
+    createLetters(loseLetters);// incorrect message falls in
+    life.currentLives--;//life(circle) reduce by 1
+    //If you lose all 3 lives,
     if (life.currentLives === life.minLives) {
-      state = `lose`;
+      state = `lose`;//you lose.
     }
   }
 }
 
+//create the letters that correspond to the Letter class and have them appear visible inside the canvas.
 function createLetters(letterSet) {
   // A loop to add all letters.
   for (let i = 0; i < letterSet.length; i++) {
@@ -311,10 +318,20 @@ function createLetters(letterSet) {
     let letter = new Letter(x, y, letterSet[i]);
     // Add the new letter to our letters array
     letters.push(letter);
-    console.log(x, y);
   }
 }
 
+//Display the answer at the center of the screen.
+function displayAnswer() {
+  push();
+  textSize(50);
+  textStyle(BOLD);
+  textAlign(CENTER, CENTER);
+  text(currentAnswer, width / 2, height / 2);
+  pop();
+}
+
+//Display your score on the left side of the screen
 function displayScore() {
   push();
   textSize(32);
@@ -323,6 +340,7 @@ function displayScore() {
   pop();
 }
 
+//Display your 3 lives on the right side of the screen.
 function displayLives() {
   let y = life.y;
 
@@ -332,21 +350,20 @@ function displayLives() {
     fill(life.fill);
     ellipse(width - 80, y, life.size);
     pop();
-
-    y += life.size*1.5;
+    //Space out the circles.
+    y += life.size * 1.5;
   }
 }
 
+//convert the first letter of our guess into lowercase.
 function guessAnimal(animal) {
   currentAnswer = animal.toLowerCase();
   console.log(currentAnswer);
-
+  //Compare if answer is correct.
   checkAnswer();
 }
 
-/**
-Reverses the provided string
-*/
+//Reverses the provided string
 function reverseString(string) {
   // Split the string into an array of characters
   let characters = string.split("");
@@ -358,13 +375,14 @@ function reverseString(string) {
   return result;
 }
 
+//generate new animal and reverses it's spelling.
 function newAnimal() {
-  //generate new animal.
   currentAnimal = random(animals);
   let reverseAnimal = reverseString(currentAnimal);
   responsiveVoice.speak(reverseAnimal);
 }
 
+//proceeds to the next state/ screen after clicking the mouse. clicking during the game generates a new animal.
 function mousePressed() {
   if (state === `title`) {
     state = `game`;
