@@ -156,29 +156,31 @@ let currentAnswer = "";
 
 let winLetters = [`G`, `R`, `E`, `A`, `T`];
 let loseLetters = [`W`, `R`, `O`, `N`, `G`];
-//
-// let correct = {
-//   currentScore: 0,
-//   maxScore: 3,
-// };
+
+let correct = {
+  currentScore: 0,
+  maxScore: 3,
+};
 //
 // let wrong = {
 //   currentScore: 0,
 //   maxScore: 3,
 // };
-//
-// let life = {
-//   x: undefined,
-//   y: undefined,
-//   size: 50,
-//   fill: 255,
-//   numCircles: 3,
-// };
+
+let life = {
+  x: undefined,
+  y: undefined,
+  size: 50,
+  fill: 255,
+  numCircles: 3,
+};
 
 let state = `title`;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  correct.currentScore = 0;
 
   if (annyang) {
     let commands = {
@@ -202,11 +204,14 @@ function draw() {
   else if (state === `game`) {
     game();
   }
+  else if (state === `win`) {
+    win();
+  }
 }
 
 function title() {
   push();
-  background(50);
+  background(30);
   textSize(60);
   textStyle(BOLD);
   textAlign(CENTER, CENTER);
@@ -233,6 +238,18 @@ function game() {
 
   //Check if the answer is correct or not.
   checkAnswer();
+  displayScore();
+}
+
+function win() {
+  push();
+  background(93, 128, 85);
+  textSize(60);
+  textStyle(BOLD);
+  textAlign(CENTER, CENTER);
+  fill(250, 239, 220);
+  text(`VICTORIOUS!`, width/2, height/2);
+  pop();
 }
 
 function checkAnswer() {
@@ -240,10 +257,16 @@ function checkAnswer() {
   if (currentAnswer === currentAnimal) {
     fill(0, 255, 0);
     createWinLetters();
+    correct.currentScore++;
   } else {
     fill(255, 0, 0);
   }
   text(currentAnswer, width / 2, height / 2);
+
+  //check victory/ loss conditions.
+  if (correct.currentScore === correct.maxScore) {
+    state = `win`;
+  }
 }
 
 function createWinLetters() {
@@ -259,11 +282,19 @@ function createWinLetters() {
     // winLetters.push(winLetter);
     push();
     fill(255);
-    noStroke();
     textSize(32);
     textStyle(BOLD);
+    // text();
     pop();
   }
+}
+
+function displayScore() {
+  push();
+  textSize(32);
+  fill(255);
+  text(correct.currentScore, 80, 200);
+  pop();
 }
 
 function guessAnimal(animal) {
