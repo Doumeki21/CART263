@@ -196,8 +196,11 @@ function reset() {
     let commands = {
       "I think it is a *animal": guessAnimal,
     };
-    annyang.addCommands(commands);
-    annyang.start();
+    annyang.addCommands(commands); //add commands to annyang!
+    annyang.start(); //start listening
+    annyang.debug(true) //debug annyang
+  } else {
+    alert(`Please visit this page on Google Chrome!`) //Pop up alert if user isn't using Chrome browser.
   }
 }
 
