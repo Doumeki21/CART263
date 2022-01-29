@@ -20,6 +20,9 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
+  let card = random(tarotData.tarot_interpretations);
+  fortune = random(card.fortune_telling);
+
 }
 
 
@@ -32,16 +35,5 @@ function draw() {
   fill(0);
   text(fortune, width/2, height/2);
   pop();
-}
 
-function mousePressed() {
-  //a function to call when the JSON loads
-  loadJSON(`assets/data/tarot_interpretations.json`, tarotLoaded);
-}
-
-//pass the info into `data`
-function tarotLoaded(data) {
-  tarotData = data;
-  let card = random(tarotData.tarot_interpretations);
-  fortune = random(card.fortune_telling);
 }
