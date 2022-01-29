@@ -1,6 +1,8 @@
 /**
 Activity 04: spy profile generator
 
+password: student
+
 plan:
 1. Get the user’s name and display a default profile
 2. Generate a profile instead using JSON data
@@ -22,17 +24,35 @@ let objectData = undefined;
 let tarotData = undefined;
 
 function preload() {
-  instrumentData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/music/instruments.json`);
+  instrumentData = loadJSON(
+    `https://raw.githubusercontent.com/dariusk/corpora/master/data/music/instruments.json`
+  );
 
-  objectData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/objects/objects.json`);
+  objectData = loadJSON(
+    `https://raw.githubusercontent.com/dariusk/corpora/master/data/objects/objects.json`
+  );
 
-  tarotData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/divination/tarot_interpretations.json`);
+  tarotData = loadJSON(
+    `https://raw.githubusercontent.com/dariusk/corpora/master/data/divination/tarot_interpretations.json`
+  );
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  generateSpyProfile();
+  let data = JSON.parse(localStorage.getItem(`spy-profile-data`));
+
+  if (data !== null) {
+    let password = prompt(`Agent! What is your password?`);
+    if (password === data.password) {
+      spyProfile.name = data.name;
+      spyProfile.alias = data.alias;
+      spyProfile.secretWeapon = data.secretWeapon;
+      spyProfile.password = data.password;
+    }
+  } else {
+    generateSpyProfile();
+  }
 }
 
 function generateSpyProfile() {
@@ -44,6 +64,8 @@ function generateSpyProfile() {
 
   let card = random(tarotData.tarot_interpretations);
   spyProfile.password = random(card.keywords);
+
+  localStorage.setItem(`spy-profile-data`, JSON.stringify(spyProfile));
 }
 
 function draw() {
