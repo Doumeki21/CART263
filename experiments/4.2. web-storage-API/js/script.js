@@ -2,8 +2,12 @@
 4.2 web storage API
 
 NOTE:
-localStorage = can kepp data after reopening broswer. VS sessionStorage clears data after reopening browser
+1.
+    localStorage = can kepp data after reopening broswer. VS sessionStorage clears data after reopening browser
 
+2.
+    JSON.stringify() converts an object into a string
+    JSON.parse() converts a string back into an object
 */
 
 "use strict";
