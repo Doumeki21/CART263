@@ -5,8 +5,8 @@ Olenka Yuen
 Add at least 3 of the following:
 - Add the ability to delete the current profile data with a keyboard command or button
 - Improve the visual display of the profile
-- Allow the user to regenerate their entire profile (other than their name) if they don’t like it
-- Allow the user to selectively regenerate specific categories in the profile (by clicking on them? with keyboard keys? with their voice?) to get one they like
+. Allow the user to regenerate their entire profile (other than their name) if they don’t like it
+. Allow the user to selectively regenerate specific categories in the profile (by clicking on them? with keyboard keys? with their voice?) to get one they like
 */
 
 "use strict";
@@ -25,6 +25,7 @@ let pastryData = undefined;
 let tarotData = undefined;
 
 function preload() {
+  //Data
   hueData = loadJSON(`assets/data/web_colors.json`);
   descriptionData = loadJSON(`assets/data/descriptions.json`);
   pastryData = loadJSON(`assets/data/breads_and_pastries.json`);
@@ -69,34 +70,41 @@ function generateCharacterProfile() {
 }
 
 function draw() {
-  background(255);
+  background(229, 228, 229);
 
   let profile = `** CREATE YOUR OWN CHARACTER! **
 
-  Name: ${characterProfile.name}
-  Hue: ${characterProfile.hue}
-  Nature: ${characterProfile.nature}
-  Secret Weapon: ${characterProfile.secretWeapon}
-  Password: ${characterProfile.password}`;
+  NAME: ${characterProfile.name}
+  HUE: ${characterProfile.hue}
+  NATURE: ${characterProfile.nature}
+  SECRET WEAPON : ${characterProfile.secretWeapon}
+  PASSWORD: ${characterProfile.password}`;
+
+  //bg rect
+  push();
+  fill(202, 156, 149);
+  rectMode(CENTER);
+  rect(width/2, height / 2, 600, 300, 20);
+  pop();
 
   //display the text as the indicated profile variable above.
   push();
-  textFont(`Courier, monospace`);
+  textFont(`Comic Sans MS, Courier`);
   textSize(24);
   textAlign(CENTER, CENTER);
-  fill(0);
+  fill(64, 57, 62);
   text(profile, width / 2, height / 2);
   pop();
 
   //display instructions to clear data
   push();
-  textFont(`Courier, monospace`);
+  textFont(`Comic Sans MS, Courier`);
   textSize(24);
   textAlign(CENTER, CENTER);
   textStyle(BOLD);
-  fill(0);
+  fill(137, 124, 135);
   text(
-    `REMEMBER YOUR PASSWORD! \n OR \n Press C to create a new character before closing the browser.`,
+    `REMEMBER YOUR PASSWORD! \n OR \n Press C to clear the profile before closing the browser.`,
     width / 2,
     height - 100
   );
@@ -107,5 +115,8 @@ function draw() {
 function keyPressed() {
   if (key === `c`) {
     localStorage.removeItem(`character-profile-data`);
+  }
+  if (key === `r`) {
+    localStorage.removeItem(data.name);
   }
 }
