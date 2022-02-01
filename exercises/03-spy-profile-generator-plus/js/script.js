@@ -14,6 +14,7 @@ Add at least 3 of the following:
 
 "use strict";
 
+//variables to display the profile
 let characterProfile = {
   name: `N/A`,
   hue: `N/A`,
@@ -22,13 +23,14 @@ let characterProfile = {
   password: `N/A`,
 };
 
+//variables to implement the data from JSON files
 let hueData = undefined;
 let descriptionData = undefined;
 let pastryData = undefined;
 let tarotData = undefined;
 
 function preload() {
-  //Data
+  //load all the data into the program
   hueData = loadJSON(`assets/data/web_colors.json`);
   descriptionData = loadJSON(`assets/data/descriptions.json`);
   pastryData = loadJSON(`assets/data/breads_and_pastries.json`);
@@ -37,9 +39,9 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
+//load the profile data into the data variable (JSON.parse() converts it into an object)
   let data = JSON.parse(localStorage.getItem(`character-profile-data`));
-
+//if there is data in the profile, it should be saved
   if (data !== null) {
     let password = prompt(`Password please!`);
     if (password === data.password) {
@@ -49,57 +51,75 @@ function setup() {
       characterProfile.secretWeapon = data.secretWeapon;
       characterProfile.password = data.password;
     }
-  } else {
+  }
+  //If not, generate a new profile
+  else {
     generateCharacterProfile();
   }
 }
 
 function generateCharacterProfile() {
+  //prompt the user to enter a character name on load
   characterProfile.name = prompt(`Sup! What's your character name?`);
-
+//generate a random color name
   let chosenColor = random(hueData.colors);
   characterProfile.hue = chosenColor.color;
-
+//generate a random description
   characterProfile.nature = random(descriptionData.descriptions);
+  //generate a random pastry
   characterProfile.secretWeapon = random(pastryData.pastries);
-
+//generate a random tarot card
   let card = random(tarotData.tarot_interpretations);
   characterProfile.password = random(card.keywords);
 
+//save the generated profile into the user's browser
   localStorage.setItem(
     `character-profile-data`,
     JSON.stringify(characterProfile)
   );
 }
 
+//display all text and colors in the program
 function draw() {
+  //creamy grey background
   background(229, 228, 229);
 
-  let profile = `** CREATE YOUR OWN CHARACTER! **
+  displaytextBg();
+  displayProfile();
+  displayInstructions();
+}
 
-  Name: ${characterProfile.name}
-  Hue: ${characterProfile.hue}
-  Nature: ${characterProfile.nature}
-  Secret weapon : ${characterProfile.secretWeapon}
-  Password: ${characterProfile.password}`;
-
-  //bg rect
+function displaytextBg() {
+  //Display a dull-pink rectangular background to frame the text.
   push();
   fill(202, 156, 149);
   rectMode(CENTER);
   rect(width/2, height / 2, 600, 300, 20);
   pop();
+}
 
-  //display the text as the indicated profile variable above.
-  push();
-  textFont(`Comic Sans MS, Courier`);
-  textSize(24);
-  textAlign(CENTER, CENTER);
-  fill(64, 57, 62);
-  text(profile, width / 2, height / 2);
-  pop();
+function displayProfile() {
+  //create this profile variable to plug into this display function
+    let profile = `** CREATE YOUR OWN CHARACTER! **
 
-  //display instructions to clear data
+    Name: ${characterProfile.name}
+    Hue: ${characterProfile.hue}
+    Nature: ${characterProfile.nature}
+    Secret weapon : ${characterProfile.secretWeapon}
+    Password: ${characterProfile.password}`;
+
+    //display the profile info at the center of the screen.
+    push();
+    textFont(`Comic Sans MS, Courier`);
+    textSize(24);
+    textAlign(CENTER, CENTER);
+    fill(64, 57, 62);
+    text(profile, width / 2, height / 2);
+    pop();
+}
+
+function displayInstructions() {
+  //display instructions (at bottom of screen) to clear all data (generated profile) or change name.
   push();
   textFont(`Comic Sans MS, Courier`);
   textSize(24);
@@ -114,11 +134,12 @@ function draw() {
   pop();
 }
 
-//pess C on keyboard and reload the broswer to clear data
 function keyPressed() {
+  //Press C on keyboard and reload the broswer to clear generated profile
   if (key === `c` || key === `C`) {
     localStorage.removeItem(`character-profile-data`);
   }
+  //Press the R key to change the name while keeping all generated characteristics.
   if (key === `r` || key === `R`) {
     characterProfile.name = prompt(`What would you like to change your name to?`);
   }
