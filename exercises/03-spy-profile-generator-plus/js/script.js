@@ -1,12 +1,13 @@
 /**
-Exercise 03: Character Profile Generator
+Exercise 03: spy-profile-generator-plus
 Olenka Yuen
 
-password: faith
-
 Add at least 3 of the following:
+- Add more categories to the profile and generate them with other data
 - Add the ability to delete the current profile data with a keyboard command or button
 - Improve the visual display of the profile
+- Find more creative ways to generate profile values, such as combining parts of different sets of data
+
 . Allow the user to regenerate their entire profile (other than their name) if they don’t like it
 . Allow the user to selectively regenerate specific categories in the profile (by clicking on them? with keyboard keys? with their voice?) to get one they like
 */
@@ -36,8 +37,6 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
-  let data = JSON.parse(localStorage.getItem(`character-profile-name`));
 
   let data = JSON.parse(localStorage.getItem(`character-profile-data`));
 
@@ -108,7 +107,7 @@ function draw() {
   textStyle(BOLD);
   fill(137, 124, 135);
   text(
-    `REMEMBER YOUR PASSWORD! \n OR \n Press C to clear the profile before closing the browser.`,
+    `REMEMBER YOUR PASSWORD!\nOR\n--> Press C to clear the profile before closing the browser.\n--> Press R to change your name.`,
     width / 2,
     height - 100
   );
@@ -117,10 +116,10 @@ function draw() {
 
 //pess C on keyboard and reload the broswer to clear data
 function keyPressed() {
-  if (key === `c`) {
+  if (key === `c` || key === `C`) {
     localStorage.removeItem(`character-profile-data`);
   }
-  if (key === `r`) {
-    localStorage.removeItem(data.name);
+  if (key === `r` || key === `R`) {
+    characterProfile.name = prompt(`What would you like to change your name to?`);
   }
 }
