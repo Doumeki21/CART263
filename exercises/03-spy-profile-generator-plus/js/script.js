@@ -37,6 +37,8 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
+  let data = JSON.parse(localStorage.getItem(`character-profile-name`));
+
   let data = JSON.parse(localStorage.getItem(`character-profile-data`));
 
   if (data !== null) {
