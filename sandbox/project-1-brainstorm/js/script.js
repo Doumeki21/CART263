@@ -1,9 +1,16 @@
 /**
-Title of Project
-Author Name
+Project 1: brainstorm
+Olenka Yuen
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+undertale - gameplay
+mad hatter - storytelling, aesthetic
+
+web storage api = points
+responsivevoice = adults humiliate/ inside voice?
+JSON file to randomize voices(distort)
+
+https://pippinbarr.github.io/cart263/topics/data/web-storage-api.html
+https://pippinbarr.github.io/cart263/projects/project1/
 */
 
 "use strict";
