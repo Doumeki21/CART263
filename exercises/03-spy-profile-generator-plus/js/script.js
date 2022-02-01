@@ -2,6 +2,8 @@
 Exercise 03: Character Profile Generator
 Olenka Yuen
 
+password: faith
+
 Add at least 3 of the following:
 - Add the ability to delete the current profile data with a keyboard command or button
 - Improve the visual display of the profile
@@ -55,7 +57,7 @@ function generateCharacterProfile() {
   characterProfile.name = prompt(`Sup! What's your character name?`);
 
   let chosenColor = random(hueData.colors);
-  characterProfile.hue = random(chosenColor.color);
+  characterProfile.hue = chosenColor.color;
 
   characterProfile.nature = random(descriptionData.descriptions);
   characterProfile.secretWeapon = random(pastryData.pastries);
@@ -74,11 +76,11 @@ function draw() {
 
   let profile = `** CREATE YOUR OWN CHARACTER! **
 
-  NAME: ${characterProfile.name}
-  HUE: ${characterProfile.hue}
-  NATURE: ${characterProfile.nature}
-  SECRET WEAPON : ${characterProfile.secretWeapon}
-  PASSWORD: ${characterProfile.password}`;
+  Name: ${characterProfile.name}
+  Hue: ${characterProfile.hue}
+  Nature: ${characterProfile.nature}
+  Secret weapon : ${characterProfile.secretWeapon}
+  Password: ${characterProfile.password}`;
 
   //bg rect
   push();
