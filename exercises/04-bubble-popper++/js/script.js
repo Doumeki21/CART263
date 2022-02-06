@@ -3,7 +3,7 @@ Exercise 04: Bubble Popper++
 Olenka Yuen
 
 Implement at least 3 of the following:
-. Count how many bubbles the user has popped over time
+- Count how many bubbles the user has popped over time
 . Add loading, title, and instructions screens and maybe an “ending” to the program to make it into more of a total package
 . Add multiple bubbles to the simulation (probably want to convert the program to Object-Oriented Programming)
 . different size bubble = different score?
@@ -27,14 +27,19 @@ let bubble;
 let pin = {
   tip: {
     x: undefined,
-    y: undefined
+    y: undefined,
   },
   head: {
     x: undefined,
     y: undefined,
-    size: 20
-  }
+    size: 20,
+  },
 };
+//the user's score
+let scoreCounter = 0;
+//the timer
+let timer = 10;
+let timerActive = true;
 
 function setup() {
   createCanvas(640, 480);
@@ -84,6 +89,9 @@ function draw() {
   else if (state === `running`) {
     running();
   }
+  else if (state === `end`) {
+    end();
+  }
 }
 
 //display the loading screen
@@ -102,19 +110,31 @@ function title() {
 
   //main title
   push();
-  fill(200);
+  fill(255);
   textSize(32);
   textStyle(BOLD);
   textAlign(CENTER, CENTER);
-  text(`Pop... POP`, width / 2, height / 2);
+  text(`Pop... POP`, width / 2, 100);
   pop();
   //instructions
   push();
   fill(200);
-  textSize(32);
+  textSize(25);
   textStyle(BOLD);
   textAlign(CENTER, CENTER);
-  text(`Use your index finger \n to pop the circles!`, width / 2, height - 100);
+  text(
+    `Use your webcam \n and your index finger \n to pop the circles!`,
+    width / 2,
+    height / 2
+  );
+  pop();
+  //proceed
+  push();
+  fill(255);
+  textSize(25);
+  textStyle(BOLD);
+  textAlign(CENTER, CENTER);
+  text(`Click to continue.`, width / 2, height - 100);
   pop();
 }
 
@@ -133,6 +153,7 @@ function running() {
     if (d < bubble.size / 2) {
       //pop!
       resetBubble();
+      scoreCounter++;
     }
     //display current position of pin
     displayPin();
@@ -141,7 +162,25 @@ function running() {
   //display and move the bubble.
   moveBubble();
   checkOutOfBounds();
+  checkTimer();
+  displayTimer();
   displayBubble();
+  displayScoreCounter();
+}
+
+//display the end screen
+function end() {
+  push();
+  fill(255);
+  textSize(32);
+  textStyle(BOLD);
+  textAlign(CENTER, CENTER);
+  text(
+    `You popped ${scoreCounter} circles.`,
+    width / 2,
+    height / 2
+  );
+  pop();
 }
 
 //upates pin position according to latest predictions
@@ -172,6 +211,29 @@ function checkOutOfBounds() {
   }
 }
 
+function checkTimer() {
+  //if timer is active,
+  if (timerActive) {
+    //and if it's down to 0 seconds,
+    if (timer <= 0) {
+      //stay at 0, and end game.
+      timer = 0;
+      state = `end`;
+    }
+    //count in seconds.
+    timer -= 1 / 60;
+  }
+}
+
+function displayTimer() {
+  push();
+  noStroke();
+  fill(255);
+  textSize(25);
+  text(round(timer), width - 100, 100);
+  pop();
+}
+
 //display bubble as a circle
 function displayBubble() {
   push();
@@ -198,8 +260,20 @@ function displayPin() {
   pop();
 }
 
+//display the score
+function displayScoreCounter() {
+  push();
+  noStroke();
+  fill(0, 255, 0);
+  textSize(25);
+  text(scoreCounter, 100, 100);
+  pop();
+}
+
 function mousePressed() {
   if (state === `title`) {
     state = `running`;
+  } if (state === `end`) {
+    state = `title`;
   }
 }
