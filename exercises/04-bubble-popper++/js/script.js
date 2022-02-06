@@ -4,7 +4,8 @@ Olenka Yuen
 
 Implement at least 3 of the following:
 - Count how many bubbles the user has popped over time
-. Add loading, title, and instructions screens and maybe an “ending” to the program to make it into more of a total package
+- Add loading, title, and instructions screens and maybe an “ending” to the program to make it into more of a total package
+- Add a timer and score.
 . Add multiple bubbles to the simulation (probably want to convert the program to Object-Oriented Programming)
 . different size bubble = different score?
 */
@@ -40,9 +41,20 @@ let scoreCounter = 0;
 //the timer
 let timer = 10;
 let timerActive = true;
+//Save the data
+let gameData = {
+  highscore: 0,
+};
 
 function setup() {
   createCanvas(640, 480);
+  reset();
+
+  let data = JSON.parse(localStorage.getItem(`cart263-bubble-pop-ex-game-data`));
+  //if not null, use the data.
+  if (data !== null) {
+    gameData = data;
+  }
 
   //acess the user webcam
   video = createCapture(VIDEO);
@@ -78,6 +90,12 @@ function setup() {
   };
 }
 
+function reset() {
+  timer = 10;
+  timerActive = true;
+  scoreCounter = 0;
+}
+
 //handles the states of the program
 function draw() {
   if (state === `loading`) {
@@ -91,6 +109,7 @@ function draw() {
   }
   else if (state === `end`) {
     end();
+    reset();
   }
 }
 
@@ -163,23 +182,30 @@ function running() {
   moveBubble();
   checkOutOfBounds();
   checkTimer();
+  checkHighscore();
   displayTimer();
   displayBubble();
   displayScoreCounter();
+  displayHighscore();
 }
 
 //display the end screen
 function end() {
+  //result
   push();
   fill(255);
   textSize(32);
   textStyle(BOLD);
   textAlign(CENTER, CENTER);
-  text(
-    `You popped ${scoreCounter} circles.`,
-    width / 2,
-    height / 2
-  );
+  text(`You popped ${scoreCounter} circles.`, width / 2, height / 2);
+  pop();
+  //contiue
+  push();
+  fill(255);
+  textSize(25);
+  textStyle(BOLD);
+  textAlign(CENTER, CENTER);
+  text(`Click to continue.`, width / 2, height / 2 + 50);
   pop();
 }
 
@@ -225,6 +251,16 @@ function checkTimer() {
   }
 }
 
+function checkHighscore() {
+  //check if current score has beaten the highScore
+  if (scoreCounter > gameData.highScore) {
+    // update the new highScore
+    gameData.highScore = scoreCounter;
+    //save the gameData
+    localStorage.setItem(`cart263-bubble-pop-ex-game-data`,JSON.stringify(gameData));
+  }
+}
+
 function displayTimer() {
   push();
   noStroke();
@@ -264,16 +300,27 @@ function displayPin() {
 function displayScoreCounter() {
   push();
   noStroke();
-  fill(0, 255, 0);
   textSize(25);
-  text(scoreCounter, 100, 100);
+  fill(0, 255, 0);
+  text(scoreCounter, 50, 150);
+  pop();
+}
+
+function displayHighscore() {
+  push();
+  textSize(25);
+  textAlign(LEFT, TOP);
+  textStyle(BOLD);
+  fill(230);
+  text(`High score: ${gameData.highScore}`, 50, 100);
   pop();
 }
 
 function mousePressed() {
   if (state === `title`) {
     state = `running`;
-  } if (state === `end`) {
+  }
+  if (state === `end`) {
     state = `title`;
   }
 }
