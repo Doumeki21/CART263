@@ -100,9 +100,25 @@ function highlightHand(hand) {
   let index = hand.annotations.indexFinger[3];
   let indexX = index[0];
   let indexY = index[1];
+
+  let thumb = hand.annotations.thumb[3];
+  let thumbX = thumb[0];
+  let thumbY = thumb[1];
+
+  let d = dist(indexX, indexY, thumbX, thumbY);
+  if (d < 50) {
+    fill(0, 255, 0);
+  } else {
+    fill(255, 0, 0);
+
   push();
   fill(255, 255, 0);
   noStroke();
-  ellipse(indexX, indexY, 50);
+  ellipse(indexX, indexY, 10);
+  pop();
+
+  push();
+  noStroke();
+  ellipse(thumbX, thumbY, 10);
   pop();
 }
