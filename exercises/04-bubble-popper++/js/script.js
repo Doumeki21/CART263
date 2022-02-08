@@ -103,13 +103,13 @@ function draw() {
   }
   else if (state === `title`) {
     title();
+    reset();
   }
   else if (state === `running`) {
     running();
   }
   else if (state === `end`) {
     end();
-    reset();
   }
 }
 
