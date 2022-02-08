@@ -43,7 +43,7 @@ let timer = 10;
 let timerActive = true;
 //Save the data
 let gameData = {
-  highscore: 0,
+  highScore: 0,
 };
 
 function setup() {
