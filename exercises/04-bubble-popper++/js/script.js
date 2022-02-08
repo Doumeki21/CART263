@@ -6,6 +6,8 @@ Implement at least 3 of the following:
 - Count how many bubbles the user has popped over time
 - Add loading, title, and instructions screens and maybe an “ending” to the program to make it into more of a total package
 - Add a timer and score.
+- Used web storage API
+
 . Add multiple bubbles to the simulation (probably want to convert the program to Object-Oriented Programming)
 . different size bubble = different score?
 */
