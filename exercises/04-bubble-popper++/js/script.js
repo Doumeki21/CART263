@@ -48,16 +48,16 @@ let gameData = {
   highScore: 0,
 };
 
+//Setup the game to a small size.
 function setup() {
   createCanvas(640, 480);
   reset();
-
+//store the data onto the localStorage
   let data = JSON.parse(localStorage.getItem(`cart263-bubble-pop-ex-game-data`));
   //if not null, use the data.
   if (data !== null) {
     gameData = data;
   }
-
   //acess the user webcam
   video = createCapture(VIDEO);
   //hide the video element from the webpage. (HTML conflict)
@@ -69,10 +69,9 @@ function setup() {
     {
       flipHorizontal: true,
     },
-    function () {
       //anon function
+    function () {
       state = `title`;
-      // console.log(`Model loaded`);
     }
   );
 
@@ -92,6 +91,7 @@ function setup() {
   };
 }
 
+//Reset the game everytime the game finishes.
 function reset() {
   timer = 10;
   timerActive = true;
@@ -127,7 +127,7 @@ function loading() {
 
 //display the title screen
 function title() {
-  background(0);
+  background(0); //black bg
 
   //main title
   push();
@@ -172,19 +172,19 @@ function running() {
     //check if the tip of pin touches the bubble
     let d = dist(pin.tip.x, pin.tip.y, bubble.x, bubble.y);
     if (d < bubble.size / 2) {
-      //pop!
+      //bubble pops!
       resetBubble();
       scoreCounter++;
     }
-    //display current position of pin
+    //display current position of pin.
     displayPin();
   }
 
-  //display and move the bubble.
-  moveBubble();
-  checkOutOfBounds();
-  checkTimer();
-  checkHighscore();
+  moveBubble(); //bubble floates upwards.
+  checkOutOfBounds(); //bubble continues from the bottom of the screen when it reaches the top.
+  checkTimer();//check if time's up.
+  checkHighscore();//compare the current score to the highScore.
+  //display the timer, bubbles, the current score and the highScore.
   displayTimer();
   displayBubble();
   displayScoreCounter();
@@ -232,7 +232,7 @@ function moveBubble() {
   bubble.y += bubble.vy;
 }
 
-//reset the bubble once it reach es the top of canvas
+//reset the bubble once it reaches the top of canvas
 function checkOutOfBounds() {
   if (bubble.y < 0) {
     resetBubble();
@@ -263,6 +263,7 @@ function checkHighscore() {
   }
 }
 
+//display the timer at the top right corner.
 function displayTimer() {
   push();
   noStroke();
@@ -298,7 +299,7 @@ function displayPin() {
   pop();
 }
 
-//display the score
+//display the score below the highScore
 function displayScoreCounter() {
   push();
   noStroke();
@@ -308,6 +309,7 @@ function displayScoreCounter() {
   pop();
 }
 
+//display the highScore at the top left corner
 function displayHighscore() {
   push();
   textSize(25);
@@ -318,6 +320,7 @@ function displayHighscore() {
   pop();
 }
 
+//proceed to the next state/ screen on mouse press.
 function mousePressed() {
   if (state === `title`) {
     state = `running`;
