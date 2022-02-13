@@ -9,7 +9,7 @@ class Player {
     this.speed = 10;
     this.angle = 0;
     // rotatingSpeed: 0.15,
-    this.rotatingSpeed = 5;
+    this.rotatingSpeed = 15;
     this.alive = true;
     this.canShoot = true;
 
@@ -53,6 +53,7 @@ class Player {
   shooting() {
     if (this.canShoot) {
       return true;
+      console.log(`shooting`);
     }
   }
 
