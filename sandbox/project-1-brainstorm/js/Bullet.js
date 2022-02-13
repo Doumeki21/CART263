@@ -1,4 +1,4 @@
-class Bullet {
+class Bullet extends Player {
   constructor(x, y, angle) {
     this.x = x;
     this.y = y;
@@ -17,7 +17,7 @@ class Bullet {
    }
 
    /**
-   Calculates velocity and moves the dog
+   Calculates velocity to move the bullet
    */
    move() {
      // Calculate the velocity based on speed and angle
@@ -29,7 +29,7 @@ class Bullet {
    }
 
    /**
-   Displays the image of the dog in position and rotated appropriately
+   Displays the bullet in position and rotated appropriately
    */
    display() {
      push();
