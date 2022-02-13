@@ -1,9 +1,9 @@
 class Player {
-  constructor() {
+  constructor(x, y) {
     this.letter = `F`;
     // this.bullets = [];
-    this.x = undefined;
-    this.y = undefined;
+    this.x = x;
+    this.y = y;
     this.vx = 0;
     this.vy = 0;
     this.speed = 10;
