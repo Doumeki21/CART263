@@ -1,7 +1,6 @@
 class Bullet extends Player {
   constructor(x, y, angle) {
-    this.x = x;
-    this.y = y;
+    super(x, y);
     this.angle = angle;
     this.width = 5;
     this.height = 10;
@@ -12,6 +11,7 @@ class Bullet extends Player {
    Calls methods required each frame for animation
    */
    update() {
+     super.update();
      this.move();
      this.display();
    }
@@ -24,8 +24,10 @@ class Bullet extends Player {
      const vx = this.speed * cos(this.angle);
      const vy = this.speed * sin(this.angle);
      // Change position based on velocity
+
      this.x += vx;
      this.y += vy;
+     }
    }
 
    /**
@@ -33,10 +35,12 @@ class Bullet extends Player {
    */
    display() {
      push();
-     // translate(2, 15);
-     // rotate(this.angle);
+     translate(this.x, this.y);
+     rotate(this.angle);
+     fill(255);
+     noStroke();
      rectMode(CENTER);
-     rect(this.x, this.y, this.width, this.height);
+     rect(0, 0, this.width, this.height);
      pop();
    }
 }

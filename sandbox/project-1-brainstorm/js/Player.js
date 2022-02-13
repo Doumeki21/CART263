@@ -24,8 +24,6 @@ class Player {
   */
   update() {
     this.movePlayer();
-    this.handleShoot();
-    this.shooting();
     this.handleInput();
     this.display();
   }
@@ -44,16 +42,11 @@ class Player {
   handleShoot() {
     if (keyIsDown(UP_ARROW)) {
       this.canShoot = true;
+      return true;
+      console.log(shooting);
       // player.bullets++;
     } else {
-      this.canShoot = false;
-    }
-  }
-
-  shooting() {
-    if (this.canShoot) {
-      return true;
-      console.log(`shooting`);
+      return false;
     }
   }
 

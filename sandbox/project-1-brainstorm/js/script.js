@@ -91,11 +91,15 @@ function draw() {
 
   player.update();
 
-  for (let i = 0; i < bullets.length; i++) {
-    let bullet = bullets[i];
-    bullet = new Bullet(player.x, player.y, player.angle);
-    player.bullets[i].update();
+  if (player.handleShoot()) {
+    let bullet = new Bullet(player.x, player.y, player.angle);
+    bullets.push(bullet);
   }
+
+
+for (let i = 0; i < bullets.length; i++) {
+    bullets[i].update();
+}
 
   // //display the player
   // push();
