@@ -43,7 +43,6 @@ class Player {
     if (keyIsDown(UP_ARROW)) {
       this.canShoot = true;
       return true;
-      console.log(shooting);
       // player.bullets++;
     } else {
       return false;

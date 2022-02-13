@@ -28,14 +28,13 @@ class Bullet extends Player {
      this.x += vx;
      this.y += vy;
      }
-   }
 
    /**
    Displays the bullet in position and rotated appropriately
    */
    display() {
      push();
-     translate(this.x, this.y);
+     translate(this.x, this.y + 20);
      rotate(this.angle);
      fill(255);
      noStroke();

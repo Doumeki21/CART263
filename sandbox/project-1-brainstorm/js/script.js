@@ -92,7 +92,7 @@ function draw() {
   player.update();
 
   if (player.handleShoot()) {
-    let bullet = new Bullet(player.x, player.y, player.angle);
+    let bullet = new Bullet(player.x, player.y + 20, player.angle + 90);
     bullets.push(bullet);
   }
 
