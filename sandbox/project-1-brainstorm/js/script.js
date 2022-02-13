@@ -11,6 +11,14 @@ JSON file to randomize voices(distort)
 
 https://pippinbarr.github.io/cart263/topics/data/web-storage-api.html
 https://pippinbarr.github.io/cart263/projects/project1/
+
+https://pippinbarr.github.io/cc/1/topics/movement/movement-with-polar-coordinates.html
+(angle?)
+https://github.com/pippinbarr/cart263-2021/blob/main/examples/ai/hand-dog-gun/js/script.js
+(dog shoot)
+
+animation examples/ ideas!!
+https://creative-coding.decontextualize.com/changes-over-time/
 */
 
 "use strict";
@@ -24,10 +32,44 @@ let player = {
   vy: 0,
   speed: 10,
   angle: 0,
-  rotatingSpeed: 0.15,
+  // rotatingSpeed: 0.15,
+  rotatingSpeed: 5,
   alive: true
-
 }
+
+let placeholder = {
+  x: undefined,
+  y: undefined,
+  angle: 0,
+  fill: {
+    r: 0,
+    g: 255,
+    b: 0,
+  }
+}
+
+// let enemyRotatingArea = {
+//   x: undefined,
+//   y: undefined,
+//   size: 300,
+// }
+//
+// let enemy1 = {
+//   x: undefined,
+//   y: undefined,
+//   size: 60,
+//   angle: undefined,
+//   minSpeed: 2,
+//   maxSpeed: 10,
+//   active: false,
+//   fill: {
+//     r: 168,
+//     g: 240,
+//     b: 227,
+//   },
+// }
+
+let canShoot = true;
 
 
 function setup() {
@@ -35,6 +77,11 @@ function setup() {
 
   player.x = windowWidth/2;
   player.y = windowHeight /2;
+
+  placeholder.x = player.x - 5;
+  placeholder.y = player.y + 10;
+
+  angleMode(DEGREES);
 }
 
 function draw() {
@@ -42,9 +89,16 @@ function draw() {
 
 
   movePlayer();
-  shoot();
+  shooting();
+  handleShoot();
   handleInput();
+  // enemyLocation();
 
+  for (let i = 0; i < player.bullets.length; i++) {
+    player.bullets[i].update();
+  }
+
+  //display the player
   push();
   fill(255);
   textSize(34);
@@ -53,59 +107,84 @@ function draw() {
   rotate(player.angle);
   text(player.letter, 0, 0);
   pop();
+
+  push();
+  // translate(player.x, player.y);
+  rotate(player.angle);
+  fill(placeholder.fill.r, placeholder.fill.g, placeholder.fill.b);
+  ellipse(placeholder.x, placeholder.y, 4);
+  pop();
 }
 
 function movePlayer() {
   player.x += player.vx;
   player.y += player.vy;
 
+  placeholder.x += player.vx;
+  placeholder.y += player.vy;
+
   player.x = constrain(player.x, 0, windowWidth);
   player.y = constrain(player.y, 0, windowHeight);
 }
 
+// keyPressed()???
+function handleShoot() {
+  if (keyIsDown(UP_ARROW)) {
+    canShoot = true;
+    // player.bullets++;
+  } else {
+    canShoot = false;
+  }
+}
 
-function keyPressed() {
-  if (keyCode === ) {
-    player.bullets++;
-
-    for (let i < 0)
+function shooting() {
+  if (canShoot) {
+    let bullet = new Bullet(player.x, player.y, player.angle);
+    player.bullets.push(bullet);
   }
 }
 
 function handleInput() {
-  //Player goes left
+  //Press A to go left
   if (keyIsDown(65)) {
     player.vx = -player.speed;
   }
-  //Player goes right
-  else if (keyIsDown(68) ){
+  //Press D to go right
+  else if (keyIsDown(68)){
     player.vx = player.speed;
   }
+  //else stop
   else {
     player.vx = 0;
   }
 
-  //Player goes up
+  //Press left arrow to rotate left
   if (keyIsDown(87)) {
     player.vy = -player.speed;
   }
-  //Player goes down
+  //Press right arrow to rotate right
   else if (keyIsDown(83)){
     player.vy = player.speed;
   }
+  //else stop
   else {
     player.vy = 0;
   }
 
   //player rotates left
-  if (keyIsDown(37)) {
+  if (keyIsDown(LEFT_ARROW)) {
     player.angle -= player.rotatingSpeed;
   }
   //Player rotates right
-  else if (keyIsDown(39)){
+  else if (keyIsDown(RIGHT_ARROW)){
     player.angle += player.rotatingSpeed;
   }
   else {
     player.angle = player.angle;
   }
 }
+
+// function enemyLocation() {
+//   angleMode(DEGREES);
+//
+// }
