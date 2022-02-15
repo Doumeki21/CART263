@@ -1,15 +1,15 @@
 class PurpleEnemy {
   constructor(x, y) {
-    this.size = 50;
-    this.vx = 0;
-    this.vy = 0;
+    // this.vx = 0;
+    // this.vy = 0;
+    this.size = 80;
     this.speed = 10;
     this.angle = 0;
-    this.rotatingSpeed = 2;
+    this.rotatingSpeed = 5;
 
     this.pathX = x;
     this.pathY = y;
-    this.pathSize = 300;
+    this.pathSize = 100;
     this.pathAngle = 0;
     this.active = false;
 
@@ -19,7 +19,7 @@ class PurpleEnemy {
   update() {
     this.rotatingPath();
     this.selfRotate();
-      this.checkActive();
+    this.checkActive();
     this.display();
   }
 

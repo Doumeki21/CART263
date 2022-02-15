@@ -26,12 +26,14 @@ https://creative-coding.decontextualize.com/changes-over-time/
 let player;
 let bullets = [];
 let purpleEnemy;
+let redEnemy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
   player = new Player(windowWidth / 2, windowHeight / 2);
   purpleEnemy = new PurpleEnemy(random(0, width), random(0, height));
+  redEnemy = new RedEnemy(random(0, width), random(0, height));
 
   angleMode(DEGREES);
 }
@@ -42,6 +44,7 @@ function draw() {
 
   player.update();
   purpleEnemy.update();
+  redEnemy.update();
 
   // setTimeout(function, random(500. 1000));
 
