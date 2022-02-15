@@ -52,9 +52,6 @@ function setup() {
 
   player = new Player(windowWidth / 2, windowHeight / 2);
 
-  // placeholder.x = player.x - 5;
-  // placeholder.y = player.y + 10;
-
   angleMode(DEGREES);
 }
 
@@ -73,8 +70,3 @@ function draw() {
     bullets[i].update();
   }
 }
-
-// function enemyLocation() {
-//   angleMode(DEGREES);
-//
-// }
