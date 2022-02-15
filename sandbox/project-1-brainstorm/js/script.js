@@ -23,27 +23,6 @@ https://creative-coding.decontextualize.com/changes-over-time/
 
 "use strict";
 
-// let enemyRotatingArea = {
-//   x: undefined,
-//   y: undefined,
-//   size: 300,
-// }
-//
-// let enemy1 = {
-//   x: undefined,
-//   y: undefined,
-//   size: 60,
-//   angle: undefined,
-//   minSpeed: 2,
-//   maxSpeed: 10,
-//   active: false,
-//   fill: {
-//     r: 168,
-//     g: 240,
-//     b: 227,
-//   },
-// }
-
 let player;
 let bullets = [];
 let purpleEnemy;
