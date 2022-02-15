@@ -94,7 +94,7 @@ class Player {
     push();
     fill(255);
     textSize(34);
-    textAlign(CENTER, CENTER);
+    textAlign(CENTER, BOTTOM);
     translate(this.x, this.y);
     rotate(this.angle);
     text(this.letter, 0, 0);
@@ -105,7 +105,7 @@ class Player {
     // translate(player.x, player.y);
     rotate(this.angle);
     fill(0, 255, 0);
-    ellipse(this.placeholderX, this.placeholderY, 4);
+    ellipse(this.placeholderX, this.placeholderY, 8);
     pop();
   }
 }

@@ -3,7 +3,7 @@ class Bullet extends Player {
     super(x, y);
     this.angle = angle;
     this.width = 5;
-    this.height = 10;
+    this.height = 5;
     this.speed = 10;
   }
 
