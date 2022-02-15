@@ -34,7 +34,7 @@ class Bullet extends Player {
    */
    display() {
      push();
-     translate(this.x, this.y + 20);
+     translate(this.x, this.y);
      rotate(this.angle);
      fill(255);
      noStroke();
