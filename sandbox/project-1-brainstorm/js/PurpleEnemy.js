@@ -8,6 +8,11 @@ class PurpleEnemy {
     this.speed = 10;
     this.angle = 0;
     this.rotatingSpeed = 10;
+
+    this.pathX = undefined;
+    this.pathY = undefined;
+    this.pathSize = 300;
+    this.pathAngle = undefined;
   }
 
   update() {
@@ -19,7 +24,7 @@ class PurpleEnemy {
     this.angle -= this.rotatingSpeed;
   }
 
-  rotateLocation() {
+  rotatingPath() {
 
   }
 
@@ -29,6 +34,13 @@ class PurpleEnemy {
     fill(200, 0, 0);
     rectMode(CENTER, CENTER);
     translate(this.x, this.y);
+    rotate(this.angle);
+    rect(0, 0, this.size);
+    pop();
+
+    //draw a path
+    push();
+    // translate(this.x, this.y);
     rotate(this.angle);
     rect(0, 0, this.size);
     pop();
