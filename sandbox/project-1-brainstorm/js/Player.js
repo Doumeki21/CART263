@@ -101,11 +101,11 @@ class Player {
     pop();
 
     //display the placeholder
-    push();
-    // translate(player.x, player.y);
-    rotate(this.angle);
-    fill(0, 255, 0);
-    ellipse(this.placeholderX, this.placeholderY, 8);
-    pop();
+    // push();
+    // // translate(player.x, player.y);
+    // rotate(this.angle);
+    // fill(0, 255, 0);
+    // ellipse(this.placeholderX, this.placeholderY, 8);
+    // pop();
   }
 }

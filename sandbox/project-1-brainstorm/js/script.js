@@ -52,7 +52,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
   player = new Player(windowWidth / 2, windowHeight / 2);
-  purpleEnemy
+  purpleEnemy = new PurpleEnemy(random(0, width), random(0, height));
 
   angleMode(DEGREES);
 }
@@ -62,6 +62,7 @@ function draw() {
   // enemyLocation();
 
   player.update();
+  purpleEnemy.update();
 
   // setTimeout(function, random(500. 1000));
 

@@ -11,7 +11,8 @@ class PurpleEnemy {
   }
 
   update() {
-
+    this.selfRotate();
+    this.display();
   }
 
   selfRotate() {
@@ -25,11 +26,11 @@ class PurpleEnemy {
   display() {
     //display the purple enemy
     push();
-    fill(100, 0, 100);
+    fill(200, 0, 0);
     rectMode(CENTER, CENTER);
     translate(this.x, this.y);
     rotate(this.angle);
-    rect(this.x, this.y, this.size);
+    rect(0, 0, this.size);
     pop();
   }
 }
