@@ -15,7 +15,7 @@ class PurpleEnemy {
   }
 
   selfRotate() {
-
+    this.angle -= this.rotatingSpeed;
   }
 
   rotateLocation() {

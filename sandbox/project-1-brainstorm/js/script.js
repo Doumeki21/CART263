@@ -46,11 +46,13 @@ https://creative-coding.decontextualize.com/changes-over-time/
 
 let player;
 let bullets = [];
+let purpleEnemy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
   player = new Player(windowWidth / 2, windowHeight / 2);
+  purpleEnemy
 
   angleMode(DEGREES);
 }
@@ -60,6 +62,8 @@ function draw() {
   // enemyLocation();
 
   player.update();
+
+  // setTimeout(function, random(500. 1000));
 
   if (player.handleShoot()) {
     let bullet = new Bullet(player.x, player.y, player.angle + 90);
