@@ -23,37 +23,17 @@ https://creative-coding.decontextualize.com/changes-over-time/
 
 "use strict";
 
-// let enemyRotatingArea = {
-//   x: undefined,
-//   y: undefined,
-//   size: 300,
-// }
-//
-// let enemy1 = {
-//   x: undefined,
-//   y: undefined,
-//   size: 60,
-//   angle: undefined,
-//   minSpeed: 2,
-//   maxSpeed: 10,
-//   active: false,
-//   fill: {
-//     r: 168,
-//     g: 240,
-//     b: 227,
-//   },
-// }
-
 let player;
 let bullets = [];
+let purpleEnemy;
+let redEnemy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
   player = new Player(windowWidth / 2, windowHeight / 2);
-
-  // placeholder.x = player.x - 5;
-  // placeholder.y = player.y + 10;
+  purpleEnemy = new PurpleEnemy(random(0, width), random(0, height));
+  redEnemy = new RedEnemy(random(0, width), random(0, height));
 
   angleMode(DEGREES);
 }
@@ -63,6 +43,10 @@ function draw() {
   // enemyLocation();
 
   player.update();
+  purpleEnemy.update();
+  redEnemy.update();
+
+  // setTimeout(function, random(500. 1000));
 
   if (player.handleShoot()) {
     let bullet = new Bullet(player.x, player.y, player.angle + 90);
@@ -73,8 +57,3 @@ function draw() {
     bullets[i].update();
   }
 }
-
-// function enemyLocation() {
-//   angleMode(DEGREES);
-//
-// }

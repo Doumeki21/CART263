@@ -1,6 +1,7 @@
-class Bullet extends Player {
+class Bullet {
   constructor(x, y, angle) {
-    super(x, y);
+    this.x = x;
+    this.y = y;
     this.angle = angle;
     this.width = 5;
     this.height = 5;
@@ -11,7 +12,6 @@ class Bullet extends Player {
    Calls methods required each frame for animation
    */
    update() {
-     super.update();
      this.move();
      this.display();
    }
@@ -23,8 +23,8 @@ class Bullet extends Player {
      // Calculate the velocity based on speed and angle
      const vx = this.speed * cos(this.angle);
      const vy = this.speed * sin(this.angle);
-     // Change position based on velocity
 
+     // Change position based on velocity
      this.x += vx;
      this.y += vy;
      }
