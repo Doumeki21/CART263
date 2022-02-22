@@ -10,11 +10,14 @@ author, and this description to match your project!
 
 let player;
 let bullets = [];
+let purpleEnemy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
   player = new Player(windowWidth / 2, windowHeight / 2);
+  purpleEnemy = new PurpleEnemy(random(0, width), random(0, height));
+
   angleMode(DEGREES);
 }
 
@@ -22,6 +25,7 @@ function draw() {
   background(0);
 
   player.update();
+  purpleEnemy.update();
 
   //if player is shooting,
   if (player.handleShoot()) {
