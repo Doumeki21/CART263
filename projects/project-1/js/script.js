@@ -26,9 +26,9 @@ function setup() {
 function draw() {
   background(0);
 
-  player.update();
   purpleEnemy.update();
   redEnemy.update();
+  player.update(redEnemy, purpleEnemy);
 
   //if player is shooting,
   if (player.handleShoot()) {

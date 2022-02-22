@@ -21,7 +21,7 @@ class Enemies {
     this.active = !this.active;
     //bind >> to this class.
     //make the red enemy active after (a range b/w) 1 and 5 seconds
-    setTimeout(this.activate.bind(this), random(1000, 5000));
+    setTimeout(this.activate.bind(this), random(5000, 10000));
   }
 
   display() {

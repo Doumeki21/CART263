@@ -21,11 +21,22 @@ class Player {
   /**
   Calls methods required each frame for animation
   */
-  update() {
+  update(redEnemy, purpleEnemy) {
     this.movePlayer();
     this.handleInput();
+    this.checkHit(redEnemy);
+    this.checkHit(purpleEnemy);
     this.display();
   }
+
+  checkHit(enemy) {
+    if (this.x > enemy.x - enemy.size / 2 &&
+      this.x < enemy.x + enemy.size / 2 &&
+      this.y > enemy.y - enemy.size / 2 &&
+      this.y < enemy.y + enemy.size / 2) {
+      console.log(`hit`);
+  }
+}
 
   movePlayer() {
     this.x += this.vx;
