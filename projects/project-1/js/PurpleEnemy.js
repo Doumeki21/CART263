@@ -40,7 +40,7 @@ class PurpleEnemy {
     if (!this.active) {
       this.pathX = random(0, width);
       this.pathY = random(0, height);
-      console.log(`yes`);
+      // console.log(`yes`);
     }
   }
 
