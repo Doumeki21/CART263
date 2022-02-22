@@ -1,7 +1,6 @@
-class RedEnemy {
+class RedEnemy extends Enemies {
   constructor(x, y) {
-    this.x = x;
-    this.y = y;
+    super(x, y);
     this.size = 100;
     this.alpha = 0;
     this.alphaSpeed = 8;
@@ -14,13 +13,6 @@ class RedEnemy {
     this.display();
     this.checkActive();
     this.checkAppearing();
-  }
-
-  activate() {
-    this.active = !this.active;
-    //bind >> to this class.
-    //make the red enemy active after (a range b/w) 1 and 5 seconds
-    setTimeout(this.activate.bind(this), random(1000, 5000));
   }
 
   checkActive() {

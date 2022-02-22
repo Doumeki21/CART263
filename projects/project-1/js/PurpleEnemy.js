@@ -1,14 +1,11 @@
-class PurpleEnemy {
+class PurpleEnemy extends Enemies{
   constructor(x, y) {
-    // this.vx = 0;
-    // this.vy = 0;
+    super(x, y); //pathX, pathY
     this.size = 80;
     this.speed = 10;
     this.angle = 0;
     this.rotatingSpeed = 5;
 
-    this.pathX = x;
-    this.pathY = y;
     this.pathSize = 100;
     this.pathAngle = 0;
     this.active = false;
@@ -31,15 +28,10 @@ class PurpleEnemy {
     this.angle -= this.rotatingSpeed;
   }
 
-  activate() {
-    this.active = !this.active;
-    setTimeout(this.activate.bind(this), random(1000, 5000));
-  }
-
   checkActive() {
     if (!this.active) {
-      this.pathX = random(0, width);
-      this.pathY = random(0, height);
+      this.x = random(0, width);
+      this.y = random(0, height);
       // console.log(`yes`);
     }
   }
@@ -57,7 +49,7 @@ class PurpleEnemy {
       // fill(168, 240, 227); //cyan?
       rectMode(CENTER, CENTER);
       //square follows along the path
-      translate(this.pathX, this.pathY);
+      translate(this.x, this.y);
       rotate(this.pathAngle);
       translate(this.pathSize/2, 0); //translating the "anchor point" back to the square
       rotate(this.angle); //rotating along itself
