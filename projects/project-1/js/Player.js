@@ -9,6 +9,21 @@ class Player {
     this.angle = 0;
     // rotatingSpeed: 0.15,
     this.rotatingSpeed = 15;
+    //The base of the progress bar.
+    this.lifeBar = {
+      x: 50,
+      y: height - 50,
+      width: 40,
+      height: 200,
+    };
+    //Progress bar fill.
+    this.fillLifeBar = {
+      x: 50,
+      y: height - 50,
+      width: 30,
+      height: 200,
+    };
+    this.activeBar = true;
     this.alive = true;
     this.canShoot = true;
   }
@@ -19,19 +34,34 @@ class Player {
   update(redEnemy, purpleEnemy) {
     this.movePlayer();
     this.handleInput();
+      if (this.activeBar) {
     this.checkHit(redEnemy);
     this.checkHit(purpleEnemy);
+  }
     this.display();
   }
 
   checkHit(enemy) {
-    if (this.x > enemy.x - enemy.size / 2 - 15 &&
+    if (
+      enemy.active &&
+      this.x > enemy.x - enemy.size / 2 - 15 &&
       this.x < enemy.x + enemy.size / 2 + 15 &&
       this.y > enemy.y - enemy.size / 2 - 15 &&
-      this.y < enemy.y + enemy.size / 2 + 15) {
-      console.log(`hit`);
+      this.y < enemy.y + enemy.size / 2 + 15
+    ) {
+        console.log(this.activeBar);
+        this.fillLifeBar.height -= 50;
+        this.activeBar = false;
+        this.setActiveBar();
+      }
+    }
+
+  setActiveBar() {
+    setTimeout(() => {
+      this.activeBar = true;
+    }, 1000);
+    console.log(this.fillLifeBar.height);
   }
-}
 
   movePlayer() {
     this.x += this.vx;
@@ -60,7 +90,7 @@ class Player {
       this.vx = -this.speed;
     }
     //Press D to go right
-    else if (keyIsDown(68)){
+    else if (keyIsDown(68)) {
       this.vx = this.speed;
     }
     //else stop
@@ -73,7 +103,7 @@ class Player {
       this.vy = -this.speed;
     }
     //Press right arrow to move down
-    else if (keyIsDown(83)){
+    else if (keyIsDown(83)) {
       this.vy = this.speed;
     }
     //else stop
@@ -86,10 +116,9 @@ class Player {
       this.angle -= this.rotatingSpeed;
     }
     //Player rotates right
-    else if (keyIsDown(RIGHT_ARROW)){
+    else if (keyIsDown(RIGHT_ARROW)) {
       this.angle += this.rotatingSpeed;
-    }
-    else {
+    } else {
       this.angle = this.angle;
     }
   }
@@ -105,21 +134,31 @@ class Player {
     text(this.letter, 0, 0);
     pop();
 
-    // //Life bar
-    // push();
-    // noStroke();
-    // fill(128, 0, 22);
-    // rectMode(CENTER);
-    // //Dividing to offset it away from the edge.
-    // rect(this.lifeBar.x, this.lifeBar.y - this.lifeBar.height / 2, this.progressBar.width, this.progressBar.height);
-    // pop();
-    //
-    // //Display the fill
-    // push();
-    // noStroke();
-    // fill(255, 0, 43);
-    // rectMode(CENTER);
-    // rect(this.fillProgressBar.x, this.fillProgressBar.y - this.fillProgressBar.height / 2, this.fillProgressBar.width, this.fillProgressBar.height);
-    // pop();
+    //Life bar
+    push();
+    noStroke();
+    fill(100, 100, 100);
+    rectMode(CENTER);
+    //Dividing to offset it away from the edge.
+    rect(
+      this.lifeBar.x,
+      this.lifeBar.y - this.lifeBar.height / 2,
+      this.lifeBar.width,
+      this.lifeBar.height
+    );
+    pop();
+
+    //Display the fill
+    push();
+    noStroke();
+    fill(200, 200, 200);
+    rectMode(CENTER);
+    rect(
+      this.fillLifeBar.x,
+      this.fillLifeBar.y - this.fillLifeBar.height / 2,
+      this.fillLifeBar.width,
+      this.fillLifeBar.height
+    );
+    pop();
   }
 }

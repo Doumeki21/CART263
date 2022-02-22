@@ -1,12 +1,12 @@
 class PurpleEnemy extends Enemies{
   constructor(x, y) {
     super(x, y); //pathX, pathY
-    this.enemySize = 80; //size of square
+    this.enemySize = 15; //size of square
     this.speed = 10;
     this.angle = 0;
-    this.rotatingSpeed = 5;
+    this.rotatingSpeed = 20;
 
-    this.size = 50; //size of the rotating path
+    this.size = 300; //size of the rotating path
     this.pathAngle = 0;
     this.active = false;
 
@@ -45,7 +45,7 @@ class PurpleEnemy extends Enemies{
     if (this.active) {
       //display the purple enemy
       push();
-      fill(104, 59, 138); //purple
+      fill(255); //purple
       // fill(168, 240, 227); //cyan?
       rectMode(CENTER, CENTER);
       //square follows along the path
