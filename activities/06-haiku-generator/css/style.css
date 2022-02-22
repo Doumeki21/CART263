@@ -1,6 +1,9 @@
-/*********************************************
+body {
+  background-color: #abcbad;
+}
 
-Here is a description of any special CSS used.
-By default that's nothing.
-
-**********************************************/
+#haiku {
+  font-family: sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+}
