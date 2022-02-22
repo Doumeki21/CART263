@@ -6,7 +6,7 @@ class PurpleEnemy extends Enemies{
     this.angle = 0;
     this.rotatingSpeed = 5;
 
-    this.size = 100; //size of the rotating path
+    this.size = 50; //size of the rotating path
     this.pathAngle = 0;
     this.active = false;
 

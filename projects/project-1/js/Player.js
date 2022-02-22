@@ -11,11 +11,6 @@ class Player {
     this.rotatingSpeed = 15;
     this.alive = true;
     this.canShoot = true;
-
-    this.placeholderX = undefined;
-    this.placeholderY = undefined;
-    this.placeholderSize = 4;
-    this.placeholderAngle = 0;
   }
 
   /**
@@ -30,10 +25,10 @@ class Player {
   }
 
   checkHit(enemy) {
-    if (this.x > enemy.x - enemy.size / 2 &&
-      this.x < enemy.x + enemy.size / 2 &&
-      this.y > enemy.y - enemy.size / 2 &&
-      this.y < enemy.y + enemy.size / 2) {
+    if (this.x > enemy.x - enemy.size / 2 - 15 &&
+      this.x < enemy.x + enemy.size / 2 + 15 &&
+      this.y > enemy.y - enemy.size / 2 - 15 &&
+      this.y < enemy.y + enemy.size / 2 + 15) {
       console.log(`hit`);
   }
 }
@@ -110,12 +105,21 @@ class Player {
     text(this.letter, 0, 0);
     pop();
 
-    //display the placeholder
+    // //Life bar
     // push();
-    // // translate(player.x, player.y);
-    // rotate(this.angle);
-    // fill(0, 255, 0);
-    // ellipse(this.placeholderX, this.placeholderY, 8);
+    // noStroke();
+    // fill(128, 0, 22);
+    // rectMode(CENTER);
+    // //Dividing to offset it away from the edge.
+    // rect(this.lifeBar.x, this.lifeBar.y - this.lifeBar.height / 2, this.progressBar.width, this.progressBar.height);
+    // pop();
+    //
+    // //Display the fill
+    // push();
+    // noStroke();
+    // fill(255, 0, 43);
+    // rectMode(CENTER);
+    // rect(this.fillProgressBar.x, this.fillProgressBar.y - this.fillProgressBar.height / 2, this.fillProgressBar.width, this.fillProgressBar.height);
     // pop();
   }
 }
