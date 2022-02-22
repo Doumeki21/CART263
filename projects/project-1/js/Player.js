@@ -24,8 +24,10 @@ class Player {
       height: 200,
     };
     this.activeBar = true;
+    this.displayPlayer = true;
     this.alive = true;
     this.canShoot = true;
+    this.blinkInterval = undefined;
   }
 
   /**
@@ -44,23 +46,38 @@ class Player {
   checkHit(enemy) {
     if (
       enemy.active &&
-      this.x > enemy.x - enemy.size / 2 - 15 &&
-      this.x < enemy.x + enemy.size / 2 + 15 &&
-      this.y > enemy.y - enemy.size / 2 - 15 &&
-      this.y < enemy.y + enemy.size / 2 + 15
+      this.x > enemy.x - enemy.size / 2 &&
+      this.x < enemy.x + enemy.size / 2 &&
+      this.y > enemy.y - enemy.size / 2 &&
+      this.y < enemy.y + enemy.size / 2
     ) {
-        console.log(this.activeBar);
-        this.fillLifeBar.height -= 50;
+        // console.log(this.activeBar);
+        this.fillLifeBar.height -= 10;
+        // this.displayPlayer = false;
+        this.blink();
         this.activeBar = false;
         this.setActiveBar();
       }
+      else {
+        // clearInterval(this.blinkInterval.bind(this));
+      }
     }
+
+  blink() {
+    //blinkInterval is to specify which interval to clear later
+      this.blinkInterval = setInterval(() => {
+        this.displayPlayer = !this.displayPlayer;
+      }, 50)
+  }
 
   setActiveBar() {
     setTimeout(() => {
+      clearInterval(this.blinkInterval);
+    this.displayPlayer = true;
       this.activeBar = true;
+      console.log(`bar active`);
     }, 1000);
-    console.log(this.fillLifeBar.height);
+    // console.log(this.fillLifeBar.height);
   }
 
   movePlayer() {
@@ -124,15 +141,19 @@ class Player {
   }
 
   display() {
-    //display the player
-    push();
-    fill(255);
-    textSize(34);
-    textAlign(CENTER, BOTTOM);
-    translate(this.x, this.y);
-    rotate(this.angle);
-    text(this.letter, 0, 0);
-    pop();
+    if (this.displayPlayer) {
+      //display the player
+      push();
+      noStroke();
+      textStyle(BOLD);
+      fill(255);
+      textSize(34);
+      textAlign(CENTER, BOTTOM);
+      translate(this.x, this.y);
+      rotate(this.angle);
+      text(this.letter, 0, 0);
+      pop();
+    }
 
     //Life bar
     push();
