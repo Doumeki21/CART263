@@ -3,6 +3,13 @@ ACTIVITY 06: Haiku generator
 Author Name
 
 Generates a random haiku.
+
+Add at least 3 of the following:
+. The creation of our lines of poetry and their event listeners at the top is extremely repetitive - write a function to do this!
+. Significantly improve the HTML and CSS presentation of the haiku
+. Add another DOM event into the user interaction that changes the poem somehow (maybe key presses or mouseovers change the color of the text?)
+. Make the program work at the level of replacing words randomly instead of lines (could be like a Mad Libs haiku, you’d need <span> tags around the words you can change, could be fun with a rhyme scheme)
+.Listen to mouseenter and mouseleave events on the lines and trigger visual (or other) changes for those events too
 */
 
 "use strict";
