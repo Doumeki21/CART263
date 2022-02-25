@@ -84,9 +84,6 @@ class Player {
     this.x += this.vx;
     this.y += this.vy;
 
-    this.placeholderX += this.vx;
-    this.placeholderY += this.vy;
-
     this.x = constrain(this.x, 0, width);
     this.y = constrain(this.y, 0, height);
   }
