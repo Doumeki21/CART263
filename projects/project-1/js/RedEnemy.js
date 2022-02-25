@@ -33,7 +33,7 @@ class RedEnemy extends Enemies {
     if (this.active) {
       push();
       noStroke();
-      fill(168, 0, 0, this.alpha);
+      fill(126, 13, 32, this.alpha);
       ellipse(this.x, this.y, this.size);
       pop();
       // console.log(this.x, this.y, this.size, this.alpha);
