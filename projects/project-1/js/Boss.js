@@ -1,10 +1,11 @@
 class Boss {
   constructor(x, y) {
+    //variables for the letter A
     this.letter = `A`;
     this.x = x;
     this.y = y;
     this.size = 50;
-
+    //variables for the plus sign
     this.plusLetter = `+`;
     this.plusX = 0;
     this.plusY = 0;
@@ -13,12 +14,43 @@ class Boss {
     this.plusAX = 0;
     this.plusAY = 0;
     this.acceleration = 0.5;
+
+    //The base of the health bar.
+    this.lifeBar = {
+      x: 50,
+      y: height - 50,
+      width: 40,
+      height: 200,
+    };
+    //health bar fill.
+    this.fillLifeBar = {
+      x: 50,
+      y: height - 50,
+      width: 30,
+      height: 200,
+      currentFill: {
+        r: 200,
+        g: 200,
+        b: 200,
+      }
+    };
   }
 
   update() {
     this.moveBoss();
     // this.display();
   }
+
+  checkHit() {
+
+  }
+
+  //Boss's health bar will become more red as it decreases closer to 0 health.
+    checkHealthBar() {
+      this.fillLifeBar.currentFill.r = map(this.fillLifeBar.height, 200, 0, 200, 255);
+      this.fillLifeBar.currentFill.g = map(this.fillLifeBar.height, 200, 0, 200, 0);
+      this.fillLifeBar.currentFill.b = map(this.fillLifeBar.height, 200, 0, 200, 0);
+    }
 
   moveBoss() {
     //THE A

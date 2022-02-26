@@ -9,14 +9,14 @@ class Player {
     this.angle = 0;
     // rotatingSpeed: 0.15,
     this.rotatingSpeed = 15;
-    //The base of the progress bar.
+    //The base of the health bar.
     this.lifeBar = {
       x: 50,
       y: height - 50,
       width: 40,
       height: 200,
     };
-    //Progress bar fill.
+    //health bar fill.
     this.fillLifeBar = {
       x: 50,
       y: height - 50,
@@ -59,9 +59,8 @@ class Player {
       this.y > enemy.y - enemy.size / 2 &&
       this.y < enemy.y + enemy.size / 2
     ) {
-      // console.log(this.activeBar);
       this.fillLifeBar.height -= 10;
-      // this.displayPlayer = false;
+      this.displayPlayer = false;
       this.blink();
       this.activeBar = false;
       this.setActiveBar();
@@ -82,7 +81,6 @@ class Player {
       this.activeBar = true;
       console.log(`bar active`);
     }, 1000);
-    // console.log(this.fillLifeBar.height);
   }
 
 //Player's health bar will become more red as it decreases closer to 0 health.
