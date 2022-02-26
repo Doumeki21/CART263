@@ -31,19 +31,21 @@ class Player {
   }
 
   /**
-  Calls methods required each frame for animation
+  Calls all the other functions in the class when update is called in script.js
   */
-  update(redEnemy, purpleEnemy) {
+  update(redEnemy, purpleEnemy, boss) {
     this.movePlayer();
     this.handleInput();
-      if (this.activeBar) {
-    this.checkHit(redEnemy);
-    this.checkHit(purpleEnemy);
-  }
+    //if the life bar is actively dropping, continue to check whether PLayer is overlapping any enemy
+    if (this.activeBar) {
+      this.checkTakenDamage(redEnemy);
+      this.checkTakenDamage(purpleEnemy);
+      this.checkTakenDamage(boss);
+    }
     this.display();
   }
 
-  checkHit(enemy) {
+  checkTakenDamage(enemy) {
     if (
       enemy.active &&
       this.x > enemy.x - enemy.size / 2 &&
@@ -51,29 +53,26 @@ class Player {
       this.y > enemy.y - enemy.size / 2 &&
       this.y < enemy.y + enemy.size / 2
     ) {
-        // console.log(this.activeBar);
-        this.fillLifeBar.height -= 10;
-        // this.displayPlayer = false;
-        this.blink();
-        this.activeBar = false;
-        this.setActiveBar();
-      }
-      else {
-        // clearInterval(this.blinkInterval.bind(this));
-      }
+      // console.log(this.activeBar);
+      this.fillLifeBar.height -= 10;
+      // this.displayPlayer = false;
+      this.blink();
+      this.activeBar = false;
+      this.setActiveBar();
     }
+  }
 
   blink() {
     //blinkInterval is to specify which interval to clear later
-      this.blinkInterval = setInterval(() => {
-        this.displayPlayer = !this.displayPlayer;
-      }, 50)
+    this.blinkInterval = setInterval(() => {
+      this.displayPlayer = !this.displayPlayer;
+    }, 50);
   }
 
   setActiveBar() {
     setTimeout(() => {
       clearInterval(this.blinkInterval);
-    this.displayPlayer = true;
+      this.displayPlayer = true;
       this.activeBar = true;
       console.log(`bar active`);
     }, 1000);

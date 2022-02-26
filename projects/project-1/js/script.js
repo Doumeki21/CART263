@@ -21,7 +21,7 @@ function setup() {
   player = new Player(windowWidth / 2, windowHeight / 2);
   purpleEnemy = new PurpleEnemy(random(0, width), random(0, height));
   redEnemy = new RedEnemy(random(0, width), random(0, height));
-  boss = new Boss(width/2, 100);
+  boss = new Boss(random(0, width), random(0, height));
 
   angleMode(DEGREES);
 }
@@ -32,7 +32,7 @@ function draw() {
   purpleEnemy.update();
   redEnemy.update();
   boss.update();
-  player.update(redEnemy, purpleEnemy);
+  player.update(redEnemy, purpleEnemy, boss);
 
   //if player is shooting,
   if (player.handleShoot()) {
