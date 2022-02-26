@@ -166,7 +166,7 @@ class Player {
     );
     pop();
 
-    //Display the fill
+    //Display the fill (for the life bar)
     push();
     noStroke();
     fill(200, 200, 200);
