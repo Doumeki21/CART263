@@ -22,6 +22,11 @@ class Player {
       y: height - 50,
       width: 30,
       height: 200,
+      currentFill: {
+        r: 200,
+        g: 200,
+        b: 200,
+      }
     };
     this.activeBar = true;
     this.displayPlayer = true;
@@ -34,6 +39,7 @@ class Player {
   Calls all the other functions in the class when update is called in script.js
   */
   update(redEnemy, purpleEnemy, boss) {
+    this.checkHealthBar();
     this.movePlayer();
     this.handleInput();
     //if the life bar is actively dropping, continue to check whether PLayer is overlapping any enemy
@@ -77,6 +83,13 @@ class Player {
       console.log(`bar active`);
     }, 1000);
     // console.log(this.fillLifeBar.height);
+  }
+
+//Player's health bar will become more red as it decreases closer to 0 health.
+  checkHealthBar() {
+    this.fillLifeBar.currentFill.r = map(this.fillLifeBar.height, 200, 0, 200, 255);
+    this.fillLifeBar.currentFill.g = map(this.fillLifeBar.height, 200, 0, 200, 0);
+    this.fillLifeBar.currentFill.b = map(this.fillLifeBar.height, 200, 0, 200, 0);
   }
 
   movePlayer() {
@@ -168,7 +181,7 @@ class Player {
     //Display the fill (for the life bar)
     push();
     noStroke();
-    fill(200, 200, 200);
+    fill(this.fillLifeBar.currentFill.r, this.fillLifeBar.currentFill.g, this.fillLifeBar.currentFill.b);
     rectMode(CENTER);
     rect(
       this.fillLifeBar.x,
