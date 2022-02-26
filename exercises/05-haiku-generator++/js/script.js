@@ -10,10 +10,14 @@ Add at least 3 of the following:
 . Add another DOM event into the user interaction that changes the poem somehow (maybe key presses or mouseovers change the color of the text?)
 . Make the program work at the level of replacing words randomly instead of lines (could be like a Mad Libs haiku, you’d need <span> tags around the words you can change, could be fun with a rhyme scheme)
 - Listen to mouseenter and mouseleave events on the lines and trigger visual (or other) changes for those events too
+
+
+https://randomwordgenerator.com/fake-word.php
 */
 
 "use strict";
 
+//fake words generated from "random word generator"
 const gibberishWords = [
     `alginall
     answeecycling
