@@ -15,8 +15,8 @@ class Boss {
     this.x = map(noise(this.x), 0, 1, 0, width);
     this.y = map(noise(this.y), 0, 1, 0, 300);
 
-    this.x += 0.01;
-    this.y += 0.01;
+    this.x += 0.001;
+    this.y += 0.001;
   }
 
   display() {
