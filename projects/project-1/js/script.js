@@ -15,6 +15,11 @@ let purpleEnemy;
 let redEnemy;
 let boss;
 
+// let states = [`title`, `instructions`, `game`, `victory`, `loss`];
+
+//states: title, instructions, game, victory, loss
+let state = `title`;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
@@ -29,6 +34,32 @@ function setup() {
 function draw() {
   background(0);
 
+  if (state === `title`) {
+    title();
+  }
+  else if (state === `instructions`) {
+    instructions();
+  }
+  else if (state === `game`) {
+    game();
+  }
+  else if (state === `victory`) {
+    victory();
+  }
+  else if (state === `loss`) {
+    loss();
+  }
+}
+
+function title() {
+
+}
+
+function instructions() {
+
+}
+
+function game() {
   purpleEnemy.update();
   redEnemy.update();
   boss.update();
@@ -41,8 +72,47 @@ function draw() {
     bullets.push(bullet);
   }
 
+  //For every bullet, check if the boss has been hit by one.
   for (let i = 0; i < bullets.length; i++) {
     boss.checkHit(bullets[i]);
     bullets[i].update();
+  }
+}
+
+function victory() {
+
+}
+
+function loss() {
+  background(0);
+
+  push();
+  fill(100);
+  rectMode(CENTER, CENTER);
+  rect(width/2, height - 100, 100, 50);
+
+  noStroke();
+  fill(255);
+  textSize(34);
+  text('Return to title', width/2, height - 100);
+  pop();
+}
+
+function mouseClicked() {
+  //starting from the title, click to proceed to the instructions
+  if (state === `title`) {
+    state = `instructions`;
+  }
+  //from the instructions, click to proceed to the game
+  else if (state === `instructions`) {
+    state = `game`;
+  }
+  //if you lose, click to return to the title
+  else if (state === `victory`){
+    state = `title`;
+  }
+  //if you win, click to return to the title
+  else if (state === `loss`) {
+    state = `title`;
   }
 }
