@@ -4,6 +4,8 @@ class Boss {
     this.letter = `A`;
     this.x = x;
     this.y = y;
+    this.newX = x;
+    this.newY = y;
     this.size = 50;
     //variables for the plus sign
     this.plusLetter = `+`;
@@ -15,34 +17,42 @@ class Boss {
     this.plusAY = 0;
     this.acceleration = 0.5;
 
-    //The base of the health bar.
-    this.lifeBar = {
-      x: 50,
-      y: height - 50,
-      width: 40,
-      height: 200,
-    };
+    // //The base of the health bar.
+    // this.lifeBar = {
+    //   x: 50,
+    //   y: height - 50,
+    //   width: 40,
+    //   height: 200,
+    // };
+
+    // this.healthPoint = 100;
+
     //health bar fill.
     this.fillLifeBar = {
-      x: 50,
-      y: height - 50,
-      width: 30,
-      height: 200,
+      x: 0,
+      y: 50,
+      width: width,
+      height: 5,
       currentFill: {
-        r: 200,
-        g: 200,
-        b: 200,
+        r: 100,
+        g: 255,
+        b: 100,
       }
     };
   }
 
   update() {
     this.moveBoss();
-    // this.display();
+    this.displayHealth();
   }
 
-  checkHit() {
-
+  checkHit(bullet) {
+    if (bullet.x > this.newX - this.size / 2 &&
+    bullet.x < this.newX + this.size / 2 &&
+    bullet.y > this.newY - this.size / 2 &&
+    bullet.y < this.newY + this.size / 2) {
+      this.fillLifeBar.width -= 10;
+    }
   }
 
   //Boss's health bar will become more red as it decreases closer to 0 health.
@@ -61,6 +71,9 @@ class Boss {
     //the speed of the noise the A moves in.
     this.x += 0.01;
     this.y += 0.01;
+
+    this.newX = x;
+    this.newY = y;
 
     //Need to display the object in the same function to track the x and y (and for the noise() to work).
     //display the letter A.
@@ -124,6 +137,21 @@ class Boss {
     strokeWeight(5);
     stroke(random(100), random(255), random(255));
     text(this.plusLetter, this.plusX, this.plusY);
+    pop();
+  }
+
+  displayHealth() {
+    //Display the fill (for the life bar)
+    push();
+    noStroke();
+    fill(this.fillLifeBar.currentFill.r, this.fillLifeBar.currentFill.g, this.fillLifeBar.currentFill.b);
+    rectMode(CENTER);
+    rect(
+      this.fillLifeBar.x,
+      this.fillLifeBar.y,
+      this.fillLifeBar.width,
+      this.fillLifeBar.height
+    );
     pop();
   }
 }

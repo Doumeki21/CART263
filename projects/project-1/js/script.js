@@ -42,6 +42,7 @@ function draw() {
   }
 
   for (let i = 0; i < bullets.length; i++) {
+    boss.checkHit(bullets[i]);
     bullets[i].update();
   }
 }
