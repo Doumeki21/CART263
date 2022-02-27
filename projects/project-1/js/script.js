@@ -29,10 +29,23 @@ function setup() {
 }
 
 function reset() {
+  //If annyang! works, execute the commands
+  if (annyang) {
+    let commands = {
+      "I need to heal": guessAnimal,
+    };
+    annyang.addCommands(commands); //add commands to annyang!
+    annyang.start(); //start listening
+    annyang.debug(true); //debug annyang
+  } else {
+    alert(`Please visit this page on Google Chrome!`); //Pop up alert if user isn't using Chrome browser.
+  }
+
   player = new Player(windowWidth / 2, windowHeight / 2);
   purpleEnemy = new PurpleEnemy(random(0, width), random(0, height));
   redEnemy = new RedEnemy(random(0, width), random(0, height));
   boss = new Boss(random(0, width), random(0, height));
+  bullets = [];
 }
 
 function draw() {
@@ -40,18 +53,14 @@ function draw() {
 
   if (state === `title`) {
     title();
-  }
-  else if (state === `instructions`) {
+  } else if (state === `instructions`) {
     instructions();
-  }
-  else if (state === `game`) {
+  } else if (state === `game`) {
     game();
-  }
-  else if (state === `victory`) {
+  } else if (state === `victory`) {
     victory();
     reset();
-  }
-  else if (state === `loss`) {
+  } else if (state === `loss`) {
     loss();
     reset();
   }
@@ -64,7 +73,7 @@ function title() {
   textSize(50);
   fill(255);
   textAlign(CENTER, CENTER);
-  text(`START`, width/2, height/2);
+  text(`START`, width / 2, height / 2);
   pop();
 }
 
@@ -75,7 +84,7 @@ function instructions() {
   textSize(50);
   fill(255);
   textAlign(CENTER, CENTER);
-  text(`WASD to move`, width/2, height/2);
+  text(`WASD to move`, width / 2, height / 2);
   pop();
 }
 
@@ -108,14 +117,15 @@ function game() {
 }
 
 function victory() {
-  background(100);
+  background(0);
 
   push();
   noFill();
   stroke(255);
   strokeWeight(3);
+  textSize(50);
   textAlign(CENTER, CENTER);
-  text(`You defeated her!`, width/2, height/2);
+  text(`You defeated her!`, width / 2, height / 2);
   pop();
 
   push();
@@ -123,7 +133,7 @@ function victory() {
   fill(255);
   textSize(34);
   textAlign(CENTER, CENTER);
-  text('Return to title', width/2, height - 100);
+  text("Return to title", width / 2, height - 100);
   pop();
 }
 
@@ -136,7 +146,7 @@ function loss() {
   strokeWeight(3);
   textSize(50);
   textAlign(CENTER, CENTER);
-  text(`You lost`, width/2, height/2);
+  text(`You lost`, width / 2, height / 2);
   pop();
 
   push();
@@ -144,7 +154,7 @@ function loss() {
   fill(255);
   textSize(34);
   textAlign(CENTER, CENTER);
-  text('Return to title', width/2, height - 100);
+  text("Return to title", width / 2, height - 100);
   pop();
 }
 
@@ -158,7 +168,7 @@ function mouseClicked() {
     state = `game`;
   }
   //if you lose, click to return to the title
-  else if (state === `victory`){
+  else if (state === `victory`) {
     state = `title`;
   }
   //if you win, click to return to the title

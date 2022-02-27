@@ -43,8 +43,8 @@ class Boss {
     bullet.x < this.newX + this.size / 2 &&
     bullet.y > this.newY - this.size / 2 &&
     bullet.y < this.newY + this.size / 2) {
-      // this.fillLifeBar.width -= 0.8;
-      this.fillLifeBar.width -= 10;
+      this.fillLifeBar.width -= 0.8;
+      // this.fillLifeBar.width -= 10;
     }
   }
 
