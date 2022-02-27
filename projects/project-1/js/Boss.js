@@ -17,16 +17,6 @@ class Boss {
     this.plusAY = 0;
     this.acceleration = 0.5;
 
-    // //The base of the health bar.
-    // this.lifeBar = {
-    //   x: 50,
-    //   y: height - 50,
-    //   width: 40,
-    //   height: 200,
-    // };
-
-    // this.healthPoint = 100;
-
     //health bar fill.
     this.fillLifeBar = {
       x: 0,
@@ -42,8 +32,9 @@ class Boss {
   }
 
   update() {
-    this.moveBoss();
+    //checkHit() is done inside the bullet array of the script.js
     this.changeHealthBar();
+    this.moveBoss();
     this.displayHealth();
   }
 
@@ -52,6 +43,7 @@ class Boss {
     bullet.x < this.newX + this.size / 2 &&
     bullet.y > this.newY - this.size / 2 &&
     bullet.y < this.newY + this.size / 2) {
+      // this.fillLifeBar.width -= 0.8;
       this.fillLifeBar.width -= 10;
     }
   }

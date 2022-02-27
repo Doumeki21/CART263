@@ -108,6 +108,7 @@ class Player {
     }
   }
 
+//Control the player: WASD to move, RIGHT/ LEFT to rotate
   handleInput() {
     //Press A to go left
     if (keyIsDown(65)) {

@@ -15,6 +15,7 @@ let purpleEnemy;
 let redEnemy;
 let boss;
 
+//let currentState;
 // let states = [`title`, `instructions`, `game`, `victory`, `loss`];
 
 //states: title, instructions, game, victory, loss
@@ -22,13 +23,16 @@ let state = `title`;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  reset();
 
+  angleMode(DEGREES);
+}
+
+function reset() {
   player = new Player(windowWidth / 2, windowHeight / 2);
   purpleEnemy = new PurpleEnemy(random(0, width), random(0, height));
   redEnemy = new RedEnemy(random(0, width), random(0, height));
   boss = new Boss(random(0, width), random(0, height));
-
-  angleMode(DEGREES);
 }
 
 function draw() {
@@ -45,9 +49,11 @@ function draw() {
   }
   else if (state === `victory`) {
     victory();
+    reset();
   }
   else if (state === `loss`) {
     loss();
+    reset();
   }
 }
 
@@ -91,6 +97,14 @@ function game() {
     boss.checkHit(bullets[i]);
     bullets[i].update();
   }
+
+  if (player.fillLifeBar.height <= 0) {
+    state = `loss`;
+  }
+
+  if (boss.fillLifeBar.width <= 0) {
+    state = `victory`;
+  }
 }
 
 function victory() {
@@ -105,10 +119,6 @@ function victory() {
   pop();
 
   push();
-  fill(100);
-  rectMode(CENTER, CENTER);
-  rect(width/2, height - 100, 100, 50);
-
   noStroke();
   fill(255);
   textSize(34);
@@ -124,15 +134,12 @@ function loss() {
   noFill();
   stroke(255);
   strokeWeight(3);
+  textSize(50);
   textAlign(CENTER, CENTER);
   text(`You lost`, width/2, height/2);
   pop();
 
   push();
-  fill(100);
-  rectMode(CENTER, CENTER);
-  rect(width/2, height - 100, 100, 50);
-
   noStroke();
   fill(255);
   textSize(34);
