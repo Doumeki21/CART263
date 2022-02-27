@@ -43,6 +43,7 @@ class Boss {
 
   update() {
     this.moveBoss();
+    this.changeHealthBar();
     this.displayHealth();
   }
 
@@ -56,10 +57,10 @@ class Boss {
   }
 
   //Boss's health bar will become more red as it decreases closer to 0 health.
-    checkHealthBar() {
-      this.fillLifeBar.currentFill.r = map(this.fillLifeBar.height, 200, 0, 200, 255);
-      this.fillLifeBar.currentFill.g = map(this.fillLifeBar.height, 200, 0, 200, 0);
-      this.fillLifeBar.currentFill.b = map(this.fillLifeBar.height, 200, 0, 200, 0);
+    changeHealthBar() {
+      this.fillLifeBar.currentFill.r = map(this.fillLifeBar.width, width, 0, 200, 255);
+      this.fillLifeBar.currentFill.g = map(this.fillLifeBar.width, width, 0, 255, 0);
+      this.fillLifeBar.currentFill.b = map(this.fillLifeBar.width, width, 0, 200, 0);
     }
 
   moveBoss() {
@@ -145,7 +146,6 @@ class Boss {
     push();
     noStroke();
     fill(this.fillLifeBar.currentFill.r, this.fillLifeBar.currentFill.g, this.fillLifeBar.currentFill.b);
-    rectMode(CENTER);
     rect(
       this.fillLifeBar.x,
       this.fillLifeBar.y,
