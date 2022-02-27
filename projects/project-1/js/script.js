@@ -52,11 +52,25 @@ function draw() {
 }
 
 function title() {
+  background(0);
 
+  push();
+  textSize(50);
+  fill(255);
+  textAlign(CENTER, CENTER);
+  text(`START`, width/2, height/2);
+  pop();
 }
 
 function instructions() {
+  background(0);
 
+  push();
+  textSize(50);
+  fill(255);
+  textAlign(CENTER, CENTER);
+  text(`WASD to move`, width/2, height/2);
+  pop();
 }
 
 function game() {
@@ -80,11 +94,15 @@ function game() {
 }
 
 function victory() {
+  background(100);
 
-}
-
-function loss() {
-  background(0);
+  push();
+  noFill();
+  stroke(255);
+  strokeWeight(3);
+  textAlign(CENTER, CENTER);
+  text(`You defeated her!`, width/2, height/2);
+  pop();
 
   push();
   fill(100);
@@ -94,6 +112,31 @@ function loss() {
   noStroke();
   fill(255);
   textSize(34);
+  textAlign(CENTER, CENTER);
+  text('Return to title', width/2, height - 100);
+  pop();
+}
+
+function loss() {
+  background(0);
+
+  push();
+  noFill();
+  stroke(255);
+  strokeWeight(3);
+  textAlign(CENTER, CENTER);
+  text(`You lost`, width/2, height/2);
+  pop();
+
+  push();
+  fill(100);
+  rectMode(CENTER, CENTER);
+  rect(width/2, height - 100, 100, 50);
+
+  noStroke();
+  fill(255);
+  textSize(34);
+  textAlign(CENTER, CENTER);
   text('Return to title', width/2, height - 100);
   pop();
 }
