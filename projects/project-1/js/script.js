@@ -137,7 +137,7 @@ function victory() {
   noFill();
   stroke(255);
   strokeWeight(3);
-  textSize(50);
+  textSize(80);
   textAlign(CENTER, CENTER);
   text(`You defeated her!`, width / 2, height / 2);
   pop();
@@ -145,7 +145,7 @@ function victory() {
   push();
   noStroke();
   fill(255);
-  textSize(80);
+  textSize(34);
   textAlign(CENTER, CENTER);
   text("Return to title", width / 2, height - 100);
   pop();

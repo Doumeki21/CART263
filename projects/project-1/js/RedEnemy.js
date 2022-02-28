@@ -1,7 +1,7 @@
 class RedEnemy extends Enemies {
   constructor(x, y) {
     super(x, y);
-    this.size = 100;
+    this.size = undefined;
     this.alpha = 0;
     this.alphaSpeed = 8;
     this.active = false;
@@ -20,6 +20,7 @@ class RedEnemy extends Enemies {
       this.alpha = 0;
       this.x = random(0, width);
       this.y = random(0, height);
+      this.size = random(100, 500);
     }
   }
 
