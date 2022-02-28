@@ -6,7 +6,13 @@ class Boss {
     this.y = y;
     this.newX = x;
     this.newY = y;
-    this.size = 50;
+    this.size = 100;
+    //rgb values to track when it changes color
+    this.currentStrokeA = {
+      r: 100,
+      g: 255,
+      b: 255,
+    }
     //variables for the plus sign
     this.plusLetter = `+`;
     this.plusX = 0;
@@ -16,6 +22,12 @@ class Boss {
     this.plusAX = 0;
     this.plusAY = 0;
     this.acceleration = 0.5;
+    //rgb values to track when it changes color
+    this.currentStrokePlus = {
+      r: 100,
+      g: 255,
+      b: 255,
+    }
 
     //health bar fill.
     this.fillLifeBar = {
@@ -32,19 +44,25 @@ class Boss {
   }
 
   update() {
-    //checkHit() is done inside the bullet array of the script.js
     this.changeHealthBar();
     this.moveBoss();
     this.displayHP();
   }
 
+//function is being checked inside the bullet array of the script.js
   checkHit(bullet) {
     if (bullet.x > this.newX - this.size / 2 &&
     bullet.x < this.newX + this.size / 2 &&
     bullet.y > this.newY - this.size / 2 &&
     bullet.y < this.newY + this.size / 2) {
       this.fillLifeBar.width -= 0.8;
-      // this.fillLifeBar.width -= 10;
+      this.currentStrokeA.r = random(100, 150);
+      this.currentStrokeA.g = random(100, 255);
+      this.currentStrokeA.b = random(100, 255);
+
+      this.currentStrokePlus.r = random(100, 150);
+      this.currentStrokePlus.g = random(100, 255);
+      this.currentStrokePlus.b = random(100, 255);
     }
   }
 
@@ -71,12 +89,12 @@ class Boss {
     //Need to display the object in the same function to track the x and y (and for the noise() to work).
     //display the letter A.
     push();
-    textSize(50);
+    textSize(100);
     textStyle(BOLD);
     textAlign(CENTER, CENTER);
     noFill();
     strokeWeight(5);
-    stroke(random(100), random(255), random(255));
+    stroke(this.currentStrokeA.r, this.currentStrokeA.g, this.currentStrokeA.b);
     text(this.letter, x, y);
     pop();
 
@@ -125,10 +143,10 @@ class Boss {
 
     //display the plus sign at the top right corner of the letter A
     push();
-    textSize(50);
+    textSize(100);
     noFill();
     strokeWeight(5);
-    stroke(random(100), random(255), random(255));
+    stroke(this.currentStrokePlus.r, this.currentStrokePlus.g, this.currentStrokePlus.b);
     text(this.plusLetter, this.plusX, this.plusY);
     pop();
   }

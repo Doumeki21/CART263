@@ -120,16 +120,6 @@ function recover(heal) {
   player.heal();
 }
 
-// function displayHeal() {
-//   push();
-//   noStroke();
-//   fill(255);
-//   textSize(30);
-//   textAlign(CENTER, CENTER);
-//   text(`I need to heal!`, player.lifeBar.x, height - 10);
-//   pop();
-// }
-
 function victory() {
   background(0);
 
