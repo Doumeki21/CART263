@@ -32,7 +32,7 @@ function reset() {
   //If annyang! works, execute the commands
   if (annyang) {
     let commands = {
-      "I need to heal": guessAnimal,
+      "I need to *heal": recover,
     };
     annyang.addCommands(commands); //add commands to annyang!
     annyang.start(); //start listening
@@ -116,6 +116,20 @@ function game() {
   }
 }
 
+function recover(heal) {
+  player.heal();
+}
+
+// function displayHeal() {
+//   push();
+//   noStroke();
+//   fill(255);
+//   textSize(30);
+//   textAlign(CENTER, CENTER);
+//   text(`I need to heal!`, player.lifeBar.x, height - 10);
+//   pop();
+// }
+
 function victory() {
   background(0);
 
@@ -131,7 +145,7 @@ function victory() {
   push();
   noStroke();
   fill(255);
-  textSize(34);
+  textSize(80);
   textAlign(CENTER, CENTER);
   text("Return to title", width / 2, height - 100);
   pop();
@@ -144,7 +158,7 @@ function loss() {
   noFill();
   stroke(255);
   strokeWeight(3);
-  textSize(50);
+  textSize(80);
   textAlign(CENTER, CENTER);
   text(`You lost`, width / 2, height / 2);
   pop();

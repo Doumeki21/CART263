@@ -26,11 +26,10 @@ class Player {
         r: 200,
         g: 200,
         b: 200,
-      }
+      },
     };
-    this.activeBar = true;
-    this.displayPlayer = true;
-    this.alive = true;
+    this.isBarActive = true;
+    this.isPlayerDisplayed = true;
     this.canShoot = true;
     this.blinkInterval = undefined;
   }
@@ -39,16 +38,17 @@ class Player {
   Calls all the other functions in the class when update is called in script.js
   */
   update(redEnemy, purpleEnemy, boss) {
-    this.checkHealthBar();
+    this.changeHealthBar();
     this.movePlayer();
     this.handleInput();
     //if the life bar is actively dropping, continue to check whether PLayer is overlapping any enemy
-    if (this.activeBar) {
+    if (this.isBarActive) {
       this.checkTakenDamage(redEnemy);
       this.checkTakenDamage(purpleEnemy);
       this.checkTakenDamage(boss);
     }
-    this.display();
+    this.displayPlayer();
+    this.displayHP();
   }
 
   checkTakenDamage(enemy) {
@@ -60,9 +60,9 @@ class Player {
       this.y < enemy.y + enemy.size / 2
     ) {
       this.fillLifeBar.height -= 10;
-      this.displayPlayer = false;
+      this.isPlayerDisplayed = false;
       this.blink();
-      this.activeBar = false;
+      this.isBarActive = false;
       this.setActiveBar();
     }
   }
@@ -70,24 +70,36 @@ class Player {
   blink() {
     //blinkInterval is to specify which interval to clear later
     this.blinkInterval = setInterval(() => {
-      this.displayPlayer = !this.displayPlayer;
+      this.isPlayerDisplayed = !this.isPlayerDisplayed;
     }, 50);
   }
 
   setActiveBar() {
     setTimeout(() => {
       clearInterval(this.blinkInterval);
-      this.displayPlayer = true;
-      this.activeBar = true;
+      this.isPlayerDisplayed = true;
+      this.isBarActive = true;
       console.log(`bar active`);
     }, 1000);
   }
 
-//Player's health bar will become more red as it decreases closer to 0 health.
-  checkHealthBar() {
-    this.fillLifeBar.currentFill.r = map(this.fillLifeBar.height, 200, 0, 200, 255);
-    this.fillLifeBar.currentFill.g = map(this.fillLifeBar.height, 200, 0, 200, 0);
-    this.fillLifeBar.currentFill.b = map(this.fillLifeBar.height, 200, 0, 200, 0);
+  //Player's health bar will become more red as it decreases closer to 0 health.
+  changeHealthBar() {
+    this.fillLifeBar.currentFill.r = map(this.fillLifeBar.height,200,0,200,255);
+    this.fillLifeBar.currentFill.g = map(this.fillLifeBar.height,200,0,200,0);
+    this.fillLifeBar.currentFill.b = map(this.fillLifeBar.height,200,0,200,0);
+  }
+
+  heal() {
+    if (this.fillLifeBar.height <= this.lifeBar.height) {
+      this.fillLifeBar.height += 20;
+      this.displayHeal()
+      return true;
+    }
+    // else {
+    //   return false;
+    //   !this.displayHeal();
+    // }
   }
 
   movePlayer() {
@@ -98,17 +110,17 @@ class Player {
     this.y = constrain(this.y, 0, height);
   }
 
+//Player shoots bullets (function is called in Script.js)
   handleShoot() {
     if (keyIsDown(UP_ARROW)) {
       this.canShoot = true;
       return true;
-      // player.bullets++;
     } else {
       return false;
     }
   }
 
-//Control the player: WASD to move, RIGHT/ LEFT to rotate
+  //Control the player: WASD to move, RIGHT/ LEFT to rotate
   handleInput() {
     //Press A to go left
     if (keyIsDown(65)) {
@@ -148,8 +160,8 @@ class Player {
     }
   }
 
-  display() {
-    if (this.displayPlayer) {
+  displayPlayer() {
+    if (this.isPlayerDisplayed) {
       //display the player
       push();
       noStroke();
@@ -162,7 +174,10 @@ class Player {
       text(this.letter, 0, 0);
       pop();
     }
+  }
 
+  //display the player's life
+  displayHP() {
     //Life bar
     push();
     noStroke();
@@ -180,7 +195,11 @@ class Player {
     //Display the fill (for the life bar)
     push();
     noStroke();
-    fill(this.fillLifeBar.currentFill.r, this.fillLifeBar.currentFill.g, this.fillLifeBar.currentFill.b);
+    fill(
+      this.fillLifeBar.currentFill.r,
+      this.fillLifeBar.currentFill.g,
+      this.fillLifeBar.currentFill.b
+    );
     rectMode(CENTER);
     rect(
       this.fillLifeBar.x,
@@ -188,6 +207,16 @@ class Player {
       this.fillLifeBar.width,
       this.fillLifeBar.height
     );
+    pop();
+  }
+
+//display the healing text
+  displayHeal() {
+    push();
+    noStroke();
+    fill(255);
+    textSize(30);
+    text(`I need to heal!`, player.lifeBar.x + 50, height - 50);
     pop();
   }
 }

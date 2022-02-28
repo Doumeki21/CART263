@@ -35,7 +35,7 @@ class Boss {
     //checkHit() is done inside the bullet array of the script.js
     this.changeHealthBar();
     this.moveBoss();
-    this.displayHealth();
+    this.displayHP();
   }
 
   checkHit(bullet) {
@@ -133,7 +133,7 @@ class Boss {
     pop();
   }
 
-  displayHealth() {
+  displayHP() {
     //Display the fill (for the life bar)
     push();
     noStroke();
