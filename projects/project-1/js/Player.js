@@ -1,3 +1,4 @@
+//You cantrol this object (the letter F).
 class Player {
   constructor(x, y) {
     this.letter = `F`;
@@ -32,6 +33,7 @@ class Player {
     this.isPlayerDisplayed = true;
     this.canShoot = true;
     this.blinkInterval = undefined;
+    this.isLowHealth = false;
   }
 
   /**
@@ -41,6 +43,9 @@ class Player {
     this.changeHealthBar();
     this.movePlayer();
     this.handleInput();
+    if (this.fillLifeBar.height < 100) {
+      this.displayHeal();
+    }
     //if the life bar is actively dropping, continue to check whether PLayer is overlapping any enemy
     if (this.isBarActive) {
       this.checkTakenDamage(redEnemy);
@@ -90,17 +95,9 @@ class Player {
     this.fillLifeBar.currentFill.b = map(this.fillLifeBar.height,200,0,200,0);
   }
 
-  heal() {
-    if (this.fillLifeBar.height <= this.lifeBar.height) {
-      this.fillLifeBar.height += 20;
-      this.displayHeal()
-      return true;
-    }
-    // else {
-    //   return false;
-    //   !this.displayHeal();
-    // }
-  }
+  // heal() {
+  //     this.fillLifeBar.height += 20;
+  // }
 
   movePlayer() {
     this.x += this.vx;

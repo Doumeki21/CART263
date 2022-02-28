@@ -6,12 +6,16 @@ class Bullet {
     this.width = 5;
     this.height = 5;
     this.speed = 10;
+    this.active = true;
   }
 
   /**
    Calls methods required each frame for animation
    */
   update() {
+    if (this.x > width || this.x < 0 || this.y > height || this.y < 0) {
+      this.active = false;
+    }
     this.move();
     this.display();
   }

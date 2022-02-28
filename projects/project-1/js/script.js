@@ -105,6 +105,10 @@ function game() {
   for (let i = 0; i < bullets.length; i++) {
     boss.checkHit(bullets[i]);
     bullets[i].update();
+    if (!bullets[i].active) {
+      //splice removes 1 bullet from the array.
+      bullets.splice(i, 1);
+    }
   }
 
   if (player.fillLifeBar.height <= 0) {
@@ -116,10 +120,12 @@ function game() {
   }
 }
 
+//voice command to heal the player
 function recover(heal) {
-  player.heal();
+  player.fillLifeBar.height += 20;
 }
 
+//display the victorious bg
 function victory() {
   background(0);
 
@@ -162,6 +168,7 @@ function loss() {
   pop();
 }
 
+//Click the mouse to change between states
 function mouseClicked() {
   //starting from the title, click to proceed to the instructions
   if (state === `title`) {

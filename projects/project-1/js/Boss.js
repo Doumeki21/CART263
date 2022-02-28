@@ -98,14 +98,14 @@ class Boss {
     text(this.letter, x, y);
     pop();
 
-    //area around the boss that detects the bullet
-    push();
-    noFill();
-    rectMode(CENTER, CENTER);
-    strokeWeight(2);
-    stroke(100, 100, 100);
-    rect(x, y, this.size);
-    pop();
+    // //area around the boss that detects the bullet
+    // push();
+    // noFill();
+    // rectMode(CENTER, CENTER);
+    // strokeWeight(2);
+    // stroke(100, 100, 100);
+    // rect(x, y, this.size);
+    // pop();
 
     //THE PLUS SIGN
     //Calculate the distance b/w the A and the plus sign
@@ -140,7 +140,6 @@ class Boss {
     this.plusVX = constrain(this.plusVX, -5, 5);
     this.plusVY = constrain(this.plusVY, -5, 5);
 
-
     //display the plus sign at the top right corner of the letter A
     push();
     textSize(100);
@@ -151,8 +150,8 @@ class Boss {
     pop();
   }
 
+  //Display the fill (for the life bar)
   displayHP() {
-    //Display the fill (for the life bar)
     push();
     noStroke();
     fill(this.fillLifeBar.currentFill.r, this.fillLifeBar.currentFill.g, this.fillLifeBar.currentFill.b);
