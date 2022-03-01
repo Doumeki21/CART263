@@ -84,7 +84,6 @@ class Player {
       clearInterval(this.blinkInterval);
       this.isPlayerDisplayed = true;
       this.isBarActive = true;
-      console.log(`bar active`);
     }, 1000);
   }
 
@@ -95,10 +94,6 @@ class Player {
     this.fillLifeBar.currentFill.b = map(this.fillLifeBar.height,200,0,200,0);
   }
 
-  // heal() {
-  //     this.fillLifeBar.height += 20;
-  // }
-
   movePlayer() {
     this.x += this.vx;
     this.y += this.vy;
@@ -107,7 +102,7 @@ class Player {
     this.y = constrain(this.y, 0, height);
   }
 
-//Player shoots bullets (function is called in Script.js)
+  //Player shoots bullets (function is called in Script.js)
   handleShoot() {
     if (keyIsDown(UP_ARROW)) {
       this.canShoot = true;
@@ -207,7 +202,7 @@ class Player {
     pop();
   }
 
-//display the healing text
+  //display the healing text
   displayHeal() {
     push();
     noStroke();

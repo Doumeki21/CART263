@@ -77,7 +77,7 @@ class Boss {
     //THE A
     //using noise() as an organic alternative to the random(). the noise value will always be b/w 0 and 1.
     let x = map(noise(this.x), 0, 1, 0, width);
-    let y = map(noise(this.y), 0, 1, 0, 300);
+    let y = map(noise(this.y), 0, 1, 0, height);
 
     //the speed of the noise the A moves in.
     this.x += 0.01;

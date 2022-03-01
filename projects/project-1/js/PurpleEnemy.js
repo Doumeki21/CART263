@@ -33,7 +33,7 @@ class PurpleEnemy extends Enemies{
     if (!this.active) {
       this.x = random(0, width);
       this.y = random(0, height);
-      // console.log(`yes`);
+      this.size = random(300, 600);
     }
   }
 

@@ -13,6 +13,7 @@ let bullets = [];
 
 let purpleEnemy;
 let redEnemy;
+let blueEnemy;
 let boss;
 
 //let currentState;
@@ -28,6 +29,7 @@ function setup() {
   angleMode(DEGREES);
 }
 
+//Reset is called after every round is finished.
 function reset() {
   //If annyang! works, execute the commands
   if (annyang) {
@@ -44,6 +46,7 @@ function reset() {
   player = new Player(windowWidth / 2, windowHeight / 2);
   purpleEnemy = new PurpleEnemy(random(0, width), random(0, height));
   redEnemy = new RedEnemy(random(0, width), random(0, height));
+  blueEnemy = new BlueEnemy(random(0, width), height/2);
   boss = new Boss(random(0, width), random(0, height));
   bullets = [];
 }
@@ -91,6 +94,7 @@ function instructions() {
 function game() {
   purpleEnemy.update();
   redEnemy.update();
+  blueEnemy.update();
   boss.update();
   player.update(redEnemy, purpleEnemy, boss);
 
@@ -106,7 +110,7 @@ function game() {
     boss.checkHit(bullets[i]);
     bullets[i].update();
     if (!bullets[i].active) {
-      //splice removes 1 bullet from the array.
+      //splice() removes 1 bullet from the array.
       bullets.splice(i, 1);
     }
   }
