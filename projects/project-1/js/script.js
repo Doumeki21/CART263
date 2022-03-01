@@ -52,7 +52,8 @@ function reset() {
 }
 
 function draw() {
-  background(0);
+  //black (slight transparent bg)
+  background(0, 100);
 
   if (state === `title`) {
     title();
@@ -71,7 +72,6 @@ function draw() {
 
 function title() {
   background(0);
-
   push();
   textSize(50);
   fill(255);
@@ -81,8 +81,6 @@ function title() {
 }
 
 function instructions() {
-  background(0);
-
   push();
   textSize(50);
   fill(255);

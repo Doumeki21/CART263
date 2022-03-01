@@ -4,10 +4,9 @@ class BlueEnemy extends Enemies{
     this.size = undefined;
     this.alpha = 0;
     this.alphaSpeed = 8;
-    this.vx = 0;
-    this.vy = 0;
-    this.ax = 0;
-    this.ay = 0;
+    this.initialVy = 8;
+    this.currentVy = this.initialVy;
+    this.ay = 2;
     this.acceleration = 0.5;
     this.active = false;
 
@@ -26,17 +25,18 @@ class BlueEnemy extends Enemies{
       this.alpha = 0;
       this.x = random(0, width);
       this.y = 0;
+      this.vy = this.initialVy;
       this.size = random(100, 500);
+    }
+    if (this.y >= height) {
+      this.active = false;
     }
   }
 
   checkAppearing() {
     if (this.active) {
-      // //fade in
-      // this.alpha += this.alphaSpeed;
-      // setTimeout(() => {
-      //   this.moveEnemy();
-      // }, 100);
+      //fade in
+      this.alpha += this.alphaSpeed;
 
       //add movement (by adding velocity to the coordinates)
       this.y += this.vy;
@@ -44,8 +44,8 @@ class BlueEnemy extends Enemies{
       this.vy += this.ay;
 
       //constrain the enemy within a reasonable area of the canvas
-      this.vy = constrain(this.vy, 0, 5);
-      console.log(this.x, this.y);
+      // this.vy = constrain(this.vy, 0, 10);
+      this.y = constrain(this.y, 0, height);
     }
   }
 
