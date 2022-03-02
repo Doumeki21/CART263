@@ -1,5 +1,8 @@
+//Player
 //You cantrol this object (the letter F).
+//the F acts like a gun, needs to dodge all enemies, and shoot the A (boss) down
 class Player {
+  //adds properties for position, speed, rotation, blinking, shooting, and health bar
   constructor(x, y) {
     this.letter = `F`;
     this.x = x;
@@ -36,13 +39,13 @@ class Player {
     this.isLowHealth = false;
   }
 
-  /**
-  Calls all the other functions in the class when update is called in script.js
-  */
+  //update()
+  //Calls all the functions/ events within this class.
   update(redEnemy, purpleEnemy, blueEnemy) {
     this.changeHealthBar();
     this.movePlayer();
     this.handleInput();
+    //if the player's health is less than half of it's intial amount, display a reminder to heal
     if (this.fillLifeBar.height < 100) {
       this.displayHeal();
     }
@@ -56,6 +59,8 @@ class Player {
     this.displayHP();
   }
 
+  //checkTakenDamage()
+  //if the enemy is visible and the player is touching them, then player blinks and health bar drops
   checkTakenDamage(enemy) {
     if (
       enemy.active &&
@@ -72,6 +77,8 @@ class Player {
     }
   }
 
+  //blink()
+  //player simultaneously blinks for 50 frames.
   blink() {
     //blinkInterval is to specify which interval to clear later
     this.blinkInterval = setInterval(() => {
@@ -79,6 +86,8 @@ class Player {
     }, 50);
   }
 
+  //setActiveBar()
+  //Player's health bar will be inactive for a few seconds until it drops again if PLayer is still touching an enemy.
   setActiveBar() {
     setTimeout(() => {
       clearInterval(this.blinkInterval);
@@ -87,6 +96,7 @@ class Player {
     }, 1000);
   }
 
+  //changeHealthBar()
   //Player's health bar will become more red as it decreases closer to 0 health.
   changeHealthBar() {
     this.fillLifeBar.currentFill.r = map(this.fillLifeBar.height,200,0,200,255);
@@ -94,15 +104,17 @@ class Player {
     this.fillLifeBar.currentFill.b = map(this.fillLifeBar.height,200,0,200,0);
   }
 
+  //movePlayer()
+  //add speed to move the player while also constraining it within the canvas size.
   movePlayer() {
     this.x += this.vx;
     this.y += this.vy;
-
     this.x = constrain(this.x, 0, width);
     this.y = constrain(this.y, 0, height);
   }
 
-  //Player shoots bullets (function is called in Script.js)
+  //handleShoot()
+  //Player shoots bullets (function is called in Script.js for the bullets array)
   handleShoot() {
     if (keyIsDown(UP_ARROW)) {
       this.canShoot = true;
@@ -112,6 +124,7 @@ class Player {
     }
   }
 
+  //handleInput()
   //Control the player: WASD to move, RIGHT/ LEFT to rotate
   handleInput() {
     //Press A to go left
@@ -122,7 +135,7 @@ class Player {
     else if (keyIsDown(68)) {
       this.vx = this.speed;
     }
-    //else stop
+    //else stop moving
     else {
       this.vx = 0;
     }
@@ -135,7 +148,7 @@ class Player {
     else if (keyIsDown(83)) {
       this.vy = this.speed;
     }
-    //else stop
+    //else stop moving
     else {
       this.vy = 0;
     }
@@ -147,11 +160,15 @@ class Player {
     //Player rotates right
     else if (keyIsDown(RIGHT_ARROW)) {
       this.angle += this.rotatingSpeed;
-    } else {
+    }
+    //else stop rotating
+    else {
       this.angle = this.angle;
     }
   }
 
+  //displayPlayer()
+  //display the player (F) if it's active
   displayPlayer() {
     if (this.isPlayerDisplayed) {
       //display the player
@@ -168,6 +185,7 @@ class Player {
     }
   }
 
+  //displayHP()
   //display the player's life
   displayHP() {
     //Life bar
@@ -175,30 +193,16 @@ class Player {
     noStroke();
     fill(100, 100, 100);
     rectMode(CENTER);
-    //Dividing to offset it away from the edge.
-    rect(
-      this.lifeBar.x,
-      this.lifeBar.y - this.lifeBar.height / 2,
-      this.lifeBar.width,
-      this.lifeBar.height
-    );
+    //Dividing by 2 to offset it away from the edge.
+    rect(this.lifeBar.x,this.lifeBar.y - this.lifeBar.height / 2,this.lifeBar.width,this.lifeBar.height);
     pop();
 
     //Display the fill (for the life bar)
     push();
     noStroke();
-    fill(
-      this.fillLifeBar.currentFill.r,
-      this.fillLifeBar.currentFill.g,
-      this.fillLifeBar.currentFill.b
-    );
+    fill(this.fillLifeBar.currentFill.r,this.fillLifeBar.currentFill.g,this.fillLifeBar.currentFill.b);
     rectMode(CENTER);
-    rect(
-      this.fillLifeBar.x,
-      this.fillLifeBar.y - this.fillLifeBar.height / 2,
-      this.fillLifeBar.width,
-      this.fillLifeBar.height
-    );
+    rect(this.fillLifeBar.x,this.fillLifeBar.y - this.fillLifeBar.height / 2,);
     pop();
   }
 
