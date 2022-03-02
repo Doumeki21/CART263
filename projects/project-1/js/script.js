@@ -21,12 +21,11 @@ let sideArrows;
 let upArrow;
 let wasdKeys;
 
-
 //let currentState;
 // let states = [`title`, `instructions`, `game`, `victory`, `loss`];
 let state = `title`; //states: title, instructions, game, victory, loss
 
-//load all assets
+//load all assets (images)
 function preload() {
   mic = loadImage(`assets/images/mic.png`);
   sideArrows = loadImage(`assets/images/side-arrows.png`);
@@ -58,15 +57,16 @@ function reset() {
   player = new Player(windowWidth / 2, windowHeight / 2);
   purpleEnemy = new PurpleEnemy(random(0, width), random(0, height));
   redEnemy = new RedEnemy(random(0, width), random(0, height));
-  blueEnemy = new BlueEnemy(random(0, width), height/2);
+  blueEnemy = new BlueEnemy(random(0, width), height / 2);
   boss = new Boss(random(0, width), random(0, height));
   //reset the bullets array
   bullets = [];
 }
 
+//the structure of events in the program
 function draw() {
-  //black (slight transparent bg)
-  background(0, 100);
+  //black (slight transparent bg: to create the motion blur effect)
+  background(0, 80);
 
   if (state === `title`) {
     title();
@@ -93,7 +93,7 @@ function title() {
   pop();
 }
 
-//The second state of the program
+//The second (instructions) state of the program
 function instructions() {
   fill(255);
   textAlign(CENTER, CENTER);
@@ -105,25 +105,26 @@ function instructions() {
   text(`INSTRUCTIONS`, width / 2, 50);
   //rotate
   textSize(36);
-  text(`ROTATE`, width/2 - 200, 200);
-  image(sideArrows, width/2 + 100, 150);
+  text(`ROTATE`, width / 2 - 200, 200);
+  image(sideArrows, width / 2 + 100, 150);
   sideArrows.resize(200, 0);
   //shoot
-  text(`SHOOT`, width/2 - 200, 300);
-  image(upArrow, width/2 + 100, 250);
+  text(`SHOOT`, width / 2 - 200, 300);
+  image(upArrow, width / 2 + 100, 250);
   upArrow.resize(200, 0);
   //move
-  text(`MOVE`, width/2 - 200, 450);
-  image(wasdKeys, width/2 + 100, 350);
+  text(`MOVE`, width / 2 - 200, 450);
+  image(wasdKeys, width / 2 + 100, 350);
   wasdKeys.resize(200, 0);
   //heal
-  text(`HEAL`, width/2 - 200, 600);
-  image(mic, width/2 + 100, 550);
-  text(`"I need to heal!"`, width/2 + 400, 600);
+  text(`HEAL`, width / 2 - 200, 600);
+  image(mic, width / 2 + 100, 550);
+  text(`"I need to heal!"`, width / 2 + 400, 600);
   mic.resize(100, 0);
   pop();
 }
 
+//call all events/ functions/ objects that happen in the game
 function game() {
   purpleEnemy.update();
   redEnemy.update();
@@ -148,10 +149,11 @@ function game() {
     }
   }
 
+  //if the player's health reaches 0, you lose
   if (player.fillLifeBar.height <= 0) {
     state = `loss`;
   }
-
+  //if the boss' health reaches 0, you win
   if (boss.fillLifeBar.width <= 0) {
     state = `victory`;
   }
@@ -162,10 +164,10 @@ function recover(heal) {
   player.fillLifeBar.height += 20;
 }
 
-//display the victorious bg
+//display the victorious state
 function victory() {
-  background(0);
-
+  background(0); //black bg
+  //title
   push();
   noFill();
   stroke(255);
@@ -174,7 +176,7 @@ function victory() {
   textAlign(CENTER, CENTER);
   text(`You defeated her!`, width / 2, height / 2);
   pop();
-
+  //click to proceed
   push();
   noStroke();
   fill(255);
@@ -184,9 +186,10 @@ function victory() {
   pop();
 }
 
+//display the state of loss
 function loss() {
-  background(0);
-
+  background(0); //black bg
+//title
   push();
   noFill();
   stroke(255);
@@ -195,7 +198,7 @@ function loss() {
   textAlign(CENTER, CENTER);
   text(`You lost`, width / 2, height / 2);
   pop();
-
+//click to proceed
   push();
   noStroke();
   fill(255);

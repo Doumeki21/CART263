@@ -158,7 +158,7 @@ class Player {
       push();
       noStroke();
       textStyle(BOLD);
-      fill(255);
+      fill(255, 107, 99);
       textSize(34);
       textAlign(CENTER, BOTTOM);
       translate(this.x, this.y);
@@ -208,7 +208,7 @@ class Player {
     noStroke();
     fill(255);
     textSize(30);
-    text(`I need to heal!`, player.lifeBar.x + 100, height - 50);
+    text(`I need to heal!`, player.lifeBar.x + 100, height - 30);
     pop();
   }
 }
