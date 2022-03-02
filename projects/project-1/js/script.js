@@ -7,25 +7,37 @@ author, and this description to match your project!
 */
 
 "use strict";
-
+//The player
 let player;
 let bullets = [];
-
-let purpleEnemy;
+//The enemies
 let redEnemy;
+let purpleEnemy;
 let blueEnemy;
 let boss;
+//load assets
+let mic;
+let sideArrows;
+let upArrow;
+let wasdKeys;
+
 
 //let currentState;
 // let states = [`title`, `instructions`, `game`, `victory`, `loss`];
+let state = `title`; //states: title, instructions, game, victory, loss
 
-//states: title, instructions, game, victory, loss
-let state = `title`;
+//load all assets
+function preload() {
+  mic = loadImage(`assets/images/mic.png`);
+  sideArrows = loadImage(`assets/images/side-arrows.png`);
+  upArrow = loadImage(`assets/images/up-arrow.png`);
+  wasdKeys = loadImage(`assets/images/wasd.png`);
+}
 
+//Sets up the program
 function setup() {
   createCanvas(windowWidth, windowHeight);
   reset();
-
   angleMode(DEGREES);
 }
 
@@ -42,12 +54,13 @@ function reset() {
   } else {
     alert(`Please visit this page on Google Chrome!`); //Pop up alert if user isn't using Chrome browser.
   }
-
+  //Relocate all objects in the game
   player = new Player(windowWidth / 2, windowHeight / 2);
   purpleEnemy = new PurpleEnemy(random(0, width), random(0, height));
   redEnemy = new RedEnemy(random(0, width), random(0, height));
   blueEnemy = new BlueEnemy(random(0, width), height/2);
   boss = new Boss(random(0, width), random(0, height));
+  //reset the bullets array
   bullets = [];
 }
 
@@ -70,8 +83,8 @@ function draw() {
   }
 }
 
+//Present the first state of program.
 function title() {
-  background(0);
   push();
   textSize(50);
   fill(255);
@@ -80,12 +93,34 @@ function title() {
   pop();
 }
 
+//The second state of the program
 function instructions() {
-  push();
-  textSize(50);
   fill(255);
   textAlign(CENTER, CENTER);
-  text(`WASD to move`, width / 2, height / 2);
+  rectMode(CENTER);
+
+  push();
+  //title
+  textSize(50);
+  text(`INSTRUCTIONS`, width / 2, 50);
+  //rotate
+  textSize(36);
+  text(`ROTATE`, width/2 - 200, 200);
+  image(sideArrows, width/2 + 100, 150);
+  sideArrows.resize(200, 0);
+  //shoot
+  text(`SHOOT`, width/2 - 200, 300);
+  image(upArrow, width/2 + 100, 250);
+  upArrow.resize(200, 0);
+  //move
+  text(`MOVE`, width/2 - 200, 450);
+  image(wasdKeys, width/2 + 100, 350);
+  wasdKeys.resize(200, 0);
+  //heal
+  text(`HEAL`, width/2 - 200, 600);
+  image(mic, width/2 + 100, 550);
+  text(`"I need to heal!"`, width/2 + 400, 600);
+  mic.resize(100, 0);
   pop();
 }
 
@@ -94,7 +129,7 @@ function game() {
   redEnemy.update();
   blueEnemy.update();
   boss.update();
-  player.update(redEnemy, purpleEnemy, boss);
+  player.update(redEnemy, purpleEnemy, blueEnemy);
 
   //if player is shooting,
   if (player.handleShoot()) {

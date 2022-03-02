@@ -7,7 +7,6 @@ class Boss {
     this.newX = x;
     this.newY = y;
     this.size = 100;
-    //rgb values to track when it changes color
     this.currentStrokeA = {
       r: 100,
       g: 255,
@@ -154,6 +153,7 @@ class Boss {
   displayHP() {
     push();
     noStroke();
+    rectMode(CORNER);
     fill(this.fillLifeBar.currentFill.r, this.fillLifeBar.currentFill.g, this.fillLifeBar.currentFill.b);
     rect(
       this.fillLifeBar.x,

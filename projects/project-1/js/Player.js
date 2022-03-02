@@ -39,7 +39,7 @@ class Player {
   /**
   Calls all the other functions in the class when update is called in script.js
   */
-  update(redEnemy, purpleEnemy, boss) {
+  update(redEnemy, purpleEnemy, blueEnemy) {
     this.changeHealthBar();
     this.movePlayer();
     this.handleInput();
@@ -50,7 +50,7 @@ class Player {
     if (this.isBarActive) {
       this.checkTakenDamage(redEnemy);
       this.checkTakenDamage(purpleEnemy);
-      this.checkTakenDamage(boss);
+      this.checkTakenDamage(blueEnemy);
     }
     this.displayPlayer();
     this.displayHP();
@@ -64,7 +64,7 @@ class Player {
       this.y > enemy.y - enemy.size / 2 &&
       this.y < enemy.y + enemy.size / 2
     ) {
-      this.fillLifeBar.height -= 10;
+      this.fillLifeBar.height -= 20;
       this.isPlayerDisplayed = false;
       this.blink();
       this.isBarActive = false;
@@ -208,7 +208,7 @@ class Player {
     noStroke();
     fill(255);
     textSize(30);
-    text(`I need to heal!`, player.lifeBar.x + 50, height - 50);
+    text(`I need to heal!`, player.lifeBar.x + 100, height - 50);
     pop();
   }
 }
