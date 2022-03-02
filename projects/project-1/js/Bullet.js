@@ -1,4 +1,7 @@
+//Bullet
+//Bullets will shoot out of the player and attack the boss
 class Bullet {
+  //Adds properties for hitting the boss, speed, and angle which it was shot at
   constructor(x, y, angle) {
     this.x = x;
     this.y = y;
@@ -9,9 +12,8 @@ class Bullet {
     this.active = true;
   }
 
-  /**
-   Calls methods required each frame for animation
-   */
+  //update()
+  //Calls all the functions/ events within this class and erases it from the bullets array when it goes out of the canvas
   update() {
     if (this.x > width || this.x < 0 || this.y > height || this.y < 0) {
       this.active = false;
@@ -20,22 +22,19 @@ class Bullet {
     this.display();
   }
 
-  /**
-   Calculates velocity to move the bullet
-   */
+  //move();
+  //Calculates velocity and angle to move the bullet
   move() {
     // Calculate the velocity based on speed and angle
     const vx = this.speed * cos(this.angle);
     const vy = this.speed * sin(this.angle);
-
     // Change position based on velocity
     this.x += vx;
     this.y += vy;
   }
 
-  /**
-   Displays the bullet in position and rotated appropriately
-   */
+  //display()
+  //Displays the bullet in position and rotates appropriately
   display() {
     push();
     translate(this.x, this.y);
