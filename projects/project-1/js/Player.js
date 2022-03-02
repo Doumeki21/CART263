@@ -202,7 +202,7 @@ class Player {
     noStroke();
     fill(this.fillLifeBar.currentFill.r,this.fillLifeBar.currentFill.g,this.fillLifeBar.currentFill.b);
     rectMode(CENTER);
-    rect(this.fillLifeBar.x,this.fillLifeBar.y - this.fillLifeBar.height / 2,);
+    rect(this.fillLifeBar.x,this.fillLifeBar.y - this.fillLifeBar.height / 2, this.fillLifeBar.width, this.fillLifeBar.height);
     pop();
   }
 
