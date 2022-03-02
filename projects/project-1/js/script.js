@@ -20,17 +20,21 @@ let mic;
 let sideArrows;
 let upArrow;
 let wasdKeys;
+let customFontItalic;
+let customFont;
 
-//let currentState;
-// let states = [`title`, `instructions`, `game`, `victory`, `loss`];
 let state = `title`; //states: title, instructions, game, victory, loss
 
-//load all assets (images)
+//load all assets
 function preload() {
+  //load images
   mic = loadImage(`assets/images/mic.png`);
   sideArrows = loadImage(`assets/images/side-arrows.png`);
   upArrow = loadImage(`assets/images/up-arrow.png`);
   wasdKeys = loadImage(`assets/images/wasd.png`);
+  //load fonts
+  customFontItalic = loadFont(`assets/fonts/Poppins-Black-Italic.ttf`);
+  customFont = loadFont(`assets/fonts/Poppins-Black.ttf`);
 }
 
 //Sets up the program
@@ -67,6 +71,7 @@ function reset() {
 function draw() {
   //black (slight transparent bg: to create the motion blur effect)
   background(0, 80);
+  textFont(customFontItalic);
 
   if (state === `title`) {
     title();
@@ -126,6 +131,7 @@ function instructions() {
 
 //call all events/ functions/ objects that happen in the game
 function game() {
+  textFont(customFont);
   purpleEnemy.update();
   redEnemy.update();
   blueEnemy.update();
@@ -169,9 +175,7 @@ function victory() {
   background(0); //black bg
   //title
   push();
-  noFill();
-  stroke(255);
-  strokeWeight(3);
+  fill(209, 38, 41);
   textSize(80);
   textAlign(CENTER, CENTER);
   text(`You defeated her!`, width / 2, height / 2);
@@ -182,7 +186,7 @@ function victory() {
   fill(255);
   textSize(34);
   textAlign(CENTER, CENTER);
-  text("Return to title", width / 2, height - 100);
+  text("Return to Title", width / 2, height - 100);
   pop();
 }
 
@@ -204,7 +208,7 @@ function loss() {
   fill(255);
   textSize(34);
   textAlign(CENTER, CENTER);
-  text("Return to title", width / 2, height - 100);
+  text("Return to Title", width / 2, height - 100);
   pop();
 }
 
