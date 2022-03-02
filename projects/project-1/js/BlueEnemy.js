@@ -1,6 +1,6 @@
 //Blue RedEnemy - an extension to the Enemies class
 //Randomly appears and drops fast to the bottom of the canvas
-class BlueEnemy extends Enemies{
+class BlueEnemy extends Enemies {
   //calls the super constructor and adds properties for it to display
   constructor(x, y) {
     super(x, y);
@@ -15,8 +15,8 @@ class BlueEnemy extends Enemies{
     this.activate();
   }
 
-//update()
-//Calls the super update() and all the functions/ events within this class.
+  //update()
+  //Calls the super update() and all the functions/ events within this class.
   update() {
     super.update();
     this.display();
@@ -24,7 +24,7 @@ class BlueEnemy extends Enemies{
     this.checkAppearing();
   }
 
-//checkActive()
+  //checkActive()
   checkActive() {
     // enemy is invisible, randomizes size, and location until it's visible again.
     if (!this.active) {
@@ -40,7 +40,7 @@ class BlueEnemy extends Enemies{
     }
   }
 
-//checkAppearing()
+  //checkAppearing()
   checkAppearing() {
     if (this.active) {
       //starts by fading in
@@ -54,7 +54,7 @@ class BlueEnemy extends Enemies{
     }
   }
 
-//display the blue enemy if it's active
+  //display the blue enemy if it's active
   display() {
     if (this.active) {
       push();
