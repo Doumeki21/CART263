@@ -26,7 +26,7 @@ class BlueEnemy extends Enemies {
 
   //checkActive()
   checkActive() {
-    // enemy is invisible, randomizes size, and location until it's visible again.
+    // if enemy is invisible, randomizes size, and location until it's visible again.
     if (!this.active) {
       this.alpha = 0;
       this.x = random(0, width);

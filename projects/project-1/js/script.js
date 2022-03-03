@@ -1,9 +1,9 @@
 /**
-CART263 - Project 1
+CART263 - Project 1: Rejection
 OLENKA YUEN
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+A game where the player goes on a rampage to defeat their source of jealousy (an honoured student)
+The program uses annyang! and keyboard keys to manipulate the player.
 */
 
 "use strict";
@@ -25,6 +25,7 @@ let customFont;
 
 let state = `title`; //states: title, instructions, game, victory, loss
 
+//preload()
 //load all assets
 function preload() {
   //load images
@@ -37,6 +38,7 @@ function preload() {
   customFont = loadFont(`assets/fonts/Poppins-Black.ttf`);
 }
 
+//setup()
 //Sets up the program
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -44,6 +46,7 @@ function setup() {
   angleMode(DEGREES);
 }
 
+//reset()
 //Reset is called after every round is finished.
 function reset() {
   //If annyang! works, execute the commands
@@ -67,11 +70,11 @@ function reset() {
   bullets = [];
 }
 
+//draw()
 //the structure of events in the program
 function draw() {
-  //black (slight transparent bg: to create the motion blur effect)
-  background(0, 80);
-  textFont(customFontItalic);
+  background(0, 80); //black (slight transparent bg: to create the motion blur effect)
+  textFont(customFontItalic); //Add the italicized customFont to all states except the game
 
   if (state === `title`) {
     title();
@@ -88,6 +91,7 @@ function draw() {
   }
 }
 
+//title()
 //Present the first state of program.
 function title() {
   //title
@@ -106,6 +110,7 @@ function title() {
   pop();
 }
 
+//instructions()
 //The second (instructions) state of the program
 function instructions() {
   fill(255);
@@ -137,6 +142,7 @@ function instructions() {
   pop();
 }
 
+//game()
 //call all events/ functions/ objects that happen in the game
 function game() {
   textFont(customFont);
@@ -157,9 +163,9 @@ function game() {
   for (let i = 0; i < bullets.length; i++) {
     boss.checkHit(bullets[i]);
     bullets[i].update();
+    //if the bullet is not active (aka out of the screen), remove them from the array
     if (!bullets[i].active) {
-      //splice() removes 1 bullet from the array.
-      bullets.splice(i, 1);
+      bullets.splice(i, 1); //splice() removes 1 bullet from the array. (Refer to the README file)
     }
   }
 
@@ -173,11 +179,13 @@ function game() {
   }
 }
 
+//recover()
 //voice command to heal the player
 function recover(heal) {
   player.fillLifeBar.height += 20;
 }
 
+//victory()
 //display the victorious state
 function victory() {
   background(0); //black bg
@@ -198,10 +206,11 @@ function victory() {
   pop();
 }
 
+//loss()
 //display the state of loss
 function loss() {
   background(0); //black bg
-//title
+  //title
   push();
   noFill();
   stroke(255);
@@ -210,7 +219,7 @@ function loss() {
   textAlign(CENTER, CENTER);
   text(`You lost`, width / 2, height / 2);
   pop();
-//click to proceed
+  //click to proceed
   push();
   noStroke();
   fill(255);
@@ -220,6 +229,7 @@ function loss() {
   pop();
 }
 
+//mouseClicked()
 //Click the mouse to change between states
 function mouseClicked() {
   //starting from the title, click to proceed to the instructions
