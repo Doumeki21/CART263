@@ -1,4 +1,4 @@
-//Blue RedEnemy - an extension to the Enemies class
+//Blue enemy - an extension to the Enemies class
 //Randomly appears and drops fast to the bottom of the canvas
 class BlueEnemy extends Enemies {
   //calls the super constructor and adds properties for it to display

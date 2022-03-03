@@ -90,11 +90,19 @@ function draw() {
 
 //Present the first state of program.
 function title() {
+  //title
+  push();
+  textSize(50);
+  fill(209, 38, 41);
+  textAlign(CENTER, CENTER);
+  text(`REJECTION`, width / 2, height / 2);
+  pop();
+  //click to proceed
   push();
   textSize(50);
   fill(255);
   textAlign(CENTER, CENTER);
-  text(`START`, width / 2, height / 2);
+  text(`START`, width / 2, height - 100);
   pop();
 }
 
