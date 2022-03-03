@@ -92,7 +92,7 @@ function draw() {
 function title() {
   //title
   push();
-  textSize(50);
+  textSize(80);
   fill(209, 38, 41);
   textAlign(CENTER, CENTER);
   text(`REJECTION`, width / 2, height / 2);
