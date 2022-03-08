@@ -1,9 +1,15 @@
+#enter-document {
+  
+}
+
+
 #secret-document {
   font-family: monospace;
   font-size: 1.25rem;
   width: 50vw;
   /* to center */
   margin: auto;
+  display: none;
 }
 
 .redacted {

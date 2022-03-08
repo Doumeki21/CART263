@@ -1,31 +1,61 @@
 /**
-Activity 7: Raving Redactionist
+Exercise 6: Raving Redactionist++
 
 PLAN:
-    Create the HTML
-    Create the CSS
-    Make redactions disappear
-    Add user redaction
+    . Improve the visual presentation by working with the CSS and HTML
+
+    - Add a counter to the page that tells the user how many currently revealed secrets there are
+
+    . Use a fading effect to fade the redaction effect in and out (this will likely require .animate())
+
+    .texts with physics?
 */
+
+let timerNumber = 10;
+
+$(`#enter-document`).on(`click`, function() {
+  $(this).hide();
+  $(`#secret-document`).show();
+  //calls the revelation() every 500
+  setInterval(revelation, 500);
+  setInterval(checkTimer, 1000);
+})
+
 
 //click to censor the revealed text
 $(`.top-secret`).on(`click`, redact);
-//calls the revelation() every 500
-setInterval(revelation, 500);
+//make a variable to store the text as a number
+let counterNumber = 0;
+
+
+function checkTimer() {
+  //updates the html text
+  $(`#timer`).text(`${timerNumber}`);
+  //decreases by 1
+  timerNumber--;
+}
 
 //click to censor the revealed text
 function redact(event) {
+  //remove the revealed class
   $(this).removeClass(`revealed`);
+  //add the class for censoring the text
   $(this).addClass(`redacted`);
+  //increase the number (counter)
+  counterNumber++;
+  //dispaly the text in the document
+  $(`#counter`).text(`${counterNumber}`)
 }
 
+//Check to reveal redacted texts if not already
 function revelation() {
   $(`.redacted`).each(attemptReveal);
 }
 
+//
 function attemptReveal() {
   let r = Math.random();
-  //if the generated number is less than 0.1, 
+  //if the generated number is less than 0.1,
   if (r < 0.1) {
     //reveal the blacked out text
     $(this).removeClass(`redacted`);
