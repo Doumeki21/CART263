@@ -11,9 +11,16 @@ PLAN:
     .texts with physics?
 */
 
-let timerNumber = 10;
+let timerNumber = 5;
+//updates the html text
+$(`#timer`).text(`${timerNumber}`);
+//click to censor the revealed text
+$(`.top-secret`).on(`click`, redact);
+//make a variable to store the text as a number
+let counterNumber = 0;
 
 $(`#enter-document`).on(`click`, function() {
+    reset();
   $(this).hide();
   $(`#secret-document`).show();
   //calls the revelation() every 500
@@ -21,30 +28,38 @@ $(`#enter-document`).on(`click`, function() {
   setInterval(checkTimer, 1000);
 })
 
-
-//click to censor the revealed text
-$(`.top-secret`).on(`click`, redact);
-//make a variable to store the text as a number
-let counterNumber = 0;
-
+function reset() {
+  timerNumber = 5;
+  counterNumber = 0;
+}
 
 function checkTimer() {
-  //updates the html text
-  $(`#timer`).text(`${timerNumber}`);
   //decreases by 1
   timerNumber--;
+  //updates the html text
+  $(`#timer`).text(`${timerNumber}`);
+  checkTimeup();
+}
+
+function checkTimeup() {
+  if (timerNumber < 0) {
+    $(`#secret-document`).hide();
+    $(`#exit-document`).show();
+  }
 }
 
 //click to censor the revealed text
 function redact(event) {
+  if ($(this).hasClass(`revealed`)) {
+    //increase the number (counter)
+    counterNumber++;
+    //dispaly the text in the document
+    $(`#counter`).text(`${counterNumber}`)
+  }
   //remove the revealed class
   $(this).removeClass(`revealed`);
   //add the class for censoring the text
   $(this).addClass(`redacted`);
-  //increase the number (counter)
-  counterNumber++;
-  //dispaly the text in the document
-  $(`#counter`).text(`${counterNumber}`)
 }
 
 //Check to reveal redacted texts if not already
@@ -62,3 +77,10 @@ function attemptReveal() {
     $(this).addClass(`revealed`);
   }
 }
+
+$(`#exit-document`).on(`click`, function() {
+  $(this).hide();
+  $(`#enter-document`).show();
+  $(`#exit-document`).hide();
+  clearInterval()
+})
