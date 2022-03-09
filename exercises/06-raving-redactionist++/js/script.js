@@ -3,10 +3,9 @@ Exercise 6: Raving Redactionist++
 
 PLAN:
     . Improve the visual presentation by working with the CSS and HTML
-
     - Add a counter to the page that tells the user how many currently revealed secrets there are
-
-    . Use a fading effect to fade the redaction effect in and out (this will likely require .animate())
+    - Use a fading effect to fade the redaction effect in and out (this will likely require animate())
+    - Add a beginning and ending
 
     .texts with physics?
 */
@@ -25,7 +24,7 @@ $(`#enter-document`).on(`click`, function() {
   $(`#secret-document`).show();
   //calls the revelation() every 500
   setInterval(revelation, 500);
-  setInterval(checkTimer, 1000);
+  setTimeout(checkTimer, 1000);
 })
 
 function reset() {
@@ -34,8 +33,10 @@ function reset() {
 }
 
 function checkTimer() {
-  //decreases by 1
-  timerNumber--;
+  if (timerNumber === 5) {
+    //decreases by 1
+    timerNumber--;
+  }
   //updates the html text
   $(`#timer`).text(`${timerNumber}`);
   checkTimeup();
@@ -82,5 +83,4 @@ $(`#exit-document`).on(`click`, function() {
   $(this).hide();
   $(`#enter-document`).show();
   $(`#exit-document`).hide();
-  clearInterval()
 })

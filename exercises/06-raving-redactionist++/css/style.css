@@ -1,5 +1,9 @@
 #enter-document {
-
+  text-align: center;
+  width: 5vw;
+  margin: auto;
+  padding: 2%;
+  background-color: pink;
 }
 
 #exit-document {
