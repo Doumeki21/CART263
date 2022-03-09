@@ -1,5 +1,6 @@
 /**
 Exercise 6: Raving Redactionist++
+Olenka Yuen
 
 PLAN:
     . Improve the visual presentation by working with the CSS and HTML
@@ -20,47 +21,56 @@ $(`.top-secret`).on(`click`, redact);
 //make a variable to store the text as a number
 let counterNumber = 0;
 
-//start
+//starting screen
+//once clicked on `start`
 $(`#enter-document`).on(`click`, function() {
   reset();
+  //hide this screen
   $(this).hide();
+  //start the game
   $(`#secret-document`).show();
-  //calls the revelation() every 500
+  //calls the revelation() every 500millis
   setInterval(revelation, 500);
+  //if the timer is active, timer decreases by 1 sec
   if (timerActive) {
     interval = setInterval(checkTimer, 1000);
   }
 })
 
+//resets program elements
 function reset() {
   clearInterval(interval);
-  // clearInterval(revelation);
-  // clearInterval(checkTimer);
   timerActive = true;
   timerNumber = 10;
   counterNumber = 0;
-  //updates the html text
+  //updates the html texts
   $(`#timer`).text(`${timerNumber}`);
   $(`#counter`).text(`${counterNumber}`)
 }
 
+//check the state of the timer
 function checkTimer() {
   //updates the html text
   $(`#timer`).text(`${timerNumber}`);
+  //if the timer is b/w 0 and 10 seconds,
     if (timerNumber <= 10 && timerNumber > 0) {
-      //decreases by 1
+      //keep decreasing by 1
       timerNumber--;
     } else {
+      //stop the timer
       timerActive = false;
     }
   checkTimeup();
 }
 
+//Once time is up, switch screens
 function checkTimeup() {
+  //if time is up
   if (!timerActive) {
+    //go to the ending screen
     $(`#secret-document`).hide();
     $(`#exit-document`).show();
-    reset();
+    reset(); //reset elements
   }
 }
 
@@ -78,12 +88,12 @@ function redact(event) {
   $(this).addClass(`redacted`);
 }
 
-//Check to reveal redacted texts if not already
+//Track each redacted text
 function revelation() {
   $(`.redacted`).each(attemptReveal);
 }
 
-//
+//randomize when the text will be revealed
 function attemptReveal() {
   let r = Math.random();
   //if the generated number is less than 0.1,
@@ -94,8 +104,10 @@ function attemptReveal() {
   }
 }
 
+//game/ simulation end
 $(`#exit-document`).on(`click`, function() {
+  //hide this screen
   $(this).hide();
+  //show the starting screen
   $(`#enter-document`).show();
-  $(`#exit-document`).hide();
 })
