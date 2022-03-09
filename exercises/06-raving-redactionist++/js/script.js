@@ -10,7 +10,9 @@ PLAN:
     .texts with physics?
 */
 
-let timerNumber = 5;
+let interval;
+let timerActive = true;
+let timerNumber = 10;
 //updates the html text
 $(`#timer`).text(`${timerNumber}`);
 //click to censor the revealed text
@@ -18,34 +20,47 @@ $(`.top-secret`).on(`click`, redact);
 //make a variable to store the text as a number
 let counterNumber = 0;
 
+//start
 $(`#enter-document`).on(`click`, function() {
-    reset();
+  reset();
   $(this).hide();
   $(`#secret-document`).show();
   //calls the revelation() every 500
   setInterval(revelation, 500);
-  setTimeout(checkTimer, 1000);
+  if (timerActive) {
+    interval = setInterval(checkTimer, 1000);
+  }
 })
 
 function reset() {
-  timerNumber = 5;
+  clearInterval(interval);
+  // clearInterval(revelation);
+  // clearInterval(checkTimer);
+  timerActive = true;
+  timerNumber = 10;
   counterNumber = 0;
+  //updates the html text
+  $(`#timer`).text(`${timerNumber}`);
+  $(`#counter`).text(`${counterNumber}`)
 }
 
 function checkTimer() {
-  if (timerNumber === 5) {
-    //decreases by 1
-    timerNumber--;
-  }
   //updates the html text
   $(`#timer`).text(`${timerNumber}`);
+    if (timerNumber <= 10 && timerNumber > 0) {
+      //decreases by 1
+      timerNumber--;
+    } else {
+      timerActive = false;
+    }
   checkTimeup();
 }
 
 function checkTimeup() {
-  if (timerNumber < 0) {
+  if (!timerActive) {
     $(`#secret-document`).hide();
     $(`#exit-document`).show();
+    reset();
   }
 }
 
