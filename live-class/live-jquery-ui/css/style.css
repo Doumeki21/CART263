@@ -1,13 +1,28 @@
-#poem {
-  font-size: 1.5rem;
+#prison {
+  width: 30vw;
+  height: 30vw;
+  border: 5px dashed black;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+
 }
 
-#answer {
-  width: 10rem;
-  height: 2rem;
-  border: 1px dashed black;
+.prisoner {
+  font-size: 2rem;
 }
 
-.found {
-  color: red;
+.prisoner-dragging {
+  color: #4444ff;
+  text-decoration: underline;
+}
+
+#escape-tunnel {
+  width: 5vw;
+  height: 5vw;
+  border: 2px dashed black;
+  border-radius: 100%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
 }
