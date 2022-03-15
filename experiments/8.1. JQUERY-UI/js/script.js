@@ -1,3 +1,5 @@
+"use strict";
+
 $(`#escape-tunnel`).hide();
 
 $(`#introduction-dialog`).dialog({
@@ -5,18 +7,18 @@ $(`#introduction-dialog`).dialog({
   modal: true,
   resizable: false,
   buttons: {
-    "Imagination": function() {
+    Imagination: function () {
       //disable walls
       $(`#prisoner`).draggable(`option`, `containment`, `none`);
       $(this).dialog(`close`);
     },
-    "Escape tunnel": function() {
+    "Escape tunnel": function () {
       $(`#escape-tunnel`).show({
         effect: `blind`,
       });
       $(this).dialog(`close`);
-    }
-  }
+    },
+  },
 });
 
 $(`#prisoner`).effect({
@@ -24,24 +26,24 @@ $(`#prisoner`).effect({
   duration: 1000,
   distance: 7,
   times: 10,
-  complete: makePrisonerDraggable
+  complete: makePrisonerDraggable,
 });
 
-// $(`#escape-tunnnel`).droppable({
-//   drop: function(event, ui) {
-//     ui.draggable.remove();
-//     $(this).hide({
-//       effect: `blind`,
-//       duration: 500
-//     });
-//   },
-// });
+$(`#escape-tunnel`).droppable({
+  drop: function(event, ui) {
+    ui.draggable.remove();
+    $(this).hide({
+      effect: `blind`,
+      duration: 500
+    });
+  },
+});
 
 function makePrisonerDraggable() {
   $(`#prisoner`).draggable({
     // axis: `x`,
     containment: `#prison`,
-    start: function(event, ui) {
+    start: function (event, ui) {
       $(this).addClass(`prisoner-dragging`, 750);
     },
     stop: function (event, ui) {
