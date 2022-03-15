@@ -1,3 +1,24 @@
+$(`#escape-tunnel`).hide();
+
+$(`#introduction-dialog`).dialog({
+  //modal prevents user from interacting anywhere else until they close the dialog.
+  modal: true,
+  resizable: false,
+  buttons: {
+    "Imagination": function() {
+      //disable walls
+      $(`#prisoner`).draggable(`option`, `containment`, `none`);
+      $(this).dialog(`close`);
+    },
+    "Escape tunnel": function() {
+      $(`#escape-tunnel`).show({
+        effect: `blind`,
+      });
+      $(this).dialog(`close`);
+    }
+  }
+});
+
 $(`#prisoner`).effect({
   effect: `shake`,
   duration: 1000,
