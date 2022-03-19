@@ -6,17 +6,30 @@ class Play extends Phaser.Scene {
   }
 
   create() {
-    //ccreate wall
-    this.wall = this.physics.add.image(100, 100, `wall`);
-    //so tht wall doesn't move when collided
-    this.wall.setImmovable(true);
-    this.wall.setTint(0xdd3333);
+    //create walls
+    this.walls = this.physics.add.group({
+      key: `wall`,
+      immovable: true,
+      quantity: 100,
+    });
+    this.walls.children.each(function(wall) {
+      let x = Math.random()*this.sys.canvas.width;
+      let y = Math.random()*this.sys.canvas.height;
+      wall.setPosition(x, y);
+      wall.setTint(0xdd3333);
+    }, this);
 
-    //create collectable
-    this.collectable = this.physics.add.image(300, 300, `wall`);
-    this.collectable.setTint(0x33dd33);
-    this.collectable2 = this.physics.add.image(400, 400, `wall`);
-    this.collectable2.setTint(0x33dd33);
+    //create collectables
+    this.collectables = this.physics.add.group({
+      key: `wall`,
+      quantity: 100,
+    });
+    this.collectables.children.each(function(collectable) {
+      let x = Math.random()*this.sys.canvas.width;
+      let y = Math.random()*this.sys.canvas.height;
+      collectable.setPosition(x, y);
+      collectable.setTint(0x33dd33);
+    }, this);
 
     //create player
     this.avatar = this.physics.add.sprite(200, 200, `avatar`);
@@ -24,14 +37,15 @@ class Play extends Phaser.Scene {
     this.createAnimations();
     // this.avatar.setVelocityY(100);
     this.avatar.play(`avatar-idle`);
+    //avatar is bounded by the canvas edges
     this.avatar.setCollideWorldBounds(true);
 
     //Actions
     //avatar collides with wall.
-    this.physics.add.collider(this.avatar, this.wall);
-    //this keeps collectItem refering to the objects
-    this.physics.add.overlap(this.avatar, this.collectable, this.collectItem, null, this);
-    this.physics.add.overlap(this.avatar, this.collectable2, this.collectItem, null, this);
+    this.physics.add.collider(this.avatar, this.walls);
+    //avatar collects items
+    //this >> keeps collectItem refering to the objects
+    this.physics.add.overlap(this.avatar, this.collectables, this.collectItem, null, this);
 
     //the handleinput
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -71,6 +85,7 @@ class Play extends Phaser.Scene {
     this.anims.create({
       key: `avatar-moving`,
       frames: this.anims.generateFrameNumbers(`avatar`, {
+        //depends on frames from the spritesheet: avatar has 4
         start: 0,
         end: 3
       }),
