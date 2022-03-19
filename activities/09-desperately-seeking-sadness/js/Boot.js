@@ -13,7 +13,7 @@ class Boot extends Phaser.Scene {
     //use the arrow function to remain in the same "this" context
     this.load.on(`complete`, () => {
       this.scene.start(`play`);
-    })
+    });
   }
 
   create() {

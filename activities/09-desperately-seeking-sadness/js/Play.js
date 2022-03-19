@@ -8,8 +8,10 @@ class Play extends Phaser.Scene {
   create() {
     //create avatar
     this.avatar = this.physics.add.sprite(400, 300, `avatar`);
+    //so avatar doesn't go outside of the canvas
     this.avatar.setCollideWorldBounds(true);
 
+    //create the thumbs-down collectable
     let x = Math.random() * this.sys.canvas.width;
     let y = Math.random() * this.sys.canvas.height;
     this.sadness = this.physics.add.sprite(x, y, `thumbs-down`);
@@ -25,7 +27,7 @@ class Play extends Phaser.Scene {
   getSad(avatar, sadness) {
     let x = Math.random() * this.sys.canvas.width;
     let y = Math.random() * this.sys.canvas.height;
-    this.sadness = setPosition(x, y);
+    this.sadness.setPosition(x, y);
   }
 
   update() {
