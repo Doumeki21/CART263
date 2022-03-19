@@ -6,11 +6,19 @@ class Play extends Phaser.Scene {
   }
 
   create() {
-    //the wall
+    //ccreate wall
     this.wall = this.physics.add.image(100, 100, `wall`);
+    //so tht wall doesn't move when collided
+    this.wall.setImmovable(true);
     this.wall.setTint(0xdd3333);
 
-    //the player
+    //create collectable
+    this.collectable = this.physics.add.image(300, 300, `wall`);
+    this.collectable.setTint(0x33dd33);
+    this.collectable2 = this.physics.add.image(400, 400, `wall`);
+    this.collectable2.setTint(0x33dd33);
+
+    //create player
     this.avatar = this.physics.add.sprite(200, 200, `avatar`);
     //animation settings
     this.createAnimations();
@@ -18,25 +26,37 @@ class Play extends Phaser.Scene {
     this.avatar.play(`avatar-idle`);
     this.avatar.setCollideWorldBounds(true);
 
+    //Actions
+    //avatar collides with wall.
+    this.physics.add.collider(this.avatar, this.wall);
+    //this keeps collectItem refering to the objects
+    this.physics.add.overlap(this.avatar, this.collectable, this.collectItem, null, this);
+    this.physics.add.overlap(this.avatar, this.collectable2, this.collectItem, null, this);
+
     //the handleinput
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
+  collectItem(avatar, collectable) {
+    collectable.destroy();
+  }
+
   update() {
     this.avatar.setVelocity(0);
+    let speed = 500;
 
     if(this.cursors.left.isDown) {
-      this.avatar.setVelocityX(-300);
+      this.avatar.setVelocityX(-speed);
     }
     else if (this.cursors.right.isDown) {
-      this.avatar.setVelocityX(300);
+      this.avatar.setVelocityX(speed);
     }
 
     if(this.cursors.up.isDown) {
-      this.avatar.setVelocityY(-300);
+      this.avatar.setVelocityY(-speed);
     }
     else if (this.cursors.down.isDown) {
-      this.avatar.setVelocityY(300);
+      this.avatar.setVelocityY(speed);
     }
 
     if (this.avatar.body.velocity.x !== 0 || this.avatar.body.velocity.y !== 0) {
