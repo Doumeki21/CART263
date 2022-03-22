@@ -4,9 +4,11 @@ class Platform {
     this.y = y;
     this.width = 400;
     this.height = 10;
+    this.active = true;
   }
 
   update() {
+    this.move();
     this.display();
   }
 
@@ -14,9 +16,13 @@ class Platform {
 
   }
 
+  move() {
+    this.x = constrain(mouseX, 0, width);
+  }
+
   display() {
     stroke(255);
-    // rectMode(CENTER, CENTER);
+    rectMode(CENTER);
     rect(this.x, this.y, this.width, this.height);
   }
 }

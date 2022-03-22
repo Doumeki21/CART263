@@ -39,7 +39,7 @@ Description of setup
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  platform = new Platform(mouseX, windowHeight/2);
+  platform = new Platform(windowWidth/2, windowHeight/3);
   bouncingBall = new BouncingBall(windowWidth/2, 0);
 }
 
