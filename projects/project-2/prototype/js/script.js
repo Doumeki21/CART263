@@ -1,17 +1,25 @@
 /**
-Title of Project
-Author Name
+project 2 - prototype
+Olenka Yuen
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+Gameplay inspirations: Whack-a-Mole, helix jump, stack ball, rolly vortex
+
+A different POV of Whack-a-Mole
+>> What's the mole up to?
+
+An adventure of the mole as in the animal? Or mole that grows on skin?
+
+1. create bouncing Ball
+2. array of platforms - movable with the mouse
+3. move the platforms up
+4. deactivate the platforms above the ball, so prev platforms don't prevent ball from bouncing
 */
 
 "use strict";
 
+let bouncingBall;
 
-/**
-Description of preload
-*/
+//maybe add images later??
 function preload() {
 
 }
@@ -21,7 +29,9 @@ function preload() {
 Description of setup
 */
 function setup() {
+  createCanvas(windowWidth, windowHeight);
 
+  bouncingBall = new BouncingBall(windowWidth/2, 0);
 }
 
 
@@ -29,5 +39,7 @@ function setup() {
 Description of draw()
 */
 function draw() {
+  background(0);
 
+  bouncingBall.update();
 }
