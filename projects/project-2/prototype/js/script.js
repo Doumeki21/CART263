@@ -14,6 +14,11 @@ An adventure of the mole as in the animal? Or mole that grows on skin?
 2. array of platforms - movable with the mouse
 3. move the platforms up
 4. deactivate the platforms above the ball, so prev platforms don't prevent ball from bouncing
+
+ideas:
+array of platforms >> every other controls in the opposite direction.
+every next level gets weirder + harder
+moving the
 */
 
 "use strict";

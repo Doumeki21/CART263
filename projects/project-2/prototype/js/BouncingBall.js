@@ -44,7 +44,7 @@ class BouncingBall {
   collision(platform) {
     //once ball bounces off from the Platform,
     if (this.y + this.size / 2 > platform.y - platform.height / 2 && this.y - this.size / 2 < platform.y + platform.height / 2) {
-      if (this.x > platform.hole.x - platform.hole.width / 2 && this.x  < platform.hole.x + platform.hole.width / 2) {
+      if (this.x > platform.hole.currentX - platform.hole.width / 2 && this.x  < platform.hole.currentX + platform.hole.width / 2) {
          console.log(`pass though`);
        }
        else {
