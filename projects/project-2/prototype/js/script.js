@@ -18,13 +18,14 @@ An adventure of the mole as in the animal? Or mole that grows on skin?
 "use strict";
 
 let bouncingBall;
+let platform;
 
-let platform = {
-  x: undefined,
-  y: undefined,
-  width: 200,
-  height: 10,
-}
+// let platform = {
+//   x: undefined,
+//   y: undefined,
+//   width: 200,
+//   height: 10,
+// }
 
 //maybe add images later??
 function preload() {
@@ -38,6 +39,7 @@ Description of setup
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
+  platform = new Platform(mouseX, windowHeight/2);
   bouncingBall = new BouncingBall(windowWidth/2, 0);
 }
 
@@ -49,10 +51,11 @@ function draw() {
   background(0);
 
   bouncingBall.update();
+  platform.update();
 
-  platform.x = mouseX;
-  platform.y = windowHeight/2;
-  stroke(255);
-  rectMode(CENTER);
-  rect(platform.x, platform.y, platform.width, platform.height);
+  // platform.x = mouseX;
+  // platform.y = windowHeight/2;
+  // stroke(255);
+  // rectMode(CENTER);
+  // rect(platform.x, platform.y, platform.width, platform.height);
 }
