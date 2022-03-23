@@ -1,3 +1,5 @@
+//the platform class
+//the user controls the platform using the keyboard keys (and the mouse).
 class Platform {
   constructor(x, y) {
     //the platform
@@ -5,21 +7,20 @@ class Platform {
     this.y = y;
     this.width = width;
     this.height = 10;
-    this.active = true;
+    this.movingSpeed = 10;
+    // this.active = true;
 
     //danger zone
     this.danger = {
-      initialX: random(0, width),
       currentX: random(0, width),
       y: this.y,
-      width: random(20, 500),
+      width: random(20, 300),
       height: this.height,
       // amount:
     };
 
     //hole
     this.hole = {
-      initialX: random(0, width),
       currentX: random(0, width),
       y: this.y,
       width: random(50, 200),
@@ -27,21 +28,39 @@ class Platform {
     };
   }
 
+  //calls all functions from this class.
   update() {
-    this.move();
     this.checkOverlap();
+    this.move();
     this.displayPlatform();
     this.displayHole();
     this.displayDanger();
   }
 
+  //If the generated platform objects overlap each other, then regenerate a new position for each.
+  checkOverlap() {
+    if (
+      this.hole.currentX - this.hole.width / 2 <
+        this.danger.currentX + this.danger.width / 2 &&
+      this.hole.currentX + this.hole.width / 2 >
+        this.danger.currentX - this.danger.width / 2
+    ) {
+      this.danger.currentX = random(0, width);
+      this.hole.currentX = random(0, width);
+    }
+  }
+
+  //MAKE A FUNCTION: when the objects move out of the canvas, display them back from the opposite side.
+
+  //TO BE USED LATER FOR WHEN THERE'S MORE PLATFORMS!
   // //if the ball pass through the platform, the platform disappears
   // passThrough() {
   //   if (this.y + this.size / 2 > platform.y - platform.height / 2 && this.y - this.size / 2 < platform.y + platform.height / 2)
   // }
 
-  //handleinput
+  //the Handleinput
   move() {
+    //TO BE USED LATER FOR MOUSE INPUT
     // //the platforms follows the mouse on the x-axis.
     // this.x = constrain(mouseX, 0, width);
     //
@@ -51,27 +70,19 @@ class Platform {
     // this.hole.currentX += dx;
     // this.danger.currentX += dx;
 
+    //control the platform with left and right arrow keys.
     if (keyIsDown(LEFT_ARROW)) {
-      this.hole.currentX -= 5;
-      this.danger.currentX -= 5;
+      this.hole.currentX -= this.movingSpeed;
+      this.danger.currentX -= this.movingSpeed;
     }
 
     if (keyIsDown(RIGHT_ARROW)) {
-      this.hole.currentX += 5;
-      this.danger.currentX += 5;
+      this.hole.currentX += this.movingSpeed;
+      this.danger.currentX += this.movingSpeed;
     }
   }
 
-  checkOverlap() {
-    if (
-      this.hole.currentX - this.hole.width > this.danger.currentX + this.danger.width &&
-      this.hole.currentX + this.hole.width < this.danger.currentX - this.danger.width
-    ) {
-      this.danger.currentX = random(0, width);
-      this.hole.currentX = random(0, width);
-    }
-  }
-
+  //display the white platform
   displayPlatform() {
     push();
     stroke(255);
@@ -80,6 +91,7 @@ class Platform {
     pop();
   }
 
+  //display the black hole
   displayHole() {
     push();
     noStroke();
@@ -89,6 +101,7 @@ class Platform {
     pop();
   }
 
+  //display the red dangerzones
   displayDanger() {
     push();
     noStroke();

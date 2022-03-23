@@ -1,3 +1,5 @@
+//the bouncingBall class
+//this ball bounces up and down on the canvas vertically
 class BouncingBall {
   constructor(x, y) {
     //properties for its characteristics, its dropping speed and when they disappear.
@@ -22,6 +24,7 @@ class BouncingBall {
     this.display();
   }
 
+  //All the gravity stuff referred to from exercise 5: juggle garden of CART253
   //ball goes down due to gravity.
   gravity(force) {
     this.ay += force;
@@ -38,15 +41,19 @@ class BouncingBall {
     //constraining the ball at reasonable speed
     this.vx = constrain(this.vx, -this.maxSpeed, this.maxSpeed);
     this.vy = constrain(this.vy, -this.maxSpeed, this.maxSpeed);
-
   }
 
+//check when the ball bounces.
   collision(platform) {
-    //once ball bounces off from the Platform,
+    //once the ball bounces off from the Platform,
     if (this.y + this.size / 2 > platform.y - platform.height / 2 && this.y - this.size / 2 < platform.y + platform.height / 2) {
+      //and if the part is a hole,
       if (this.x > platform.hole.currentX - platform.hole.width / 2 && this.x  < platform.hole.currentX + platform.hole.width / 2) {
+        //then pass trhough
+        //WILL MAKE A POINT SYSTEM HERE LATER!
          console.log(`pass though`);
        }
+       //else, bounce back up
        else {
           this.vy = -this.vy;
           this.ay = 0;
@@ -54,20 +61,13 @@ class BouncingBall {
     }
   }
 
-  // passThrough(platform) {
-  //
-  //   if (this.y + this.size / 2 > platform.hole.y - platform.hole.height / 2 ) {
-  //
+  // checkBounce() {
+  //   //If the ball touches the bottom of canvas, bounce.
+  //   if (this.y - this.size / 2 > height) {
+  //       this.vy = -this.vy;
+  //       this.ay = 0;
   //   }
   // }
-
-  checkBounce() {
-    //If the ball touches the bottom of canvas, bounce
-    if (this.y - this.size / 2 > height) {
-        this.vy = -this.vy;
-        this.ay = 0;
-    }
-  }
 
   //display the BouncingBall
   display() {
