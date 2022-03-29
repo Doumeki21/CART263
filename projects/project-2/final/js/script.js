@@ -1,11 +1,8 @@
 /**
-project 2 - prototype
+project 2 - Final project
 Olenka Yuen
 
 Gameplay inspirations: Whack-a-Mole, helix jump, stack ball, rolly vortex
-
-A different POV of Whack-a-Mole
->> What's the mole up to?
 
 An adventure of the mole as in the animal?
 Or mole that grows on skin?
@@ -27,7 +24,9 @@ moving parts of the platform at one point
 
 //make variables for every class
 let bouncingBall;
-let platform;
+let platforms = [];
+let maxPlatforms = 4;
+let state = `level1`;
 
 //maybe add images later??
 function preload() {
@@ -38,14 +37,40 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  platform = new Platform(windowWidth/2, windowHeight/3); // A reaonably placed platform for the first one.
-  bouncingBall = new BouncingBall(windowWidth/2, 0);//create the bouncing ball from the top of the canvas.
+  for (let i = 0; i < maxPlatforms; i++) {
+    let spaceBetweenPlatforms = 200;
+    let firstPlatformY = windowHeight/3;
+    let platformY = firstPlatformY + spaceBetweenPlatforms*i;
+
+    let platform = new Platform(windowWidth/2, platformY); // A reasonably placed platform for the first one.
+    platforms.push(platform); //put each platform inside the array
+  }
+
+  bouncingBall = new BouncingBall(windowWidth/2, -50);//create the bouncing ball from the top of the canvas.
 }
 
 //draw the objects
 function draw() {
-  background(0, 90); // black background
+  background(0, 90); // black background and alpha trail
+  // if (state === `level1`) {
+  //   level1();
+  // }
+  // else if (state === `level2`) {
+  //   level2();
+  // }
 
-  bouncingBall.update();
-  platform.update();
+  for (let i = 0; i < platforms.length; i++) {
+      platforms[i].update();
+      bouncingBall.update(platforms[i]);
+  }
 }
+
+// function level2() {
+//
+// }
+
+// function mouseDragged() {
+//   if (state === `level2`) {
+//
+//   }
+// }

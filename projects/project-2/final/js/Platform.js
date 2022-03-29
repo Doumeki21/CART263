@@ -8,11 +8,11 @@ class Platform {
     this.width = width;
     this.height = 10;
     this.movingSpeed = 10;
-    // this.active = true;
+    this.active = true;
 
     //danger zone
     this.danger = {
-      currentX: random(0, width),
+      x: random(0, width),
       y: this.y,
       width: random(20, 300),
       height: this.height,
@@ -21,42 +21,42 @@ class Platform {
 
     //hole
     this.hole = {
-      currentX: random(0, width),
+      x: random(0, width),
       y: this.y,
       width: random(50, 200),
       height: this.height,
     };
   }
 
-  //calls all functions from this class.
+  //calls all functions from this class when it's active.
   update() {
-    this.checkOverlap();
-    this.move();
-    this.displayPlatform();
-    this.displayHole();
-    this.displayDanger();
-  }
+    if (this.active) {
+      // //level 2: 1 hole draggable by the mouse
+      // if (state === `level2`) {
+      //   //function
+      // }
+      // //level3: ball's outline changes color (to match the hole color) after every platform
 
-  //If the generated platform objects overlap each other, then regenerate a new position for each.
-  checkOverlap() {
-    if (
-      this.hole.currentX - this.hole.width / 2 <
-        this.danger.currentX + this.danger.width / 2 &&
-      this.hole.currentX + this.hole.width / 2 >
-        this.danger.currentX - this.danger.width / 2
-    ) {
-      this.danger.currentX = random(0, width);
-      this.hole.currentX = random(0, width);
+      this.regenerate();
+      this.move();
+      this.displayPlatform();
+      this.displayHole();
+      this.displayDanger();
     }
   }
 
-  //MAKE A FUNCTION: when the objects move out of the canvas, display them back from the opposite side.
-
-  //TO BE USED LATER FOR WHEN THERE'S MORE PLATFORMS!
-  // //if the ball pass through the platform, the platform disappears
-  // passThrough() {
-  //   if (this.y + this.size / 2 > platform.y - platform.height / 2 && this.y - this.size / 2 < platform.y + platform.height / 2)
-  // }
+  //If the generated platform objects overlap each other, then regenerate a new position for each.
+  regenerate() {
+    if (
+      this.hole.x - this.hole.width / 2 <
+        this.danger.x + this.danger.width / 2 &&
+      this.hole.x + this.hole.width / 2 >
+        this.danger.x - this.danger.width / 2
+    ) {
+      this.danger.x = random(0, width);
+      this.hole.x = random(0, width);
+    }
+  }
 
   //the Handleinput
   move() {
@@ -67,18 +67,32 @@ class Platform {
     // let dx = mouseX - pmouseX;
     //
     // //second values = controls/tracks where the object goes.
-    // this.hole.currentX += dx;
-    // this.danger.currentX += dx;
+    // this.hole.x += dx;
+    // this.danger.x += dx;
 
     //control the platform with left and right arrow keys.
+    //platfrom objects move left
     if (keyIsDown(LEFT_ARROW)) {
-      this.hole.currentX -= this.movingSpeed;
-      this.danger.currentX -= this.movingSpeed;
+      this.hole.x -= this.movingSpeed;
+      this.danger.x -= this.movingSpeed;
+    }
+    //platfrom objects move right
+    if (keyIsDown(RIGHT_ARROW)) {
+      this.hole.x += this.movingSpeed;
+      this.danger.x += this.movingSpeed;
     }
 
-    if (keyIsDown(RIGHT_ARROW)) {
-      this.hole.currentX += this.movingSpeed;
-      this.danger.currentX += this.movingSpeed;
+    // Wrap the danger zones to the other side
+    if (this.danger.x + this.danger.width < 0) {
+      this.danger.x += width + this.danger.width;
+    } else if (this.danger.x - this.danger.width > width) {
+      this.danger.x -= width + this.danger.width;
+    }
+    // Wrap the holes to the other side
+    if (this.hole.x + this.hole.width < 0) {
+      this.hole.x += width + this.hole.width;
+    } else if (this.hole.x - this.hole.width > width) {
+      this.hole.x -= width + this.hole.width;
     }
   }
 
@@ -97,7 +111,7 @@ class Platform {
     noStroke();
     fill(100);
     rectMode(CENTER);
-    rect(this.hole.currentX, this.hole.y, this.hole.width, this.hole.height);
+    rect(this.hole.x, this.hole.y, this.hole.width, this.hole.height);
     pop();
   }
 
@@ -108,7 +122,7 @@ class Platform {
     fill(255, 0, 0);
     rectMode(CENTER);
     rect(
-      this.danger.currentX,
+      this.danger.x,
       this.danger.y,
       this.danger.width,
       this.danger.height
