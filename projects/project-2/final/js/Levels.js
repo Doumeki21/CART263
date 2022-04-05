@@ -1,0 +1,9 @@
+class Levels {
+  constructor() {
+
+  }
+
+  update() {
+    
+  }
+}

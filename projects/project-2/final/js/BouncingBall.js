@@ -77,7 +77,7 @@ class BouncingBall {
   }
 
   passHole(platform) {
-    let platformOffsetY = 50;
+    let platformOffsetY = 80;
     //If the ball is underneath the platform,
     if (
       this.y + this.size / 2 >
