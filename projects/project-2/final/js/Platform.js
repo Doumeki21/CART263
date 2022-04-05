@@ -7,7 +7,7 @@ class Platform {
     this.y = y;
     this.width = width;
     this.height = 10;
-    this.movingSpeed = 10;
+    this.movingSpeed = 15;
     this.active = true;
 
     //danger zone
@@ -23,7 +23,7 @@ class Platform {
     this.hole = {
       x: random(0, width),
       y: this.y,
-      width: random(50, 200),
+      width: random(65, 200),
       height: this.height,
     };
   }
@@ -71,12 +71,12 @@ class Platform {
     // this.danger.x += dx;
 
     //control the platform with left and right arrow keys.
-    //platfrom objects move left
+    //platform objects move left
     if (keyIsDown(LEFT_ARROW)) {
       this.hole.x -= this.movingSpeed;
       this.danger.x -= this.movingSpeed;
     }
-    //platfrom objects move right
+    //platform objects move right
     if (keyIsDown(RIGHT_ARROW)) {
       this.hole.x += this.movingSpeed;
       this.danger.x += this.movingSpeed;

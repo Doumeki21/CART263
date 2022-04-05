@@ -9,7 +9,7 @@ class BouncingBall {
     this.vy = 2;
     this.ax = 0;
     this.ay = 0;
-    this.maxSpeed = 5;
+    this.maxSpeed = 10;
     this.size = 40;
     this.lives = {
       x: 50,
@@ -19,19 +19,40 @@ class BouncingBall {
       currentLives: 5,
       maxLives: 5,
     };
+    this.redStroke = {
+      r:255,
+      g:117,
+      b:138,
+    }
+    this.blackStroke = {
+      r:212,
+      g:212,
+      b:212,
+    }
+    this.currentStroke = {
+      r:undefined,
+      g:undefined,
+      b:undefined,
+    }
+    this.allStrokes = [this.redStroke, this.blackStroke];
+    this.changeStroke = false;
     this.lives.currentLives = this.lives.maxLives;
   }
 
   //A single function that contains everything from this class to call in the main script.
-  update(platform) {
-    this.gravity(0.001);
+  update() {
+    this.gravity(0.01);
     this.move();
-    this.collision(platform);
-    this.passHole(platform);
-    this.touchDanger(platform);
     // this.checkPassLvl(); //pass lvl
     this.displayLives();
     this.displayBall();
+  }
+
+//called in levels
+  handlePlatform(platform) {
+    this.collision(platform);
+    this.passHole(platform);
+    this.touchDanger(platform);
   }
 
   //All the gravity stuff referred to from exercise 5: juggle garden of CART253
@@ -76,6 +97,14 @@ class BouncingBall {
     }
   }
 
+  randomizeBallStroke(platform) {
+    if (platform.active === false) {
+        this.currentStroke = random(this.allStrokes);
+        // this.changeStroke = false;
+        console.log(`randomizeBallStroke`);
+    }
+  }
+
   passHole(platform) {
     let platformOffsetY = 80;
     //If the ball is underneath the platform,
@@ -85,6 +114,8 @@ class BouncingBall {
     ) {
       //take it out.
       platform.active = false;
+
+      return true;
     }
   }
 
@@ -116,9 +147,10 @@ class BouncingBall {
 
   //display the BouncingBall
   displayBall() {
+
     push();
+    stroke(this.currentStroke.r, this.currentStroke.g, this.currentStroke.b);
     strokeWeight(10);
-    stroke(255, 117, 138);
     fill(255);
     ellipse(this.x, this.y, this.size);
     pop();
