@@ -15,7 +15,7 @@ class Level1 extends Levels {
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
     }
-    this.bouncingBall = new BouncingBall(windowWidth / 2, -50); //create the bouncing ball from the top of the canvas.
+    this.bouncingBall = new BouncingBall(windowWidth / 2, -50, 5); //create the bouncing ball from the top of the canvas.
     //set the ball color
     this.bouncingBall.currentStroke.r = this.bouncingBall.redStroke.r;
     this.bouncingBall.currentStroke.g = this.bouncingBall.redStroke.g;
@@ -46,7 +46,8 @@ class Level1 extends Levels {
   changeLevels() {
     //if the ball reaches the bottom of screen, cahnge changeLevels
     if (this.bouncingBall.y > height) {
-      state = new Level2();
+      state = new Level2(this.bouncingBall.lives.currentLives);
+
     }
   }
 }

@@ -1,7 +1,8 @@
 //the bouncingBall class
 //this ball bounces up and down on the canvas vertically
-class BouncingBall {
-  constructor(x, y) {
+class BouncingBall extends Levels{
+  constructor(x, y, previousLevelLives) {
+    super();
     //properties for its characteristics, its dropping speed and when they disappear.
     this.x = x;
     this.y = y;
@@ -16,8 +17,8 @@ class BouncingBall {
       y: 50,
       size: 25,
       fill: 255,
-      currentLives: 5,
-      maxLives: 5,
+      currentLives: undefined,
+      initialLives: previousLevelLives,
     };
 
     // pippin's code
@@ -27,11 +28,12 @@ class BouncingBall {
     this.currentStroke = this.blackStroke; // Start as black so it matches the standard hole
     this.allStrokes = [this.redStroke, this.blackStroke];
     this.changeStroke = false;
-    this.lives.currentLives = this.lives.maxLives;
+    this.lives.currentLives = this.lives.initialLives;
   }
 
   //A single function that contains everything from this class to call in the main script.
   update() {
+    super.update();
     this.gravity(0.01);
     this.move();
     // this.checkPassLvl(); //pass lvl

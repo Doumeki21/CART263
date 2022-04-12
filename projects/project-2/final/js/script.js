@@ -30,13 +30,12 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  state = new Level1();
+  state = new Level4();
 }
 
 //draw the objects
 function draw() {
   state.update();
-
 }
 
 // function mouseDragged() {

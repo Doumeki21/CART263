@@ -1,5 +1,5 @@
 class Level2 extends Levels {
-  constructor() {
+  constructor(previousLevelLives) {
     super();
     this.bouncingBall;
     this.platforms = [];
@@ -14,7 +14,7 @@ class Level2 extends Levels {
       this.platforms.push(platform); //put each platform inside the array
     }
 
-    this.bouncingBall = new BouncingBall(windowWidth / 2, -50); //create the bouncing ball from the top of the canvas.
+    this.bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing ball from the top of the canvas.
 
     // //set the ball color
     // this.bouncingBall.currentStroke.r = this.bouncingBall.redStroke.r;
@@ -83,7 +83,7 @@ class Level2 extends Levels {
 
   changeLevels() {
     if (this.bouncingBall.y > height) {
-      state = new Level2();
+      state = new Level4(this.bouncingBall.lives.currentLives);
     }
   }
 }
