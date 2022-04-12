@@ -24,7 +24,7 @@ class Platform {
       x: random(0, width),
       y: this.y,
       width: random(65, 200),
-      color: color(212, 212, 212),//part of pippin's code ""
+      color: color(100, 100, 100),//part of pippin's code ""
       height: this.height,
     };
   }

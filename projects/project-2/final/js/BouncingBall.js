@@ -23,7 +23,7 @@ class BouncingBall extends Levels{
 
     // pippin's code
     this.redStroke = color(255, 117, 138); // Easier to define colors this way
-    this.blackStroke = color(212, 212, 212); // As above
+    this.blackStroke = color(100, 100, 100); // As above
     // END NEW
     this.currentStroke = this.blackStroke; // Start as black so it matches the standard hole
     this.allStrokes = [this.redStroke, this.blackStroke];

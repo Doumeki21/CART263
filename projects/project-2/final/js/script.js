@@ -30,8 +30,8 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  // state = new Level4(5);
-  state = new Level1();
+  state = new Level4(5);
+  // state = new Level1();
 }
 
 //draw the objects

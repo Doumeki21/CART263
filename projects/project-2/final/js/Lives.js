@@ -29,6 +29,14 @@ class Lives {
     }
   }
 
+  touchSquare(bouncingBall, square) {
+    if (square.y + square.size / 2 > bouncingBall.y - bouncingBall.size / 2 &&
+    square.y - square.size / 2 < bouncingBall.y + bouncingBall.size / 2 && square.x + square.size / 2 > bouncingBall.x - bouncingBall.size / 2 &&
+    square.x - square.size / 2 < bouncingBall.x + bouncingBall.size / 2 ) {
+      this.lives.currentLives--;
+    }
+  }
+
   displayLives() {
     push();
     let x = this.lives.x;
