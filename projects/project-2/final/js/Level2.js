@@ -1,11 +1,12 @@
-class Level2 extends Levels {
+class Level2 extends Level1 {
   constructor(previousLevelLives) {
     super();
+    this.currentLevel = `LEVEL 2`;
     this.bouncingBall;
     this.platforms = [];
     this.maxPlatforms = 4;
     this.spaceBetweenPlatforms = 200;
-    this.firstPlatformY = windowHeight / 3;
+    this.firstPlatformY = windowHeight / 4;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
       let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;
@@ -27,6 +28,7 @@ class Level2 extends Levels {
     //prevnt lagging**
     this.bouncingBall.update();
     this.handleInput();
+    this.levelDisplay();
     this.changeLevels();
   }
 
@@ -44,6 +46,7 @@ class Level2 extends Levels {
         // Make sure there is one (might have run out of platforms)
         if (next) {
           // Check if the next platform's hole color matches the ball color
+          //tostring is to see the color
           if (next.hole.color.toString() !== this.bouncingBall.currentStroke.toString()) {
             // If it doesn't, then swap the identities of the hole and danger for the next
             // platform so the ball passes through the correctly colored area
@@ -57,28 +60,37 @@ class Level2 extends Levels {
     }
   }
 
-  matchColor() {
-  //if the ball w blackStroke passes through a hole
-    if (this.bouncingBall.currentStroke === this.bouncingBall.blackStroke) {
-      if (
-        this.y + this.size / 2 > platform.y - platform.height / 2 &&
-        this.y - this.size / 2 < platform.y + platform.height / 2
-      ) {
-        //within the hole area,
-        if (
-          this.x > platform.hole.x - platform.hole.width / 2 &&
-          this.x < platform.hole.x + platform.hole.width / 2
-        ) {
-          //then pass trhough
-          //WILL MAKE A POINT SYSTEM HERE LATER???
-        }
-        //else, bounce back up
-        else {
-          this.vy = -this.vy;
-          this.ay = 0;
-        }
-      }
-    }
+  // matchColor() {
+  // //if the ball w blackStroke passes through a hole
+  //   if (this.bouncingBall.currentStroke === this.bouncingBall.blackStroke) {
+  //     if (
+  //       this.y + this.size / 2 > platform.y - platform.height / 2 &&
+  //       this.y - this.size / 2 < platform.y + platform.height / 2
+  //     ) {
+  //       //within the hole area,
+  //       if (
+  //         this.x > platform.hole.x - platform.hole.width / 2 &&
+  //         this.x < platform.hole.x + platform.hole.width / 2
+  //       ) {
+  //         //then pass trhough
+  //         //WILL MAKE A POINT SYSTEM HERE LATER???
+  //       }
+  //       //else, bounce back up
+  //       else {
+  //         this.vy = -this.vy;
+  //         this.ay = 0;
+  //       }
+  //     }
+  //   }
+  // }
+
+  levelDisplay() {
+    push();
+    fill(255);
+    textSize(36);
+    textAlign(CENTER);
+    text(this.currentLevel, width/2, 100);
+    pop();
   }
 
   changeLevels() {

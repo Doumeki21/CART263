@@ -3,9 +3,10 @@
 class Level1 extends Levels {
   constructor() {
     super();
+    this.currentLevel = `LEVEL 1`;
     this.bouncingBall;
     this.platforms = [];
-    this.maxPlatforms = 4;
+    this.maxPlatforms = 3;
     this.spaceBetweenPlatforms = 200;
     this.firstPlatformY = windowHeight / 3;
 
@@ -27,6 +28,7 @@ class Level1 extends Levels {
 
     this.bouncingBall.update();//prevnt lagging
     this.handleInput();
+    this.levelDisplay();
     this.changeLevels();
   }
 
@@ -41,6 +43,15 @@ class Level1 extends Levels {
         console.log(`spliced`);
       }
     }
+  }
+
+  levelDisplay() {
+    push();
+    fill(255);
+    textSize(36);
+    textAlign(CENTER);
+    text(this.currentLevel, width/2, 100);
+    pop();
   }
 
   changeLevels() {

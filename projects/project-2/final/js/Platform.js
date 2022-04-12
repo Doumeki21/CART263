@@ -7,7 +7,7 @@ class Platform {
     this.y = y;
     this.width = width;
     this.height = 10;
-    this.movingSpeed = 15;
+    this.movingSpeed = 20;
     this.active = true;
 
     //danger zone
