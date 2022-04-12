@@ -16,10 +16,10 @@ class Level2 extends Levels {
 
     this.bouncingBall = new BouncingBall(windowWidth / 2, -50); //create the bouncing ball from the top of the canvas.
 
-    //set the ball color
-    this.bouncingBall.currentStroke.r = this.bouncingBall.redStroke.r;
-    this.bouncingBall.currentStroke.g = this.bouncingBall.redStroke.g;
-    this.bouncingBall.currentStroke.b = this.bouncingBall.redStroke.b;
+    // //set the ball color
+    // this.bouncingBall.currentStroke.r = this.bouncingBall.redStroke.r;
+    // this.bouncingBall.currentStroke.g = this.bouncingBall.redStroke.g;
+    // this.bouncingBall.currentStroke.b = this.bouncingBall.redStroke.b;
   }
 
   update() {
@@ -38,6 +38,21 @@ class Level2 extends Levels {
       if (this.platforms[i].active === false) {
         //at position i, get rid of 1 platform.
         this.platforms.splice(i, 1);
+        //START: Pippin's code-
+        // get the next platform
+        let next = this.platforms[0];
+        // Make sure there is one (might have run out of platforms)
+        if (next) {
+          // Check if the next platform's hole color matches the ball color
+          if (next.hole.color.toString() !== this.bouncingBall.currentStroke.toString()) {
+            // If it doesn't, then swap the identities of the hole and danger for the next
+            // platform so the ball passes through the correctly colored area
+            let hole = next.hole;
+            next.hole = next.danger;
+            next.danger = hole;
+          }
+        }
+        // END of pippin's code
       }
     }
   }

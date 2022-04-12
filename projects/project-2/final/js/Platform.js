@@ -14,9 +14,9 @@ class Platform {
     this.danger = {
       x: random(0, width),
       y: this.y,
-      width: random(20, 300),
+      width: random(65, 300),
       height: this.height,
-      // amount:
+      color: color(255, 117, 138)//pippin's code: Use the color object instead of individual properties
     };
 
     //hole
@@ -24,6 +24,7 @@ class Platform {
       x: random(0, width),
       y: this.y,
       width: random(65, 200),
+      color: color(212, 212, 212),//part of pippin's code ""
       height: this.height,
     };
   }
@@ -109,7 +110,7 @@ class Platform {
   displayHole() {
     push();
     noStroke();
-    fill(100);
+    fill(this.hole.color);//part of pippin's code
     rectMode(CENTER);
     rect(this.hole.x, this.hole.y, this.hole.width, this.hole.height);
     pop();
@@ -119,7 +120,7 @@ class Platform {
   displayDanger() {
     push();
     noStroke();
-    fill(255, 0, 0);
+    fill(this.danger.color);//part of pippin's code
     rectMode(CENTER);
     rect(
       this.danger.x,

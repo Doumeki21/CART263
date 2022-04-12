@@ -19,21 +19,12 @@ class BouncingBall {
       currentLives: 5,
       maxLives: 5,
     };
-    this.redStroke = {
-      r:255,
-      g:117,
-      b:138,
-    }
-    this.blackStroke = {
-      r:212,
-      g:212,
-      b:212,
-    }
-    this.currentStroke = {
-      r:undefined,
-      g:undefined,
-      b:undefined,
-    }
+
+    // pippin's code
+    this.redStroke = color(255, 117, 138); // Easier to define colors this way
+    this.blackStroke = color(212, 212, 212); // As above
+    // END NEW
+    this.currentStroke = this.blackStroke; // Start as black so it matches the standard hole
     this.allStrokes = [this.redStroke, this.blackStroke];
     this.changeStroke = false;
     this.lives.currentLives = this.lives.maxLives;
@@ -126,7 +117,6 @@ class BouncingBall {
       this.x - this.size / 2 < platform.danger.x + platform.danger.width / 2
     ) {
       this.lives.currentLives--;
-      console.log(this.lives.currentLives);
     }
   }
 
@@ -149,7 +139,7 @@ class BouncingBall {
   displayBall() {
 
     push();
-    stroke(this.currentStroke.r, this.currentStroke.g, this.currentStroke.b);
+    stroke(this.currentStroke);
     strokeWeight(10);
     fill(255);
     ellipse(this.x, this.y, this.size);
