@@ -1,4 +1,5 @@
 //the bouncingBall class
+//includes lives
 //this ball bounces up and down on the canvas vertically
 class BouncingBall extends Levels {
   constructor(x, y, previousLevelLives) {
@@ -134,7 +135,9 @@ class BouncingBall extends Levels {
       this.x + this.size / 2 > square.x - square.size / 2 &&
       this.x - this.size / 2 < square.x + square.size / 2
     ) {
-      this.lives.currentLives--;
+      this.lives.currentLives --;
+      //once contact, have the square reset it's position
+      square.y = height;
     }
   }
 

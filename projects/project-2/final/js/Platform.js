@@ -30,7 +30,7 @@ class Platform {
   }
 
   //calls all functions from this class when it's active.
-  update() {
+  update(normal) {
     if (this.active) {
       // //level 2: 1 hole draggable by the mouse
       // if (state === `level2`) {
@@ -39,7 +39,7 @@ class Platform {
       // //level3: ball's outline changes color (to match the hole color) after every platform
 
       this.regenerate();
-      this.move();
+      this.move(normal);
       this.displayPlatform();
       this.displayHole();
       this.displayDanger();
@@ -60,7 +60,7 @@ class Platform {
   }
 
   //the Handleinput
-  move() {
+  move(normal) {
     //TO BE USED LATER FOR MOUSE INPUT
     // //the platforms follows the mouse on the x-axis.
     // this.x = constrain(mouseX, 0, width);
@@ -71,16 +71,22 @@ class Platform {
     // this.hole.x += dx;
     // this.danger.x += dx;
 
+    //modifier makes it move the opposite direction
+    let modifier = 1;
+    if (!normal) {
+      modifier = -1;
+    }
+
     //control the platform with left and right arrow keys.
     //platform objects move left
     if (keyIsDown(LEFT_ARROW)) {
-      this.hole.x -= this.movingSpeed;
-      this.danger.x -= this.movingSpeed;
+      this.hole.x -= this.movingSpeed * modifier;
+      this.danger.x -= this.movingSpeed * modifier;
     }
     //platform objects move right
     if (keyIsDown(RIGHT_ARROW)) {
-      this.hole.x += this.movingSpeed;
-      this.danger.x += this.movingSpeed;
+      this.hole.x += this.movingSpeed * modifier;
+      this.danger.x += this.movingSpeed * modifier;
     }
 
     // Wrap the danger zones to the other side
