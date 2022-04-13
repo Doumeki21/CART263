@@ -34,12 +34,7 @@ class Level2 extends Level1 {
 
   handleInput() {
     for (let i = 0; i < this.platforms.length; i++) {
-      if (this.platforms[i/2]) {
-        this.platforms[i].update(true); //move + display the platform
-      }
-      else {
-        this.platforms[i].update(false); //move + display the platform
-      }
+      this.platforms[i].update(); //move + display the platform
       this.bouncingBall.handlePlatform(this.platforms[i]); //check ball interacting platform
       this.bouncingBall.randomizeBallStroke(this.platforms[i]); //randomize ball stroke color
       if (this.platforms[i].active === false) {
@@ -100,7 +95,7 @@ class Level2 extends Level1 {
 
   changeLevels() {
     if (this.bouncingBall.y > height) {
-      state = new Level4(this.bouncingBall.lives.currentLives);
+      state = new Level3(this.bouncingBall.lives.currentLives);
     }
   }
 }
