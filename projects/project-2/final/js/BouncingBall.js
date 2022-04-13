@@ -1,6 +1,6 @@
 //the bouncingBall class
 //this ball bounces up and down on the canvas vertically
-class BouncingBall extends Levels{
+class BouncingBall extends Levels {
   constructor(x, y, previousLevelLives) {
     super();
     //properties for its characteristics, its dropping speed and when they disappear.
@@ -41,11 +41,16 @@ class BouncingBall extends Levels{
     this.displayBall();
   }
 
-//called in levels
+  //called in level1 and level 2! (further levels extends to level2)
   handlePlatform(platform) {
     this.collision(platform);
     this.passHole(platform);
     this.touchDanger(platform);
+  }
+
+  //called in level 4
+  handleOtherEnemies(square) {
+    this.touchSquare(square);
   }
 
   //All the gravity stuff referred to from exercise 5: juggle garden of CART253
@@ -92,9 +97,9 @@ class BouncingBall extends Levels{
 
   randomizeBallStroke(platform) {
     if (platform.active === false) {
-        this.currentStroke = random(this.allStrokes);
-        // this.changeStroke = false;
-        console.log(`randomizeBallStroke`);
+      this.currentStroke = random(this.allStrokes);
+      // this.changeStroke = false;
+      console.log(`randomizeBallStroke`);
     }
   }
 
@@ -122,6 +127,17 @@ class BouncingBall extends Levels{
     }
   }
 
+  touchSquare(square) {
+    if (
+      this.y + this.size / 2 > square.y - square.size / 2 &&
+      this.y - this.size / 2 < square.y + square.size / 2 &&
+      this.x + this.size / 2 > square.x - square.size / 2 &&
+      this.x - this.size / 2 < square.x + square.size / 2
+    ) {
+      this.lives.currentLives--;
+    }
+  }
+
   displayLives() {
     push();
     let x = this.lives.x;
@@ -139,7 +155,6 @@ class BouncingBall extends Levels{
 
   //display the BouncingBall
   displayBall() {
-
     push();
     stroke(this.currentStroke);
     strokeWeight(10);

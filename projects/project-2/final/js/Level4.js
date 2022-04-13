@@ -45,6 +45,7 @@ class Level4 extends Level2 {
       this.squareControl();
       this.movingSquare();
       this.squareDisplay();
+      this.bouncingBall.handleOtherEnemies(this.square);
     }
 
     this.levelDisplay();
