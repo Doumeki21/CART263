@@ -7,7 +7,7 @@ class Level2 extends Level1 {
     this.platforms = [];
     this.maxPlatforms = 4;
     this.spaceBetweenPlatforms = 150;
-    this.firstPlatformY = windowHeight / 5;
+    this.firstPlatformY = windowHeight / 4;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
       let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
