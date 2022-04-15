@@ -10,12 +10,13 @@ class Level3 extends Level2 {
     this.firstPlatformY = windowHeight / 4;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
-      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;
+      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
 
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
+      platform.danger.width = random(70,200);
+      platform.hole.width = random(70,200);
     }
-
     this.bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing ball from the top of the canvas.
   }
 

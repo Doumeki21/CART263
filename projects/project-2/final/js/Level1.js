@@ -1,5 +1,6 @@
 //move the script stuff into level1
 //use the script to change between levels?
+//3 platforms, moving the platform with arrow keys, starting lives (3)
 class Level1 extends Levels {
   constructor() {
     super();
@@ -11,16 +12,14 @@ class Level1 extends Levels {
     this.firstPlatformY = windowHeight / 3;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
-      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;
+      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
 
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
+      platform.danger.width = random(70, 100);
+      platform.hole.width = random(100, 300);
     }
-    this.bouncingBall = new BouncingBall(windowWidth / 2, -50, 5); //create the bouncing ball from the top of the canvas.
-    //set the ball color
-    this.bouncingBall.currentStroke.r = this.bouncingBall.redStroke.r;
-    this.bouncingBall.currentStroke.g = this.bouncingBall.redStroke.g;
-    this.bouncingBall.currentStroke.b = this.bouncingBall.redStroke.b;
+    this.bouncingBall = new BouncingBall(windowWidth / 2, -50, 3); //create the bouncing ball from the top of the canvas.
   }
 
   update() {

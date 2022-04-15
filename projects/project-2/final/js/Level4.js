@@ -1,5 +1,5 @@
 //adding objects flying in
-class Level4 extends Level2 {
+class Level4 extends Level3 {
   constructor(previousLevelLives) {
     super();
     this.currentLevel = `LEVEL 4`;
@@ -24,14 +24,16 @@ class Level4 extends Level2 {
     this.bouncingBall;
     this.platforms = [];
     this.maxPlatforms = 6;
-    this.spaceBetweenPlatforms = 200;
+    this.spaceBetweenPlatforms = 100;
     this.firstPlatformY = windowHeight / 5;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
-      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;
+      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
 
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
+      platform.danger.width = random(70,150);
+      platform.hole.width = random(70,150);
     }
 
     this.bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing

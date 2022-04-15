@@ -1,3 +1,4 @@
+//4 platforms, randomizes ball stroke
 class Level2 extends Level1 {
   constructor(previousLevelLives) {
     super();
@@ -9,18 +10,14 @@ class Level2 extends Level1 {
     this.firstPlatformY = windowHeight / 4;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
-      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;
+      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
 
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
+      platform.danger.width = random(70,200);
+      platform.hole.width = random(70,300);
     }
-
     this.bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing ball from the top of the canvas.
-
-    // //set the ball color
-    // this.bouncingBall.currentStroke.r = this.bouncingBall.redStroke.r;
-    // this.bouncingBall.currentStroke.g = this.bouncingBall.redStroke.g;
-    // this.bouncingBall.currentStroke.b = this.bouncingBall.redStroke.b;
   }
 
   update() {
