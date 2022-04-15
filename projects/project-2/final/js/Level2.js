@@ -25,7 +25,7 @@ class Level2 extends Level1 {
     //prevnt lagging**
     this.bouncingBall.update();
     this.handleInput();
-    this.levelDisplay();
+    // this.levelDisplay();
     this.changeLevels();
   }
 

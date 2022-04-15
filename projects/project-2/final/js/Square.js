@@ -3,81 +3,79 @@ class Square {
     this.squareYSpeeds = [-5, -4, -3];
     this.squareXSpeeds = [-0.5, -0.4, -0.3, 0.3, 0.4, 0.5];
     this.squareMovingSpeed = 10;
-    this.square = {
-      x: x,
-      y: y,
-      vx: random(this.squareXSpeeds),
-      vy: random(this.squareYSpeeds),
-      ax: 0,
-      ay: 0,
-      maxSpeed: 15,
-      size: 40,
-      active: true,
-      color: color(200, 200, 255),
-    };
+    this.x = x;
+    this.y = y;
+    this.vx = random(this.squareXSpeeds);
+    this.vy = random(this.squareYSpeeds);
+    this.ax = 0;
+    this.ay = 0;
+    this.maxSpeed = 15;
+    this.size = 40;
+    this.active = true;
+    this.color = color(200, 200, 255);
   }
 
   update() {
-    if (this.square.active) {
+    if (this.active) {
       this.generateSquare();
       this.squareControl();
       this.movingSquare();
       this.squareDisplay();
-    //   bouncingBall.handleOtherEnemies(this.square);
+      // bouncingBall.handleOtherEnemies(this.square);
     }
   }
 
   //check prev project
   generateSquare() {
     //If the square has gone off the canvas, deactivate the square.
-    if (this.square.y - this.square.size / 2 < 0) {
-      this.square.active = false;
+    if (this.y - this.size / 2 < 0) {
+      this.active = false;
       //after 2 seconds, have the square appear at a random postion at the btm of screen
       setTimeout(() => {
-        this.square.active = true;
-        this.square.y = height;
-        this.square.x = random(100, width/2 + 100);
-        this.square.vx = random(this.squareXSpeeds);
-        this.square.vy = random(this.squareYSpeeds);
+        this.active = true;
+        this.y = height;
+        this.x = random(100, width / 2 + 100);
+        this.vx = random(this.squareXSpeeds);
+        this.vy = random(this.squareYSpeeds);
       }, 2000);
     }
   }
 
   squareControl() {
     if (keyIsDown(LEFT_ARROW)) {
-      this.square.x -= this.squareMovingSpeed;
+      this.x -= this.squareMovingSpeed;
     }
     //platform objects move right
     if (keyIsDown(RIGHT_ARROW)) {
-      this.square.x += this.squareMovingSpeed;
+      this.x += this.squareMovingSpeed;
     }
 
     // Wrap the square to the other side
-    if (this.square.x + this.square.size < 0) {
-      this.square.x += width + this.square.size;
-    } else if (this.square.x - this.square.size > width) {
-      this.square.x -= width + this.square.size;
+    if (this.x + this.size < 0) {
+      this.x += width + this.size;
+    } else if (this.x - this.size > width) {
+      this.x -= width + this.size;
     }
   }
 
   //Square moves.
   movingSquare() {
     //accelerates
-    this.square.vx += this.square.ax;
-    this.square.vy += this.square.ay;
+    this.vx += this.ax;
+    this.vy += this.ay;
 
     //Changing position.
-    this.square.x += this.square.vx;
-    this.square.y += this.square.vy;
+    this.x += this.vx;
+    this.y += this.vy;
   }
 
   //Display blue square.
   squareDisplay() {
     push();
-    fill(this.square.color);
+    fill(this.color);
     stroke(0);
     rectMode(CENTER);
-    rect(this.square.x, this.square.y, this.square.size);
+    rect(this.x, this.y, this.size);
     pop();
   }
 }
