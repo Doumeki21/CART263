@@ -8,7 +8,7 @@ class Level1 extends Levels {
     this.bouncingBall;
     this.platforms = [];
     this.maxPlatforms = 3;
-    this.spaceBetweenPlatforms = 200;
+    this.spaceBetweenPlatforms = 180;
     this.firstPlatformY = windowHeight / 3;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
