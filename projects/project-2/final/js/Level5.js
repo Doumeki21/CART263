@@ -1,5 +1,5 @@
 //final level
-class Level5 extends Level4 {
+class Level5 extends Level3 {
   constructor(previousLevelLives) {
     super();
     this.currentLevel = `LEVEL 5`;
@@ -23,9 +23,9 @@ class Level5 extends Level4 {
 
     this.bouncingBall;
     this.platforms = [];
-    this.maxPlatforms = 6;
+    this.maxPlatforms = 8;
     this.spaceBetweenPlatforms = 100;
-    this.firstPlatformY = windowHeight / 5;
+    this.firstPlatformY = windowHeight / 7;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
       let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform

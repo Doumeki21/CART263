@@ -141,6 +141,20 @@ class BouncingBall extends Levels {
     }
   }
 
+//NOT DONE!
+  touchRectangle(rectangle) {
+    if (
+      this.y + this.size / 2 > square.y - square.size / 2 &&
+      this.y - this.size / 2 < square.y + square.size / 2 &&
+      this.x + this.size / 2 > square.x - square.size / 2 &&
+      this.x - this.size / 2 < square.x + square.size / 2
+    ) {
+      this.lives.currentLives --;
+      //once contact, have the square reset it's position
+      square.y = height;
+    }
+  }
+
   displayLives() {
     push();
     let x = this.lives.x;

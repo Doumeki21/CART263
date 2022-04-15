@@ -46,10 +46,10 @@ class Level4 extends Level3 {
     super.update();
 
     if (this.square.active) {
-      this.square.update(this.bouncingBall);
-      this.bouncingBall.handleOtherEnemies(this.square);
-      console.log(this.square.x, this.square.y);
+      this.square.update();
+      // this.bouncingBall.handleOtherEnemies(this.square);
     }
+    console.log(this.square.x, this.square.y);
 
     this.levelDisplay();
   }

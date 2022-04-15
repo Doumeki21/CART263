@@ -18,13 +18,13 @@ class Square {
   }
 
   update() {
-    // if (this.square.active) {
+    if (this.square.active) {
       this.generateSquare();
       this.squareControl();
       this.movingSquare();
       this.squareDisplay();
     //   bouncingBall.handleOtherEnemies(this.square);
-    // }
+    }
   }
 
   //check prev project
