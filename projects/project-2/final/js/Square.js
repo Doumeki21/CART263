@@ -15,13 +15,13 @@ class Square {
     this.color = color(200, 200, 255);
   }
 
-  update() {
+  update(bouncingBall) {
     if (this.active) {
       this.generateSquare();
       this.squareControl();
       this.movingSquare();
       this.squareDisplay();
-      // bouncingBall.handleOtherEnemies(this.square);
+      bouncingBall.handleOtherEnemies(this);
     }
   }
 
