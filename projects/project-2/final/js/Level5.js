@@ -3,10 +3,11 @@ class Level5 extends Level4 {
   constructor(previousLevelLives) {
     super();
     this.currentLevel = `LEVEL 5`;
+    this.square;
     this.squares = [];
     this.maxSquares = random(2, 5);
     this.createSquares();
-    this.square;
+
     this.rectangle;
     this.bouncingBall;
     this.platforms = [];
@@ -24,12 +25,12 @@ class Level5 extends Level4 {
     }
 
     this.bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing
-    this.rectangle = new Rectangle(random(0, width), -10);//create falling rectangle
+    this.rectangle = new Rectangle(random(0, width));//create falling rectangle
   }
 
   update() {
     super.update();
-    this.rectangle.update();
+    this.rectangle.update(this.bouncingBall);
     for (let i = 0; i < this.maxSquares; i++) {
       this.squares[i].update(this.bouncingBall);
     }

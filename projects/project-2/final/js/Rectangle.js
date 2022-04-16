@@ -3,16 +3,17 @@
 //Randomly appears and drops fast to the bottom of the canvas
 class Rectangle {
   //calls the super constructor and adds properties for it to display
-  constructor(x, y) {
+  constructor(x) {
     this.x = x;
-    this.y = 100;
+    this.y = this.initialY;
+    this.initialY = -10;
     this.width = 100;
     this.height = 100;
     this.alpha = 0;
     this.alphaSpeed = 8;
-    this.initialVy = 2;
+    this.initialVy = 0.5;
     this.currentVy = this.initialVy;
-    this.ay = 2;
+    this.ay = 1.2;
     this.acceleration = 0.5;
     this.active = false;
 
@@ -22,11 +23,12 @@ class Rectangle {
 
   //update()
   //Calls the super update() and all the functions/ events within this class.
-  update() {
+  update(bouncingBall) {
     this.timer += 1/60;
     if (this.timer > this.randomizedTime) {
       this.activate();
     }
+    bouncingBall.handleOtherEnemies(this);
     this.display();
     this.checkActive();
     this.appearing();
@@ -45,10 +47,10 @@ class Rectangle {
     if (!this.active) {
       this.alpha = 0;
       this.x = random(0, width);
-      this.y = -10;
+      this.y = this.initialY;
       this.currentVy = this.initialVy;
-      this.width = random(100, 500);
-      this.height = random(100, 500);
+      this.width = random(100, 300);
+      this.height = random(100, 300);
     }
     //once it hits the bottom of the canvas, blue enemy disappears.
     if (this.y >= height) {

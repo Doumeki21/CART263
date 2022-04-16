@@ -1,5 +1,5 @@
 //the bouncingBall class
-//includes lives
+//Defines all cases for lives, affecting change of state
 //this ball bounces up and down on the canvas vertically
 class BouncingBall extends Levels {
   constructor(x, y, previousLevelLives) {
@@ -32,12 +32,11 @@ class BouncingBall extends Levels {
     this.lives.currentLives = this.lives.initialLives;
   }
 
-  //A single function that contains everything from this class to call in the main script.
+  //A single function that contains everything from this class to call in all levels.
   update() {
     super.update();
     this.gravity(0.01);
     this.move();
-    // this.checkPassLvl(); //pass lvl
     this.displayLives();
     this.displayBall();
   }
@@ -49,9 +48,10 @@ class BouncingBall extends Levels {
     this.touchDanger(platform);
   }
 
-  //called in level 4
-  handleOtherEnemies(square) {
-    this.touchSquare(square);
+  //called inside Square.js
+  handleOtherEnemies(square, rectangle) {
+    this.touchSquare(square);//called in lvl 4, lvl 5 (inside array)
+    this.touchRectangle(rectangle);//called in lvl 5
   }
 
   //All the gravity stuff referred to from exercise 5: juggle garden of CART253
@@ -104,6 +104,7 @@ class BouncingBall extends Levels {
     }
   }
 
+//In all Levels
   passHole(platform) {
     let platformOffsetY = 80;
     //If the ball is underneath the platform,
@@ -118,6 +119,7 @@ class BouncingBall extends Levels {
     }
   }
 
+//In all levels
   touchDanger(platform) {
     if (
       this.y + this.size / 2 > platform.danger.y - platform.danger.height / 2 &&
@@ -128,6 +130,7 @@ class BouncingBall extends Levels {
     }
   }
 
+//Starts in level 4
   touchSquare(square) {
     if (
       this.y + this.size / 2 > square.y - square.size / 2 &&
@@ -141,20 +144,28 @@ class BouncingBall extends Levels {
     }
   }
 
-//NOT DONE!
+//Starts in level 5
   touchRectangle(rectangle) {
     if (
-      this.y + this.size / 2 > square.y - square.size / 2 &&
-      this.y - this.size / 2 < square.y + square.size / 2 &&
-      this.x + this.size / 2 > square.x - square.size / 2 &&
-      this.x - this.size / 2 < square.x + square.size / 2
+      this.y + this.size / 2 > rectangle.y - rectangle.height / 2 &&
+      this.y - this.size / 2 < rectangle.y + rectangle.height / 2 &&
+      this.x + this.size / 2 > rectangle.x - rectangle.width / 2 &&
+      this.x - this.size / 2 < rectangle.x + rectangle.width / 2
     ) {
       this.lives.currentLives --;
       //once contact, have the square reset it's position
-      square.y = height;
+      rectangle.y = rectangle.initialY;
     }
   }
 
+//In all levels
+  checkAlive() {
+    if (this.lives.currentLives === 0) {
+
+    }
+  }
+
+//displays the lives of the ball
   displayLives() {
     push();
     let x = this.lives.x;
