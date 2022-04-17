@@ -19,12 +19,10 @@ class Level1 extends Levels {
       platform.danger.width = random(70, 100);
       platform.hole.width = random(100, 300);
     }
-    this.bouncingBall = new BouncingBall(windowWidth / 2, -50, 3); //create the bouncing ball from the top of the canvas.
+    this.bouncingBall = new BouncingBall(windowWidth / 2, -50, 5); //create the bouncing ball from the top of the canvas.
   }
 
   update() {
-    background(0, 90); // black background and alpha trail
-
     this.bouncingBall.update();//prevnt lagging
     this.handleInput();
     this.levelDisplay();
@@ -57,7 +55,6 @@ class Level1 extends Levels {
     //if the ball reaches the bottom of screen, cahnge changeLevels
     if (this.bouncingBall.y > height) {
       state = new Level2(this.bouncingBall.lives.currentLives);
-
     }
   }
 }

@@ -37,6 +37,7 @@ class BouncingBall extends Levels {
     super.update();
     this.gravity(0.01);
     this.move();
+    this.checkDead();
     this.displayLives();
     this.displayBall();
   }
@@ -49,8 +50,11 @@ class BouncingBall extends Levels {
   }
 
   //called inside Square.js
-  handleOtherEnemies(square, rectangle) {
+  handleOtherEnemies(square) {
     this.touchSquare(square);//called in lvl 4, lvl 5 (inside array)
+  }
+
+  handleOtherEnemies2(rectangle) {
     this.touchRectangle(rectangle);//called in lvl 5
   }
 
@@ -146,22 +150,25 @@ class BouncingBall extends Levels {
 
 //Starts in level 5
   touchRectangle(rectangle) {
-    if (
-      this.y + this.size / 2 > rectangle.y - rectangle.height / 2 &&
-      this.y - this.size / 2 < rectangle.y + rectangle.height / 2 &&
-      this.x + this.size / 2 > rectangle.x - rectangle.width / 2 &&
-      this.x - this.size / 2 < rectangle.x + rectangle.width / 2
-    ) {
-      this.lives.currentLives --;
-      //once contact, have the square reset it's position
-      rectangle.y = rectangle.initialY;
+    if (rectangle.active) {
+      if (
+        this.y + this.size / 2 > rectangle.y - rectangle.height / 2 &&
+        this.y - this.size / 2 < rectangle.y + rectangle.height / 2 &&
+        this.x + this.size / 2 > rectangle.x - rectangle.width / 2 &&
+        this.x - this.size / 2 < rectangle.x + rectangle.width / 2
+      ) {
+        this.lives.currentLives --;
+        //once contact, have the rect reset it's position
+        rectangle.y = rectangle.initialY;
+        rectangle.active = false;
+      }
     }
   }
 
 //In all levels
-  checkAlive() {
+  checkDead() {
     if (this.lives.currentLives === 0) {
-
+      state = new Lose();
     }
   }
 

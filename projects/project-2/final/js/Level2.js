@@ -21,11 +21,10 @@ class Level2 extends Level1 {
   }
 
   update() {
-    background(0, 90); // black background and alpha trail
     //prevnt lagging**
     this.bouncingBall.update();
     this.handleInput();
-    // this.levelDisplay();
+    this.levelDisplay();
     this.changeLevels();
   }
 

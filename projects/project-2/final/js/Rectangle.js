@@ -11,9 +11,10 @@ class Rectangle {
     this.height = 100;
     this.alpha = 0;
     this.alphaSpeed = 8;
+    this.rectangleMovingSpeed = 20;
     this.initialVy = 0.5;
     this.currentVy = this.initialVy;
-    this.ay = 1.2;
+    this.ay = 0.5;
     this.acceleration = 0.5;
     this.active = false;
 
@@ -28,10 +29,11 @@ class Rectangle {
     if (this.timer > this.randomizedTime) {
       this.activate();
     }
-    bouncingBall.handleOtherEnemies(this);
-    this.display();
+    bouncingBall.handleOtherEnemies2(this);
     this.checkActive();
     this.appearing();
+    this.rectangleControl();
+    this.display();
   }
 
   activate() {
@@ -69,6 +71,23 @@ class Rectangle {
       this.currentVy += this.ay;
       // constrain the enemy within the canvas
       this.y = constrain(this.y, 0, height);
+    }
+  }
+
+  rectangleControl() {
+    if (keyIsDown(LEFT_ARROW)) {
+      this.x -= this.rectangleMovingSpeed;
+    }
+    //platform objects move right
+    if (keyIsDown(RIGHT_ARROW)) {
+      this.x += this.rectangleMovingSpeed;
+    }
+
+    // Wrap the square to the other side
+    if (this.x + this.width < 0) {
+      this.x += width + this.width;
+    } else if (this.x - this.width > width) {
+      this.x -= width + this.width;
     }
   }
 

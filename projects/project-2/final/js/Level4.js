@@ -54,60 +54,6 @@ class Level4 extends Level3 {
     this.changeLevels();
   }
 
-  // //check prev project
-  // generateSquare() {
-  //   //If the square has gone off the canvas, deactivate the square.
-  //   if (this.square.y - this.square.size / 2 < 0) {
-  //     this.square.active = false;
-  //     //after 2 seconds, have the square appear at a random postion at the btm of screen
-  //     setTimeout(() => {
-  //       this.square.active = true;
-  //       this.square.y = height;
-  //       this.square.x = random(100, width/2 + 100);
-  //       this.square.vx = random(this.squareXSpeeds);
-  //       this.square.vy = random(this.squareYSpeeds);
-  //     }, 2000);
-  //   }
-  // }
-  //
-  // squareControl() {
-  //   if (keyIsDown(LEFT_ARROW)) {
-  //     this.square.x -= this.squareMovingSpeed;
-  //   }
-  //   //platform objects move right
-  //   if (keyIsDown(RIGHT_ARROW)) {
-  //     this.square.x += this.squareMovingSpeed;
-  //   }
-  //
-  //   // Wrap the square to the other side
-  //   if (this.square.x + this.square.size < 0) {
-  //     this.square.x += width + this.square.size;
-  //   } else if (this.square.x - this.square.size > width) {
-  //     this.square.x -= width + this.square.size;
-  //   }
-  // }
-  //
-  // //Square moves.
-  // movingSquare() {
-  //   //accelerates
-  //   this.square.vx += this.square.ax;
-  //   this.square.vy += this.square.ay;
-  //   // //constraining the square at reasonable speed
-  //   // this.square.vx = constrain(
-  //   //   this.square.vx,
-  //   //   -this.square.maxSpeed,
-  //   //   this.square.maxSpeed
-  //   // );
-  //   // this.square.vy = constrain(
-  //   //   this.square.vy,
-  //   //   -this.square.maxSpeed,
-  //   //   this.square.maxSpeed
-  //   // );
-  //   //Changing position.
-  //   this.square.x += this.square.vx;
-  //   this.square.y += this.square.vy;
-  // }
-
   levelDisplay() {
     push();
     fill(255);
@@ -116,16 +62,6 @@ class Level4 extends Level3 {
     text(this.currentLevel, width/2, 100);
     pop();
   }
-
-  // //Display blue square.
-  // squareDisplay() {
-  //   push();
-  //   fill(this.square.color);
-  //   stroke(0);
-  //   rectMode(CENTER);
-  //   rect(this.square.x, this.square.y, this.square.size);
-  //   pop();
-  // }
 
   changeLevels() {
     if (this.bouncingBall.y > height) {

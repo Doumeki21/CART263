@@ -21,11 +21,10 @@ class Level3 extends Level2 {
   }
 
   update() {
-    background(0, 90); // black background and alpha trail
     //prevnt lagging**
     this.bouncingBall.update();
     this.handleInput();
-    // this.levelDisplay();
+    this.levelDisplay();
     this.changeLevels();
   }
 
@@ -62,14 +61,14 @@ class Level3 extends Level2 {
     }
   }
 
-  // levelDisplay() {
-  //   push();
-  //   fill(255);
-  //   textSize(36);
-  //   textAlign(CENTER);
-  //   text(this.currentLevel, width/2, 100);
-  //   pop();
-  // }
+  levelDisplay() {
+    push();
+    fill(255);
+    textSize(36);
+    textAlign(CENTER);
+    text(this.currentLevel, width/2, 100);
+    pop();
+  }
 
   changeLevels() {
     if (this.bouncingBall.y > height) {
