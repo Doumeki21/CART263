@@ -1,4 +1,4 @@
-# Project 2: prototype
+# Final Project
 
 Get the ball to reach at the bottom of the canvas!
 

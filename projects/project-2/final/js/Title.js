@@ -2,8 +2,9 @@ class Title extends Scenes{
   constructor() {
     super();
     this.titleString = `START`;
-    this.subtitleString = `USE THE ARROW KEYS`;
+    this.subtitleString = `(Use Arrow Keys)\n\nClick to Start`;
     levelMusic.play();
+    levelMusic.loop();
   }
 
   //

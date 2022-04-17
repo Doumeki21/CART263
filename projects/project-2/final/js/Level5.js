@@ -4,7 +4,7 @@ class Level5 extends Level4 {
     super();
     this.timer = 25;
     this.timerActive = true;
-    this.currentLevel = `LEVEL 5`;
+    // this.currentLevel = `LEVEL 5`;
     this.square;
     this.squares = [];
     this.maxSquares = random(2, 5);
@@ -41,7 +41,7 @@ class Level5 extends Level4 {
     this.checkTimer();
     this.displayTimer();
     this.levelDisplay();
-    this.changeLevels();
+    this.changeScenes();
   }
 
   createSquares() {
@@ -73,20 +73,22 @@ class Level5 extends Level4 {
     fill(255);
     textSize(60);
     textAlign(CENTER, CENTER);
-    text(round(this.timer), width - 100, 200);
+    // text(round(this.timer), width - 100, 200);
+    text(round(this.timer), width/2, 100);
     pop();
   }
 
+//adding this here so that it takes away the previous text from lvl 4
   levelDisplay() {
-    push();
-    fill(255);
-    textSize(36);
-    textAlign(CENTER);
-    text(this.currentLevel, width/2, 100);
-    pop();
+    // push();
+    // fill(255);
+    // textSize(36);
+    // textAlign(CENTER);
+    // text(this.currentLevel, width/2, 100);
+    // pop();
   }
 
-  changeLevels() {
+  changeScenes() {
     if (this.bouncingBall.y > height) {
       state = new Win();
     }

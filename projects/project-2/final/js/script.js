@@ -37,8 +37,8 @@ function setup() {
   levelMusic.play();
   createCanvas(windowWidth, windowHeight);
 
-  // state = new Title();
-  state = new Level4(5);
+  state = new Title();
+  // state = new Level4(5);
   // state = new Level1();
 }
 
