@@ -2,13 +2,10 @@
 class Level5 extends Level4 {
   constructor(previousLevelLives) {
     super();
+    this.loadBar;
     this.timer = 25;
     this.timerActive = true;
     // this.currentLevel = `LEVEL 5`;
-    this.square;
-    this.squares = [];
-    this.maxSquares = random(2, 5);
-    this.createSquares();
 
     this.rectangle;
     this.bouncingBall;
@@ -18,22 +15,31 @@ class Level5 extends Level4 {
     this.firstPlatformY = windowHeight / 7;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
-      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
+      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i; //spacing out b/w each platform
 
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
-      platform.danger.width = random(70,100);
-      platform.hole.width = random(70,100);
+      platform.danger.width = random(70, 100);
+      platform.hole.width = random(70, 100);
     }
 
-    this.bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing
-    this.rectangle = new Rectangle(random(0, width));//create falling rectangle
+    this.square;
+    this.squares = [];
+    this.maxSquares = random(2, 5);
+    this.createSquares();
+
+    this.bouncingBall = new BouncingBall( windowWidth / 2, -50, previousLevelLives); //create the bouncing
+    this.rectangle = new Rectangle(random(0, width)); //create falling rectangle
+    this.loadBar = new LoadBar(100, 100);
     bossMusic.play();
     levelMusic.stop();
   }
 
   update() {
     super.update();
+    // this.loadBar.update();
+    this.recover(now);
+    this.displayBar();
     this.rectangle.update(this.bouncingBall);
     for (let i = 0; i < this.maxSquares; i++) {
       this.squares[i].update(this.bouncingBall);
@@ -46,9 +52,15 @@ class Level5 extends Level4 {
 
   createSquares() {
     for (let i = 0; i < this.maxSquares; i++) {
-      this.squares[i] = new Square(random(200, 800), height - 100);//create
+      this.squares[i] = new Square(random(200, 800), height - 100); //create
       this.squares[i].update(this.bouncingBall);
     }
+  }
+
+  //annyang called in script.js
+  //voice command to heal the player
+  recover(now) {
+    this.loadBar.reloadBar();
   }
 
   checkTimer() {
@@ -74,11 +86,11 @@ class Level5 extends Level4 {
     textSize(60);
     textAlign(CENTER, CENTER);
     // text(round(this.timer), width - 100, 200);
-    text(round(this.timer), width/2, 100);
+    text(round(this.timer), width / 2, 100);
     pop();
   }
 
-//adding this here so that it takes away the previous text from lvl 4
+  //adding this here so that it takes away the previous text from lvl 4
   levelDisplay() {
     // push();
     // fill(255);

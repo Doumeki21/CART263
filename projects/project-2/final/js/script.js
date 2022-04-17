@@ -19,62 +19,155 @@ moving parts of the platform at one point
 
 "use strict";
 
-let state = undefined;
-// let timer = 10;
-// let timerActive = true;
 let levelMusic;
 let bossMusic;
 
+//current state of program
+let state = `loading`; //loading/ welcome/(other states in the other js files)
+let video; //the user's webcam
+let modelName = `Handpose`; //the name of our model
+let handpose; //The handpose models
+let predictions = [];//the current set of prediction
+let dot = {
+  x: undefined,
+  y: undefined,
+  size: 50,
+};
+let target = {
+  firstX: undefined,
+  firstY: undefined,
+  secondX: undefined,
+  secondY: undefined,
+  currentX: undefined,
+  currentY: undefined,
+  size: 100,
+  amountTouched: 0,
+};
+
 //maybe add images later??
 function preload() {
-  levelMusic = loadSound(`assets/sounds/alex-productions-extreme-trap-racing-music-power.mp3`);
+  levelMusic = loadSound(
+    `assets/sounds/alex-productions-extreme-trap-racing-music-power.mp3`
+  );
   bossMusic = loadSound(`assets/sounds/BoxCat-Games-Epic-Song.mp3`);
 }
 
 //setup the canvas and create the objects from the class
 function setup() {
-  userStartAudio();
-  levelMusic.play();
   createCanvas(windowWidth, windowHeight);
+  target.firstX = width/2 - 200;
+  target.firstY = height/2;
+  target.secondX = width/2 + 200;
+  target.secondY = height/2;
+  target.currentX = target.firstX
+  target.currentY = target.firstY;
 
-  state = new Title();
+  //acess the user webcam
+  video = createCapture(VIDEO);
+  //hide the video element from the webpage. (HTML conflict)
+  video.hide();
+  //load the handpose model
+  handpose = ml5.handpose(
+    video,
+    {
+      flipHorizontal: true,
+    },
+    //anon function
+    function () {
+      state = `welcome`;
+    }
+  );
+
+  //listen for predictions
+  handpose.on(`predict`, function (results) {
+    // console.log(results);
+    predictions = results;
+  });
+
+  // state = new Title();
   // state = new Level4(5);
   // state = new Level1();
 }
 
 //draw the objects
 function draw() {
-  background(0, 90);// black background and alpha trail
-  state.update();
-  // checkTimer();
-  // displayTimer();
+  if (state === `loading`) {
+    loading();
+  } else if (state === `welcome`) {
+    welcome();
+  } else if (state === `title`) {
+    state = new Title();
+    userStartAudio();
+    levelMusic.play();
+  }
+  // state.update();
 }
 
-// function checkTimer() {
-//   //If timer is active,
-//   if (timerActive) {
-//     //and if it's down to 0 seconds,
-//     if (timer <= 0) {
-//       //stay at 0, and change screen to lose.
-//       timer = 0;
-//       state = new Lose();
-//       levelMusic.stop();
-//       bossMusic.stop();
-//     }
-//     //Count in seconds.
-//     timer -= 1 / 60;
-//   }
-// }
-//
-// //Display the white timer counting down from 10, at the top left corner.
-// function displayTimer() {
-//   push();
-//   fill(255);
-//   textSize(60);
-//   textAlign(CENTER, CENTER);
-//   text(round(timer), width - 80, 200);
-//   pop();
-// }
+function loading() {
+  push();
+  textSize(32);
+  textStyle(BOLD);
+  textAlign(CENTER, CENTER);
+  fill(255);
+  text(`Loading ${modelName}...`, width / 2, height / 2);
+  pop();
+}
+
+function welcome() {
+  background(0);
+  //instructions
+  push();
+  fill(255);
+  textSize(32);
+  textStyle(BOLD);
+  textAlign(CENTER, CENTER);
+  text(`Wave!`, width / 2, 100);
+  pop();
+
+  displayTarget();
+
+  //if there's predictions to display,
+  if (predictions.length > 0) {
+    //then get the positions of the tip and base of index finger.
+    updateDot(predictions[0]);
+
+    //check if the dot touches the targets
+    let dF = dist(dot.x, dot.y, target.firstX, target.firstY);
+    let dS = dist(dot.x, dot.y, target.secondX, target.secondY);
+    if (dF < target.size / 2 && target.amountTouched === 0) {
+      target.currentX = target.secondX;
+      target.currentY = target.secondY;
+      target.amountTouched ++;
+    }
+    else if (dS < target.size / 2 && target.amountTouched === 1) {
+      target.amountTouched ++;
+      state = `title`;
+    }
+    //display current position of pin.
+    displayDot();
+  }
+}
+
+function updateDot(prediction) {
+  dot.x = prediction.annotations.indexFinger[3][0];
+  dot.y = prediction.annotations.indexFinger[3][1];
+}
+
+function displayTarget() {
+  push();
+  noStroke();
+  fill(255, 0, 0);
+  ellipse(target.currentX, target.currentY, target.size);
+  pop();
+}
+
+function displayDot() {
+  push();
+  noStroke();
+  fill(255);
+  ellipse(dot.x, dot.y, dot.size);
+  pop();
+}
 
 //connected to the Scenes.js
 function mouseClicked() {
