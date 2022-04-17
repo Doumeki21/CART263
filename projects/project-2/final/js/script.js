@@ -28,11 +28,13 @@ let video; //the user's webcam
 let modelName = `Handpose`; //the name of our model
 let handpose; //The handpose models
 let predictions = [];//the current set of prediction
+//controlled by the user
 let dot = {
   x: undefined,
   y: undefined,
   size: 50,
 };
+//2 targets to touch before
 let target = {
   firstX: undefined,
   firstY: undefined,
@@ -46,19 +48,20 @@ let target = {
 
 //maybe add images later??
 function preload() {
-  levelMusic = loadSound(
-    `assets/sounds/alex-productions-extreme-trap-racing-music-power.mp3`
-  );
+  levelMusic = loadSound(`assets/sounds/alex-productions-extreme-trap-racing-music-power.mp3`);
   bossMusic = loadSound(`assets/sounds/BoxCat-Games-Epic-Song.mp3`);
 }
 
 //setup the canvas and create the objects from the class
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  //values for first target
   target.firstX = width/2 - 200;
   target.firstY = height/2;
+  //values for second target
   target.secondX = width/2 + 200;
   target.secondY = height/2;
+  //update current target values
   target.currentX = target.firstX
   target.currentY = target.firstY;
 
@@ -93,14 +96,16 @@ function setup() {
 function draw() {
   if (state === `loading`) {
     loading();
-  } else if (state === `welcome`) {
+  }
+  else if (state === `welcome`) {
     welcome();
-  } else if (state === `title`) {
+  }
+  else if (state === `title`) {
     state = new Title();
     userStartAudio();
     levelMusic.play();
+    state.update();
   }
-  // state.update();
 }
 
 function loading() {
@@ -142,15 +147,16 @@ function welcome() {
     else if (dS < target.size / 2 && target.amountTouched === 1) {
       target.amountTouched ++;
       state = `title`;
+      // state.update();
     }
     //display current position of pin.
     displayDot();
   }
 }
 
-function updateDot(prediction) {
-  dot.x = prediction.annotations.indexFinger[3][0];
-  dot.y = prediction.annotations.indexFinger[3][1];
+function updateDot(predictions) {
+  dot.x = predictions.annotations.indexFinger[3][0];
+  dot.y = predictions.annotations.indexFinger[3][1];
 }
 
 function displayTarget() {
