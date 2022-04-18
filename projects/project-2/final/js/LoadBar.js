@@ -68,6 +68,7 @@ class LoadBar {
   //   }, 1000);
   // }
 
+  //from project1//
   //displayHP()
   //display the player's life
   displayBar() {
