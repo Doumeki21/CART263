@@ -21,14 +21,13 @@ moving parts of the platform at one point
 
 let levelMusic;
 let bossMusic;
-let state;//changing to class
 
 //current state of program
-let stateName = `loading`; //loading/ welcome/(other states in the other js files)
+let state = `loading`; //loading/ welcome/(other states in the other js files)
 let video; //the user's webcam
 let modelName = `Handpose`; //the name of our model
 let handpose; //The handpose models
-let predictions = []; //the current set of prediction
+let predictions = [];//the current set of prediction
 //controlled by the user
 let dot = {
   x: undefined,
@@ -45,14 +44,11 @@ let target = {
   currentY: undefined,
   size: 100,
   amountTouched: 0,
-  found: false,
 };
 
 //maybe add images later??
 function preload() {
-  levelMusic = loadSound(
-    `assets/sounds/alex-productions-extreme-trap-racing-music-power.mp3`
-  );
+  levelMusic = loadSound(`assets/sounds/alex-productions-extreme-trap-racing-music-power.mp3`);
   bossMusic = loadSound(`assets/sounds/BoxCat-Games-Epic-Song.mp3`);
 }
 
@@ -60,13 +56,13 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //values for first target
-  target.firstX = width / 2 - 200;
-  target.firstY = height / 2;
+  target.firstX = width/2 - 200;
+  target.firstY = height/2;
   //values for second target
-  target.secondX = width / 2 + 200;
-  target.secondY = height / 2;
+  target.secondX = width/2 + 200;
+  target.secondY = height/2;
   //update current target values
-  target.currentX = target.firstX;
+  target.currentX = target.firstX
   target.currentY = target.firstY;
 
   //acess the user webcam
@@ -81,12 +77,13 @@ function setup() {
     },
     //anon function
     function () {
-      stateName = `welcome`;
+      state = `welcome`;
     }
   );
 
   //listen for predictions
   handpose.on(`predict`, function (results) {
+    // console.log(results);
     predictions = results;
   });
 
@@ -97,11 +94,13 @@ function setup() {
 
 //draw the objects
 function draw() {
-  if (stateName === `loading`) {
+  if (state === `loading`) {
     loading();
-  } else if (stateName === `welcome`) {
+  }
+  else if (state === `welcome`) {
     welcome();
-  } else if (stateName === `title`) {
+  }
+  else if (state === `title`) {
     state = new Title();
     userStartAudio();
     levelMusic.play();
@@ -110,7 +109,6 @@ function draw() {
 }
 
 function loading() {
-  background(0);
   push();
   textSize(32);
   textStyle(BOLD);
@@ -132,38 +130,33 @@ function welcome() {
   pop();
 
   displayTarget();
-  if (!target.found) {
-    //if there's predictions to display,
-    if (predictions.length > 0) {
-      //then get the positions of the tip and base of index finger.
-      updateDot(predictions[0]);
-      //display current position of pin.
-      displayDot();
 
-      //check if the dot touches the targets
-      let dF = dist(dot.x, dot.y, target.firstX, target.firstY);
-      let dS = dist(dot.x, dot.y, target.secondX, target.secondY);
-      if (dF < target.size / 2 && target.amountTouched === 0) {
-        target.currentX = target.secondX;
-        target.currentY = target.secondY;
-        target.amountTouched++;
-      }
-      else if (dS < target.size / 2 && target.amountTouched === 1) {
-        target.amountTouched++;
-        stateName = `title`;
-        //acess the user webcam
-        video = stop(VIDEO);
-        // state.update();
-        target.found = true;
-        return;
-      }
+  //if there's predictions to display,
+  if (predictions.length > 0) {
+    //then get the positions of the tip and base of index finger.
+    updateDot(predictions[0]);
+
+    //check if the dot touches the targets
+    let dF = dist(dot.x, dot.y, target.firstX, target.firstY);
+    let dS = dist(dot.x, dot.y, target.secondX, target.secondY);
+    if (dF < target.size / 2 && target.amountTouched === 0) {
+      target.currentX = target.secondX;
+      target.currentY = target.secondY;
+      target.amountTouched ++;
     }
+    else if (dS < target.size / 2 && target.amountTouched === 1) {
+      target.amountTouched ++;
+      state = `title`;
+      // state.update();
+    }
+    //display current position of pin.
+    displayDot();
   }
 }
 
-function updateDot(prediction) {
-  dot.x = prediction.annotations.indexFinger[3][0];
-  dot.y = prediction.annotations.indexFinger[3][1];
+function updateDot(predictions) {
+  dot.x = predictions.annotations.indexFinger[3][0];
+  dot.y = predictions.annotations.indexFinger[3][1];
 }
 
 function displayTarget() {
@@ -184,5 +177,5 @@ function displayDot() {
 
 //connected to the Scenes.js
 function mouseClicked() {
-  // state.mouseClicked();
+  state.mouseClicked();
 }
