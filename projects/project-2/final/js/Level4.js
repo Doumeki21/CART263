@@ -65,7 +65,8 @@ class Level4 extends Level3 {
 
   changeLevels() {
     if (bouncingBall.y > height) {
-      state = new Level5(bouncingBall.lives.currentLives);
+      // state = new Level5(bouncingBall.lives.currentLives);
+      state = new CutScene();
     }
   }
 }

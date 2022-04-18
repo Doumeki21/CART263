@@ -3,10 +3,10 @@ project 2 - Final project
 Olenka Yuen
 
 "Jump your best and God will pave your way"
+A game where you have to get the ball to reach the bottom of the screen within the conditions of the level. (Checj out the README to )
 
-A game where you have to get the ball to reach the bottom of the screen within the conditions of the level.
-
-Program uses annyang! (in the last level) and keyboard keys to control the environment.
+Program uses keyboard keys to control the environment and annyang! (in the level 5).
+The structure of this code gathers all the universal variables in the main script (with the exception of things related to the annyang library).
 */
 
 "use strict";
