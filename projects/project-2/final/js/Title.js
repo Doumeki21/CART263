@@ -38,6 +38,5 @@ class Title extends Scenes{
   mouseClicked() {
     super.mouseClicked();
     state = new Level1();
-    console.log(`clicked`);
   }
 }

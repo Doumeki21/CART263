@@ -2,6 +2,20 @@
 class Level5 extends Level4 {
   constructor(previousLevelLives) {
     super();
+    // //If annyang! works, execute the commands
+    // if (annyang) {
+    //   let commands = {
+    //     "Heal *now": recover,
+    //   };
+    //   annyang.addCommands(commands); //add commands to annyang!
+    //   annyang.start(); //start listening
+    //   annyang.debug(true); //debug annyang
+    // } else {
+    //   alert(`Please visit this page on Google Chrome!`); //Pop up alert if user isn't using Chrome browser.
+    // }
+    // this.recover(now);
+
+    // this.loadBar;
     this.timer = 25;
     this.timerActive = true;
     // this.currentLevel = `LEVEL 5`;
@@ -11,45 +25,54 @@ class Level5 extends Level4 {
     this.createSquares();
 
     this.rectangle;
-    this.bouncingBall;
+    bouncingBall;
     this.platforms = [];
     this.maxPlatforms = 8;
     this.spaceBetweenPlatforms = 100;
     this.firstPlatformY = windowHeight / 7;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
-      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
+      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i; //spacing out b/w each platform
 
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
-      platform.danger.width = random(70,100);
-      platform.hole.width = random(70,100);
+      platform.danger.width = random(70, 100);
+      platform.hole.width = random(70, 100);
     }
 
-    this.bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing
-    this.rectangle = new Rectangle(random(0, width));//create falling rectangle
+    bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing
+    this.rectangle = new Rectangle(random(0, width)); //create falling rectangle
+    loadBar = new LoadBar(30, 100);
     bossMusic.play();
     levelMusic.stop();
   }
 
   update() {
-    super.update();
-    this.rectangle.update(this.bouncingBall);
+    super.update(); // this.loadBar.update();
+    // this.recover(now);
+    loadBar.update();
+    this.rectangle.update(bouncingBall);
     for (let i = 0; i < this.maxSquares; i++) {
-      this.squares[i].update(this.bouncingBall);
+      this.squares[i].update(bouncingBall);
     }
     this.checkTimer();
     this.displayTimer();
-    this.levelDisplay();
+    // this.levelDisplay();
     this.changeScenes();
   }
 
   createSquares() {
     for (let i = 0; i < this.maxSquares; i++) {
-      this.squares[i] = new Square(random(200, 800), height - 100);//create
-      this.squares[i].update(this.bouncingBall);
+      this.squares[i] = new Square(random(200, 800), height - 100); //create
+      this.squares[i].update(bouncingBall);
     }
   }
+  //
+  // //annyang called in script.js
+  // //voice command to heal the player
+  // recover(now) {
+  //   this.loadBar.reloadBar();
+  // }
 
   checkTimer() {
     //If timer is active,
@@ -74,11 +97,11 @@ class Level5 extends Level4 {
     textSize(60);
     textAlign(CENTER, CENTER);
     // text(round(this.timer), width - 100, 200);
-    text(round(this.timer), width/2, 100);
+    text(round(this.timer), width / 2, 100);
     pop();
   }
 
-//adding this here so that it takes away the previous text from lvl 4
+  //adding this here so that it takes away the previous text from lvl 4
   levelDisplay() {
     // push();
     // fill(255);
@@ -89,7 +112,7 @@ class Level5 extends Level4 {
   }
 
   changeScenes() {
-    if (this.bouncingBall.y > height) {
+    if (bouncingBall.y > height- 20) {
       state = new Win();
     }
   }

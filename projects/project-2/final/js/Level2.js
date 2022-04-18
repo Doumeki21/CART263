@@ -3,7 +3,7 @@ class Level2 extends Level1 {
   constructor(previousLevelLives) {
     super();
     this.currentLevel = `LEVEL 2`;
-    this.bouncingBall;
+    bouncingBall;
     this.platforms = [];
     this.maxPlatforms = 4;
     this.spaceBetweenPlatforms = 150;
@@ -17,12 +17,12 @@ class Level2 extends Level1 {
       platform.danger.width = random(70,200);
       platform.hole.width = random(70,300);
     }
-    this.bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing ball from the top of the canvas.
+    bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing ball from the top of the canvas.
   }
 
   update() {
     //prevnt lagging**
-    this.bouncingBall.update();
+    bouncingBall.update();
     this.handleInput();
     this.levelDisplay();
     this.changeLevels();
@@ -31,8 +31,8 @@ class Level2 extends Level1 {
   handleInput() {
     for (let i = 0; i < this.platforms.length; i++) {
       this.platforms[i].update(); //move + display the platform
-      this.bouncingBall.handlePlatform(this.platforms[i]); //check ball interacting platform
-      this.bouncingBall.randomizeBallStroke(this.platforms[i]); //randomize ball stroke color
+      bouncingBall.handlePlatform(this.platforms[i]); //check ball interacting platform
+      bouncingBall.randomizeBallStroke(this.platforms[i]); //randomize ball stroke color
       if (this.platforms[i].active === false) {
         //at position i, get rid of 1 platform.
         this.platforms.splice(i, 1);
@@ -43,7 +43,7 @@ class Level2 extends Level1 {
         if (next) {
           // Check if the next platform's hole color matches the ball color
           //tostring is to see the color
-          if (next.hole.color.toString() !== this.bouncingBall.currentStroke.toString()) {
+          if (next.hole.color.toString() !== bouncingBall.currentStroke.toString()) {
             // If it doesn't, then swap the identities of the hole and danger for the next
             // platform so the ball passes through the correctly colored area
             let hole = next.hole;
@@ -58,7 +58,7 @@ class Level2 extends Level1 {
 
   // matchColor() {
   // //if the ball w blackStroke passes through a hole
-  //   if (this.bouncingBall.currentStroke === this.bouncingBall.blackStroke) {
+  //   if (bouncingBall.currentStroke === bouncingBall.blackStroke) {
   //     if (
   //       this.y + this.size / 2 > platform.y - platform.height / 2 &&
   //       this.y - this.size / 2 < platform.y + platform.height / 2
@@ -90,8 +90,8 @@ class Level2 extends Level1 {
   }
 
   changeLevels() {
-    if (this.bouncingBall.y > height) {
-      state = new Level3(this.bouncingBall.lives.currentLives);
+    if (bouncingBall.y > height) {
+      state = new Level3(bouncingBall.lives.currentLives);
     }
   }
 }

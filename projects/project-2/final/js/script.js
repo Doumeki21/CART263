@@ -24,6 +24,8 @@ let state = undefined;
 // let timerActive = true;
 let levelMusic;
 let bossMusic;
+let loadBar = undefined;
+let bouncingBall = undefined;
 
 //maybe add images later??
 function preload() {
@@ -37,8 +39,20 @@ function setup() {
   levelMusic.play();
   createCanvas(windowWidth, windowHeight);
 
-  state = new Title();
-  // state = new Level4(5);
+  //If annyang! works, execute the commands
+  if (annyang) {
+    let commands = {
+      "Recover *now": recover,
+    };
+    annyang.addCommands(commands); //add commands to annyang!
+    annyang.start(); //start listening
+    annyang.debug(true); //debug annyang
+  } else {
+    alert(`Please visit this page on Google Chrome!`); //Pop up alert if user isn't using Chrome browser.
+  }
+
+  // state = new Title();
+  state = new Level5(5);
   // state = new Level1();
 }
 
@@ -48,6 +62,13 @@ function draw() {
   state.update();
   // checkTimer();
   // displayTimer();
+}
+
+//recover()
+//voice command to heal the player
+function recover(now) {
+  console.log(`print`);
+  loadBar.activateBar(bouncingBall);
 }
 
 // function checkTimer() {

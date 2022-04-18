@@ -5,7 +5,7 @@ class Level1 extends Levels {
   constructor() {
     super();
     this.currentLevel = `LEVEL 1`;
-    this.bouncingBall;
+    bouncingBall;
     this.platforms = [];
     this.maxPlatforms = 3;
     this.spaceBetweenPlatforms = 180;
@@ -19,11 +19,11 @@ class Level1 extends Levels {
       platform.danger.width = random(70, 100);
       platform.hole.width = random(100, 300);
     }
-    this.bouncingBall = new BouncingBall(windowWidth / 2, -50, 5); //create the bouncing ball from the top of the canvas.
+    bouncingBall = new BouncingBall(windowWidth / 2, -50, 5); //create the bouncing ball from the top of the canvas.
   }
 
   update() {
-    this.bouncingBall.update();//prevnt lagging
+    bouncingBall.update();//prevnt lagging
     this.handleInput();
     this.levelDisplay();
     this.changeLevels();
@@ -33,7 +33,7 @@ class Level1 extends Levels {
     //control the platforms
     for (let i = 0; i < this.platforms.length; i++) {
       this.platforms[i].update();
-      this.bouncingBall.handlePlatform(this.platforms[i]);
+      bouncingBall.handlePlatform(this.platforms[i]);
       if (this.platforms[i].active === false) {
         //at position i the get rid of 1 platform.
         this.platforms.splice(i, 1);
@@ -53,8 +53,8 @@ class Level1 extends Levels {
 
   changeLevels() {
     //if the ball reaches the bottom of screen, cahnge changeLevels
-    if (this.bouncingBall.y > height) {
-      state = new Level2(this.bouncingBall.lives.currentLives);
+    if (bouncingBall.y > height) {
+      state = new Level2(bouncingBall.lives.currentLives);
     }
   }
 }

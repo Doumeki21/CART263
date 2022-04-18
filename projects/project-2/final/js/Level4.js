@@ -21,7 +21,7 @@ class Level4 extends Level3 {
     // };
 
     this.square;
-    this.bouncingBall;
+    bouncingBall;
     this.platforms = [];
     this.maxPlatforms = 6;
     this.spaceBetweenPlatforms = 100;
@@ -36,7 +36,7 @@ class Level4 extends Level3 {
       platform.hole.width = random(70,150);
     }
 
-    this.bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the displayBall
+    bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the displayBall
     this.square = new Square(width / 2, height - 100);//create square
   }
 
@@ -47,9 +47,9 @@ class Level4 extends Level3 {
     //   this.squareControl();
     //   this.movingSquare();
     //   this.squareDisplay();
-    //   this.bouncingBall.handleOtherEnemies(this.square);
+    //   bouncingBall.handleOtherEnemies(this.square);
     // }
-    this.square.update(this.bouncingBall);
+    this.square.update(bouncingBall);
     this.levelDisplay();
     this.changeLevels();
   }
@@ -64,8 +64,8 @@ class Level4 extends Level3 {
   }
 
   changeLevels() {
-    if (this.bouncingBall.y > height) {
-      state = new Level5(this.bouncingBall.lives.currentLives);
+    if (bouncingBall.y > height) {
+      state = new Level5(bouncingBall.lives.currentLives);
     }
   }
 }
