@@ -1,10 +1,10 @@
 //the bouncingBall class
-//Defines all cases for lives, affecting change of state
-//this ball bounces up and down on the canvas vertically
+//Defines all cases for lives, affecting change of state based on the lives
+//ball bounces up and down on the canvas vertically
 class BouncingBall extends Levels {
   constructor(x, y, previousLevelLives) {
     super();
-    //properties for its characteristics, its dropping speed and when they disappear.
+    //properties for its characteristics, its dropping speed and the life
     this.x = x;
     this.y = y;
     this.vx = 0;
@@ -21,18 +21,17 @@ class BouncingBall extends Levels {
       currentLives: undefined,
       initialLives: previousLevelLives,
     };
-
-    // pippin's code
-    this.redStroke = color(255, 117, 138); // Easier to define colors this way
+    //START: pippin's code
+    this.redStroke = color(255, 117, 138); // Defining the colors of the ball
     this.blackStroke = color(100, 100, 100); // As above
-    // END NEW
+    // END: pippin's code
     this.currentStroke = this.blackStroke; // Start as black so it matches the standard hole
     this.allStrokes = [this.redStroke, this.blackStroke];
     this.changeStroke = false;
     this.lives.currentLives = this.lives.initialLives;
   }
 
-  //A single function that contains everything from this class to call in all levels.
+  //A single function that contains everything from this object class to call in all levels.
   update() {
     super.update();
     this.gravity(0.01);
@@ -42,7 +41,7 @@ class BouncingBall extends Levels {
     this.displayBall();
   }
 
-  //called in level1 and level 2! (further levels extends to level2)
+  //called in level1 and level 2! (further levels extends from level2)
   handlePlatform(platform) {
     this.collision(platform);
     this.passHole(platform);
@@ -53,18 +52,20 @@ class BouncingBall extends Levels {
   handleOtherEnemies(square) {
     this.touchSquare(square);//called in lvl 4, lvl 5 (inside array)
   }
-
+  //called inside Rectangle.js
   handleOtherEnemies2(rectangle) {
     this.touchRectangle(rectangle);//called in lvl 5
   }
 
-  //All the gravity stuff referred to from exercise 5: juggle garden of CART253
+  //START: referred to from exercise 5: juggle garden of CART253
   //ball goes down due to gravity.
+  //called in update
   gravity(force) {
     this.ay += force;
   }
 
   //ball moves.
+  //called in update
   move() {
     //Changing position (moving)
     this.x += this.vx;
@@ -76,8 +77,18 @@ class BouncingBall extends Levels {
     this.vx = constrain(this.vx, -this.maxSpeed, this.maxSpeed);
     this.vy = constrain(this.vy, -this.maxSpeed, this.maxSpeed);
   }
+  //END: refer to CART263 EX5.
+
+  //check if the ball loses all currentLives
+  //called in update
+  checkDead() {
+      if (this.lives.currentLives === 0) {
+        state = new Lose();
+      }
+    }
 
   //check when the ball bounces.
+  //called in handlePlatform
   collision(platform) {
     //once the ball bounces off from the Platform,
     if (
@@ -100,30 +111,28 @@ class BouncingBall extends Levels {
     }
   }
 
+  //once a platoform disappears, the ball's stroke changes color
+  //called in lvl2 + 3
   randomizeBallStroke(platform) {
     if (platform.active === false) {
       this.currentStroke = random(this.allStrokes);
-      // this.changeStroke = false;
-      console.log(`randomizeBallStroke`);
     }
   }
 
-//In all Levels
+  //check if the ball has passed through a platform
+  //called in handlePlatform
   passHole(platform) {
     let platformOffsetY = 80;
     //If the ball is underneath the platform,
-    if (
-      this.y + this.size / 2 >
-      platform.y - platform.height / 2 + platformOffsetY
-    ) {
-      //take it out.
+    if (this.y + this.size / 2 >platform.y - platform.height / 2 + platformOffsetY) {
+      //take out that platform
       platform.active = false;
-
       return true;
     }
   }
 
-//In all levels
+  //check if the ball has touched a danger zone
+  //called in handlePlatform
   touchDanger(platform) {
     if (
       this.y + this.size / 2 > platform.danger.y - platform.danger.height / 2 &&
@@ -134,7 +143,8 @@ class BouncingBall extends Levels {
     }
   }
 
-//Starts in level 4
+  //Checks if the ball has touched a (lavender) square
+  //called in handleOtherEnemies, Starts in level 4
   touchSquare(square) {
     if (
       this.y + this.size / 2 > square.y - square.size / 2 &&
@@ -143,12 +153,13 @@ class BouncingBall extends Levels {
       this.x - this.size / 2 < square.x + square.size / 2
     ) {
       this.lives.currentLives --;
-      //once contact, have the square reset it's position
+      //once in contact, have the square reset it's position (bottom of screen)
       square.y = height;
     }
   }
 
-//Starts in level 5
+  //Checks if the ball has touched a (cyan blue) rectangle
+  //called in handleOtherEnemies2, Starts in level 5
   touchRectangle(rectangle) {
     if (rectangle.active) {
       if (
@@ -158,37 +169,33 @@ class BouncingBall extends Levels {
         this.x - this.size / 2 < rectangle.x + rectangle.width / 2
       ) {
         this.lives.currentLives --;
-        //once contact, have the rect reset it's position
+        //once contact, have the rectangle reset it's position
         rectangle.y = rectangle.initialY;
         rectangle.active = false;
       }
     }
   }
 
-//In all levels
-  checkDead() {
-    if (this.lives.currentLives === 0) {
-      state = new Lose();
-    }
-  }
-
-//displays the lives of the ball
+  //displays the lives of the ball
+  //in update
   displayLives() {
     push();
     let x = this.lives.x;
+    //for a max of 5 lives,
     for (let i = 0; i < this.lives.currentLives; i++) {
-      //Display lives.
+      //Display lives (white circle).
       push();
       noStroke();
       fill(255);
       ellipse(x, this.lives.y, this.lives.size);
       pop();
-      //Timer displays vertically.
+      //circles display vertically.
       x += 40;
     }
   }
 
   //display the BouncingBall
+  //in update
   displayBall() {
     push();
     stroke(this.currentStroke);

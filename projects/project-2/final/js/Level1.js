@@ -1,6 +1,5 @@
-//move the script stuff into level1
-//use the script to change between levels?
-//3 platforms, moving the platform with arrow keys, starting lives (3)
+//the Level 1 class
+//3 platforms, moving the platform with arrow keys, (5) starting lives
 class Level1 extends Levels {
   constructor() {
     super();

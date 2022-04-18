@@ -2,42 +2,32 @@
 project 2 - Final project
 Olenka Yuen
 
-Gameplay inspirations: Whack-a-Mole, helix jump, stack ball, rolly vortex
+"Jump your best and God will pave your way"
 
-An adventure of the mole as in the animal?
-Or mole that grows on skin?
-"Just jump your best and God will pave your way"
+A game where you have to get the ball to reach the bottom of the screen within the conditions of the level.
 
-2. array of platforms - movable with the mouse
-
-
-ideas:
-array of platforms >> every other controls in the opposite direction.
-every next level gets weirder + more difficult
-moving parts of the platform at one point
+Program uses annyang! (in the last level) and keyboard keys to control the environment.
 */
 
 "use strict";
 
-let state = undefined;
-// let timer = 10;
-// let timerActive = true;
+let state = undefined;//states changes throughout the game: Title, Win, Lose, (Level)
 let levelMusic;
 let bossMusic;
-let loadBar = undefined;
-let bouncingBall = undefined;
+let loadBar = undefined;//called in level 5
+let bouncingBall = undefined;//universal variable called in every level
 
-//maybe add images later??
+//load all the sounds first
 function preload() {
   levelMusic = loadSound(`assets/sounds/alex-productions-extreme-trap-racing-music-power.mp3`);
   bossMusic = loadSound(`assets/sounds/BoxCat-Games-Epic-Song.mp3`);
 }
 
-//setup the canvas and create the objects from the class
+//setup the canvas and annyang, start music, and show first screen
 function setup() {
+  createCanvas(windowWidth, windowHeight);
   userStartAudio();
   levelMusic.play();
-  createCanvas(windowWidth, windowHeight);
 
   //If annyang! works, execute the commands
   if (annyang) {
@@ -48,56 +38,25 @@ function setup() {
     annyang.start(); //start listening
     annyang.debug(true); //debug annyang
   } else {
-    alert(`Please visit this page on Google Chrome!`); //Pop up alert if user isn't using Chrome browser.
+    alert(`Please visit this page on Google Chrome\nto use the mic!`); //Pop up alert if user isn't using Chrome browser.
   }
 
-  // state = new Title();
-  state = new Level5(5);
-  // state = new Level1();
+  state = new Title();//begin from the Title screen.
 }
 
-//draw the objects
+//Start/ execute the program
 function draw() {
   background(0, 90);// black background and alpha trail
-  state.update();
-  // checkTimer();
-  // displayTimer();
+  state.update();//update the Title state. (and all other states as it changes.)
 }
 
 //recover()
 //voice command to heal the player
 function recover(now) {
-  console.log(`print`);
   loadBar.activateBar(bouncingBall);
 }
 
-// function checkTimer() {
-//   //If timer is active,
-//   if (timerActive) {
-//     //and if it's down to 0 seconds,
-//     if (timer <= 0) {
-//       //stay at 0, and change screen to lose.
-//       timer = 0;
-//       state = new Lose();
-//       levelMusic.stop();
-//       bossMusic.stop();
-//     }
-//     //Count in seconds.
-//     timer -= 1 / 60;
-//   }
-// }
-//
-// //Display the white timer counting down from 10, at the top left corner.
-// function displayTimer() {
-//   push();
-//   fill(255);
-//   textSize(60);
-//   textAlign(CENTER, CENTER);
-//   text(round(timer), width - 80, 200);
-//   pop();
-// }
-
 //connected to the Scenes.js
 function mouseClicked() {
-  state.mouseClicked();
+  state.mouseClicked();//called in Win, Lose, Title
 }

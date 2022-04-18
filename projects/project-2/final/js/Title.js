@@ -2,7 +2,8 @@ class Title extends Scenes{
   constructor() {
     super();
     this.titleString = `START`;
-    this.subtitleString = `(Use Arrow Keys)\n\nClick to Start`;
+    this.subtitleString = `(Use Arrow Keys)`;
+    this.continueString = `Click to Start`;
     levelMusic.play();
     levelMusic.loop();
   }
@@ -10,9 +11,7 @@ class Title extends Scenes{
   //
   update() {
     super.update();
-    //Display the title.
     this.displayTitle();
-    // this.mouseClicked();
   }
 
   //Display the title.
@@ -31,6 +30,14 @@ class Title extends Scenes{
     textSize(30);
     textAlign(CENTER);
     text(this.subtitleString, width / 2, height / 2 + 100);
+    pop();
+
+    push()
+    noStroke();
+    fill(255);
+    textSize(30);
+    textAlign(CENTER);
+    text(this.continueString, width / 2, height - 100);
     pop();
   }
 
