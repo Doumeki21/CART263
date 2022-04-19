@@ -8,7 +8,8 @@
 
 *"It's ok, jump your best and God will pave your way."*
 
-[Play the game here]()
+[Play the game here](https://doumeki21.github.io/CART263/projects/project-2/final/)
+
 ***Objective: get the ball to reach at the bottom of the screen!***
 
 # Artistic Goals
