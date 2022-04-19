@@ -1,25 +1,10 @@
-//adding objects flying in
+//level 4 class
+//recalls previous level, 6 platforms, adding a floating square
 class Level4 extends Level3 {
   constructor(previousLevelLives) {
     super();
+    //display the level as text, calls all objects (ball falls down, floating square player controls (6) platforms)
     this.currentLevel = `LEVEL 4`;
-    // this.squareYSpeeds = [-5, -4, -3];
-    // this.squareXSpeeds = [-0.5, -0.4, -0.3, 0.3, 0.4, 0.5];
-    // this.squareMovingSpeed = 10;
-
-    // this.square = {
-    //   x: width / 2,
-    //   y: height - 100,
-    //   vx: random(this.squareXSpeeds),
-    //   vy: random(this.squareYSpeeds),
-    //   ax: 0,
-    //   ay: 0,
-    //   maxSpeed: 15,
-    //   size: 40,
-    //   active: true,
-    //   color: color(200, 200, 255),
-    // };
-
     this.square;
     bouncingBall;
     this.platforms = [];
@@ -29,31 +14,24 @@ class Level4 extends Level3 {
 
     for (let i = 0; i < this.maxPlatforms; i++) {
       let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
-
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
-      platform.danger.width = random(70,150);
+      platform.danger.width = random(70,150);//smaller size range
       platform.hole.width = random(70,150);
     }
-
-    bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the displayBall
+    bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the Ball
     this.square = new Square(width / 2, height - 100);//create square
   }
 
+  //updates all functions in the class
   update() {
     super.update();
-    // if (this.square.active) {
-    //   this.generateSquare();
-    //   this.squareControl();
-    //   this.movingSquare();
-    //   this.squareDisplay();
-    //   bouncingBall.handleOtherEnemies(this.square);
-    // }
-    this.square.update(bouncingBall);
+    this.square.update(bouncingBall);//updates from square class
     this.levelDisplay();
     this.changeLevels();
   }
 
+  //displays the level as text at the top of the screen
   levelDisplay() {
     push();
     fill(255);
@@ -63,10 +41,11 @@ class Level4 extends Level3 {
     pop();
   }
 
+  //when the ball reaches the bottom of screen, change Levels + keep track of lives.
   changeLevels() {
     if (bouncingBall.y > height) {
       // state = new Level5(bouncingBall.lives.currentLives);
-      state = new CutScene();
+      state = new Win();
     }
   }
 }

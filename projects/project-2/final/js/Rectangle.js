@@ -1,49 +1,51 @@
+//rectangle class
 //this code from project 1
-//Blue enemy - an extension to the Enemies class
 //Randomly appears and drops fast to the bottom of the canvas
 class Rectangle {
-  //calls the super constructor and adds properties for it to display
   constructor(x) {
+    //properties for its characteristics and its dropping speed
+    //dimensions
     this.x = x;
     this.y = this.initialY;
     this.initialY = -10;
     this.width = 100;
     this.height = 100;
+    //appearance
     this.alpha = 0;
     this.alphaSpeed = 8;
+    //movement
     this.rectangleMovingSpeed = 20;
     this.initialVy = 0.5;
     this.currentVy = this.initialVy;
     this.ay = 0.5;
     this.acceleration = 0.5;
     this.active = false;
-
     this.timer = 0;
     this.randomizedTime = random(1, 3);
   }
 
-  //update()
-  //Calls the super update() and all the functions/ events within this class.
+  //A single function that contains everything from this object class to be called.
   update(bouncingBall) {
-    this.timer += 1/60;
+    this.timer += 1/60;//count the number up by seconds
+    //if the timer reaches the randomized time, activate the rectangle
     if (this.timer > this.randomizedTime) {
       this.activate();
     }
-    bouncingBall.handleOtherEnemies2(this);
+    bouncingBall.handleOtherEnemies2(this);//called in bouncingBall.js (checks if ball and rectangle touch)
     this.checkActive();
     this.appearing();
     this.rectangleControl();
     this.display();
   }
 
+  //the moment of activation- (to display)
   activate() {
-    //reset the timer
-    this.timer = 0;
+    this.timer = 0;//reset the timer
     this.randomizedTime = random(1, 3);
-    this.active = !this.active;
+    this.active = !this.active;//make the rectangle active and display it
   }
 
-  //checkActive()
+  //checks what the rectangle should do when it's visible or not
   checkActive() {
     // if enemy is invisible, randomizes size, and location until it's visible again.
     if (!this.active) {
@@ -54,13 +56,13 @@ class Rectangle {
       this.width = random(100, 300);
       this.height = random(100, 300);
     }
-    //once it hits the bottom of the canvas, blue enemy disappears.
+    //once it hits the bottom of the canvas, rectangle disappears.
     if (this.y >= height) {
       this.active = false;
     }
   }
 
-  //checkAppearing()
+  //when the rectangle is visible, it drops from top of screen
   appearing() {
     if (this.active) {
       // starts by fading in
@@ -74,19 +76,21 @@ class Rectangle {
     }
   }
 
+  //rectangle is controlled with the arrow keys
   rectangleControl() {
+    //rectangle moves left
     if (keyIsDown(LEFT_ARROW)) {
       this.x -= this.rectangleMovingSpeed;
     }
-    //platform objects move right
+    //rectangle moves right
     if (keyIsDown(RIGHT_ARROW)) {
       this.x += this.rectangleMovingSpeed;
     }
-
-    // Wrap the square to the other side
+    // Wrap the rectangle to the other side
     if (this.x + this.width < 0) {
       this.x += width + this.width;
-    } else if (this.x - this.width > width) {
+    }
+    else if (this.x - this.width > width) {
       this.x -= width + this.width;
     }
   }

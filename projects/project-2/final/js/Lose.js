@@ -1,19 +1,22 @@
+//lose class
+//Event: the player either couldn't finish reach the end before losing all lives or ran out of time. When this state is triggered, the player needs to replay the program from the start.
 class Lose extends Scenes {
   constructor() {
     super();
+    //displays the text for the state and stops all music.
     this.titleString = `YOU LOSE`;
     this.subtitleString = `CLICK TO CONTINUE`;
     levelMusic.stop();
     bossMusic.stop();
   }
 
+  //updates all functions in the class
   update() {
     super.update();
-    //Display the title.
     this.displayTitle();
   }
 
-  //Display the title.
+  //Display the text
   displayTitle() {
     push()
     noStroke();
@@ -32,7 +35,7 @@ class Lose extends Scenes {
     pop();
   }
 
-  //Switch from the title screen to the stress game after clicking on the mouse.
+  //Switch to title screen after clicking the mouse.
   mouseClicked() {
     super.mouseClicked();
     state = new Title();

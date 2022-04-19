@@ -1,7 +1,9 @@
-//4 platforms, randomizes ball stroke
+//level 2 class
+//recalls previous level, 4 platforms, randomizes ball stroke
 class Level2 extends Level1 {
   constructor(previousLevelLives) {
     super();
+    //display the level as text, calls all objects (ball falls down, player controls (4) platforms)
     this.currentLevel = `LEVEL 2`;
     bouncingBall;
     this.platforms = [];
@@ -11,23 +13,23 @@ class Level2 extends Level1 {
 
     for (let i = 0; i < this.maxPlatforms; i++) {
       let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
-
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
-      platform.danger.width = random(70,200);
+      platform.danger.width = random(70,200);//randomizing the size of platform areas
       platform.hole.width = random(70,300);
     }
     bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing ball from the top of the canvas.
   }
 
+  //updates all functions in the class
   update() {
-    //prevnt lagging**
-    bouncingBall.update();
+    bouncingBall.update();//updates from bouncingBall class
     this.handleInput();
     this.levelDisplay();
     this.changeLevels();
   }
 
+  //control the platforms
   handleInput() {
     for (let i = 0; i < this.platforms.length; i++) {
       this.platforms[i].update(); //move + display the platform
@@ -41,10 +43,10 @@ class Level2 extends Level1 {
         let next = this.platforms[0];
         // Make sure there is one (might have run out of platforms)
         if (next) {
-          // Check if the next platform's hole color matches the ball color
-          //tostring is to see the color
+          // Check if the next platform's hole color matches the ball color-
+          //*tostring is to see the color*
           if (next.hole.color.toString() !== bouncingBall.currentStroke.toString()) {
-            // If it doesn't, then swap the identities of the hole and danger for the next
+            // -If it doesn't, then swap the identities of the hole and danger for the next
             // platform so the ball passes through the correctly colored area
             let hole = next.hole;
             next.hole = next.danger;
@@ -56,30 +58,7 @@ class Level2 extends Level1 {
     }
   }
 
-  // matchColor() {
-  // //if the ball w blackStroke passes through a hole
-  //   if (bouncingBall.currentStroke === bouncingBall.blackStroke) {
-  //     if (
-  //       this.y + this.size / 2 > platform.y - platform.height / 2 &&
-  //       this.y - this.size / 2 < platform.y + platform.height / 2
-  //     ) {
-  //       //within the hole area,
-  //       if (
-  //         this.x > platform.hole.x - platform.hole.width / 2 &&
-  //         this.x < platform.hole.x + platform.hole.width / 2
-  //       ) {
-  //         //then pass trhough
-  //         //WILL MAKE A POINT SYSTEM HERE LATER???
-  //       }
-  //       //else, bounce back up
-  //       else {
-  //         this.vy = -this.vy;
-  //         this.ay = 0;
-  //       }
-  //     }
-  //   }
-  // }
-
+  //displays the level as text at the top of the screen
   levelDisplay() {
     push();
     fill(255);
@@ -89,6 +68,7 @@ class Level2 extends Level1 {
     pop();
   }
 
+  //when the ball reaches the bottom of screen, change Levels + keep track of lives.
   changeLevels() {
     if (bouncingBall.y > height) {
       state = new Level3(bouncingBall.lives.currentLives);

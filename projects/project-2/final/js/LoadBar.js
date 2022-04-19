@@ -1,10 +1,14 @@
+//LoadBar class
+//the bar auto reloads every time the command is called
+//used in level 5
 class LoadBar {
   constructor(x, y) {
+    //the base of the bar
     this.x = x;
     this.y = y;
     this.width = 200;
     this.height = 40;
-
+    //the filling for the bar
     this.fillX = this.x;
     this.fillY = this.y;
     this.fillWidth = 0;
@@ -14,11 +18,13 @@ class LoadBar {
       g: undefined,
       b: undefined,
     },
+    //grey fill
     this.filling = {
       r: 200,
       g: 200,
       b: 200,
     },
+    //green fill
     this.maxFill = {
       r: 100,
       g: 200,
@@ -28,15 +34,20 @@ class LoadBar {
     this.activeBar = true;
   }
 
+  //A single function that contains everything from this object class to call in level 5.
   update() {
-    this.reloadBar();
+    this.checkReloadBar();
     this.displayBar();
   }
 
-//called in annyang
+  //execute this function when the command is called through annyang
+  //command function called in annyang - script.js
   activateBar(bouncingBall) {
+    //if the bar isn't reloading,
     if (this.activeBar) {
+      //and if the ball's life is less than its max,
       if (bouncingBall.lives.currentLives <= 5) {
+        //the bar is used and life is increased by 1
         this.fillWidth = 0;
         bouncingBall.lives.currentLives++;
         this.activeBar = false;
@@ -44,33 +55,29 @@ class LoadBar {
     }
   }
 
-  reloadBar() {
+  //checks if the bar is reloadable
+  checkReloadBar() {
+    //if the bar is unfilled,
     if (this.fillWidth < this.width) {
+      //then fill it with a grey color
       this.fillWidth += this.fillSpeed;
       this.currentFill.r = this.filling.r;
-      this.currentFill.r = this.filling.g;
-      this.currentFill.r = this.filling.b;
+      this.currentFill.g = this.filling.g;
+      this.currentFill.b = this.filling.b;
     }
+    //else if it's filled,
     else if (this.fillWidth === this.width) {
+      //then indicate it with a text and green color
       this.currentFill.r = this.maxFill.r;
-      this.currentFill.r = this.maxFill.g;
-      this.currentFill.r = this.maxFill.b;
+      this.currentFill.g = this.maxFill.g;
+      this.currentFill.b = this.maxFill.b;
       this.displayHeal();
       this.activeBar = true;
     }
   }
 
-  // //setActiveBar()
-  // //Player's health bar will be inactive for a few seconds until it drops again if PLayer is still touching an enemy.
-  // setActiveBar() {
-  //   setTimeout(() => {
-  //     this.isBarActive = true;
-  //   }, 1000);
-  // }
-
-  //from project1//
-  //displayHP()
-  //display the player's life
+  //START: code from project1//
+  //display load bar()
   displayBar() {
     //display the bar
     push();
@@ -89,6 +96,7 @@ class LoadBar {
     rect(this.fillX + this.fillWidth / 2, this.fillY, this.fillWidth, this.fillHeight);
     pop();
   }
+  //END: code from project1//
 
   //display the healing text
   displayHeal() {

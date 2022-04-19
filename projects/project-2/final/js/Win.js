@@ -1,18 +1,22 @@
+//Win class
+//Event: the player finishes the game. When this state is triggered, the player returns to the title screen.
 class Win extends Scenes {
   constructor() {
     super();
+    //displays the text for the state and stops all music.
     this.titleString = `YOU WIN`;
     this.subtitleString = `CLICK TO CONTINUE`;
     levelMusic.stop();
     bossMusic.stop();
   }
 
+  //updates all functions in the class
   update() {
     super.update();
     this.displayTitle();
   }
 
-  //Display the title.
+  //Display the text.
   displayTitle() {
     push()
     noStroke();
@@ -31,7 +35,7 @@ class Win extends Scenes {
     pop();
   }
 
-  //Switch from the title screen to the stress game after clicking on the mouse.
+  //Switch to title screen after clicking the mouse.
   mouseClicked() {
     super.mouseClicked();
     state = new Title();

@@ -1,5 +1,5 @@
 //the platform class
-//the user controls the platform using the keyboard keys (and the mouse).
+//the user controls the platform using the keyboard keys.
 class Platform {
   constructor(x, y) {
     //the platform
@@ -9,7 +9,6 @@ class Platform {
     this.height = 10;
     this.movingSpeed = 15;
     this.active = true;
-
     //danger zone
     this.danger = {
       x: random(0, width),
@@ -18,7 +17,6 @@ class Platform {
       height: this.height,
       color: color(255, 117, 138)//pippin's code: Use the color object instead of individual properties
     };
-
     //hole
     this.hole = {
       x: random(0, width),
@@ -29,17 +27,11 @@ class Platform {
     };
   }
 
-  //calls all functions from this class when it's active.
+  //updates all functions from this class when it's active.
   update(normal) {
     if (this.active) {
-      // //level 2: 1 hole draggable by the mouse
-      // if (state === `level2`) {
-      //   //function
-      // }
-      // //level3: ball's outline changes color (to match the hole color) after every platform
-
       this.regenerate();
-      this.move(normal);
+      this.move(normal);//in lvl 3 when platform directions start to alternate
       this.displayPlatform();
       this.displayHole();
       this.displayDanger();
@@ -59,25 +51,13 @@ class Platform {
     }
   }
 
-  //the Handleinput
+  //the Handleinput, platform controlled with the left and right arrow keys
   move(normal) {
-    //TO BE USED LATER FOR MOUSE INPUT
-    // //the platforms follows the mouse on the x-axis.
-    // this.x = constrain(mouseX, 0, width);
-    //
-    // let dx = mouseX - pmouseX;
-    //
-    // //second values = controls/tracks where the object goes.
-    // this.hole.x += dx;
-    // this.danger.x += dx;
-
-    //modifier makes it move the opposite direction
+    //modifier to change the direction of the platform later on
     let modifier = 1;
     if (!normal) {
       modifier = -1;
     }
-
-    //control the platform with left and right arrow keys.
     //platform objects move left
     if (keyIsDown(LEFT_ARROW)) {
       this.hole.x -= this.movingSpeed * modifier;
@@ -88,14 +68,13 @@ class Platform {
       this.hole.x += this.movingSpeed * modifier;
       this.danger.x += this.movingSpeed * modifier;
     }
-
-    // Wrap the danger zones to the other side
+    // Wrap the danger zones to the other side once it goes off screen
     if (this.danger.x + this.danger.width < 0) {
       this.danger.x += width + this.danger.width;
     } else if (this.danger.x - this.danger.width > width) {
       this.danger.x -= width + this.danger.width;
     }
-    // Wrap the holes to the other side
+    // Wrap the holes to the other side once it goes off screen
     if (this.hole.x + this.hole.width < 0) {
       this.hole.x += width + this.hole.width;
     } else if (this.hole.x - this.hole.width > width) {
@@ -122,7 +101,7 @@ class Platform {
     pop();
   }
 
-  //display the red dangerzones
+  //display the red zones
   displayDanger() {
     push();
     noStroke();

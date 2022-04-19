@@ -1,6 +1,9 @@
+//Title class
+//Event: the game begins in this state.
 class Title extends Scenes{
   constructor() {
     super();
+    //displays the text for the state and starts music.
     this.titleString = `START`;
     this.subtitleString = `(Use Arrow Keys)`;
     this.continueString = `Click to Start`;
@@ -8,7 +11,7 @@ class Title extends Scenes{
     levelMusic.loop();
   }
 
-  //
+  //updates all functions in the class
   update() {
     super.update();
     this.displayTitle();
@@ -41,7 +44,7 @@ class Title extends Scenes{
     pop();
   }
 
-  //Switch from the title screen to the stress game after clicking on the mouse.
+  //Switch to level 1 after clicking the mouse.
   mouseClicked() {
     super.mouseClicked();
     state = new Level1();

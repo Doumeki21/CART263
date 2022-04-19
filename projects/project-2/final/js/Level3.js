@@ -1,7 +1,9 @@
-//changing direction of every other platform and changing colors of ball
+//level 3 class
+//recalls previous level, 4 platforms, changing direction of every other platform
 class Level3 extends Level2 {
   constructor(previousLevelLives) {
     super();
+    //display the level as text, calls all objects (ball falls down, player controls (4) platforms)
     this.currentLevel = `LEVEL 3`;
     bouncingBall;
     this.platforms = [];
@@ -11,30 +13,31 @@ class Level3 extends Level2 {
 
     for (let i = 0; i < this.maxPlatforms; i++) {
       let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
-
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
-      platform.danger.width = random(70,200);
+      platform.danger.width = random(70,200);//randomizing the size of platform areas
       platform.hole.width = random(70,200);
     }
     bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing ball from the top of the canvas.
   }
 
+  //updates all functions in the class
   update() {
-    //prevnt lagging**
-    bouncingBall.update();
+    bouncingBall.update();//updates from bouncingBall class
     this.handleInput();
     this.levelDisplay();
     this.changeLevels();
   }
 
+  //control the platforms
   handleInput() {
     for (let i = 0; i < this.platforms.length; i++) {
+      //if the current platform index is divisble by 2,
       if (this.platforms[i/2]) {
-        this.platforms[i].update(true); //move + display the platform
+        this.platforms[i].update(true); //move to the right w right key + display the platform
       }
       else {
-        this.platforms[i].update(false); //move + display the platform
+        this.platforms[i].update(false); //move to the left w right key + display the platform
       }
       bouncingBall.handlePlatform(this.platforms[i]); //check ball interacting platform
       bouncingBall.randomizeBallStroke(this.platforms[i]); //randomize ball stroke color
@@ -61,6 +64,7 @@ class Level3 extends Level2 {
     }
   }
 
+  //displays the level as text at the top of the screen
   levelDisplay() {
     push();
     fill(255);
@@ -70,6 +74,7 @@ class Level3 extends Level2 {
     pop();
   }
 
+  //when the ball reaches the bottom of screen, change Levels + keep track of lives.
   changeLevels() {
     if (bouncingBall.y > height) {
       state = new Level4(bouncingBall.lives.currentLives);

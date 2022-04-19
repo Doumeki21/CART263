@@ -3,10 +3,11 @@ project 2 - Final project
 Olenka Yuen
 
 "Jump your best and God will pave your way"
-A game where you have to get the ball to reach the bottom of the screen within the conditions of the level. (Checj out the README to )
+A game where you have to get the ball to reach the bottom of the screen within the conditions of the level. (Check out the README to see more info)
 
-Program uses keyboard keys to control the environment and annyang! (in the level 5).
-The structure of this code gathers all the universal variables in the main script (with the exception of things related to the annyang library).
+- Program uses keyboard keys to control the environment and annyang! (in the level 5).
+- The structure of this code gathers all the universal variables in the main script (with the exception of things related to the annyang library).
+- regular states are switched through mouseClicked and levels are automatically changed once the requirements are met.
 */
 
 "use strict";
@@ -41,7 +42,7 @@ function setup() {
     alert(`Please visit this page on Google Chrome\nto use the mic!`); //Pop up alert if user isn't using Chrome browser.
   }
 
-  state = new Title();//begin from the Title screen.
+  state = new Level4(5);//begin from the Title screen.
 }
 
 //Start/ execute the program
@@ -52,6 +53,7 @@ function draw() {
 
 //recover()
 //voice command to heal the player
+//loadbar created and called in level 5
 function recover(now) {
   loadBar.activateBar(bouncingBall);
 }
