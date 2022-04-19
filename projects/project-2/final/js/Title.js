@@ -1,6 +1,6 @@
 //Title class
 //Event: the game begins in this state.
-class Title extends Scenes{
+class Title extends Scenes {
   constructor() {
     super();
     //displays the text for the state and starts music.
@@ -19,7 +19,7 @@ class Title extends Scenes{
 
   //Display the title.
   displayTitle() {
-    push()
+    push();
     noStroke();
     fill(255);
     textSize(50);
@@ -27,7 +27,7 @@ class Title extends Scenes{
     text(this.titleString, width / 2, height / 2);
     pop();
 
-    push()
+    push();
     noStroke();
     fill(255);
     textSize(25);
@@ -35,7 +35,7 @@ class Title extends Scenes{
     text(this.subtitleString, width / 2, height / 2 + 200);
     pop();
 
-    push()
+    push();
     noStroke();
     fill(255);
     textSize(30);

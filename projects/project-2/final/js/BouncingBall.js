@@ -50,11 +50,11 @@ class BouncingBall extends Levels {
 
   //called inside Square.js
   handleOtherEnemies(square) {
-    this.touchSquare(square);//called in lvl 4, lvl 5 (inside array)
+    this.touchSquare(square); //called in lvl 4, lvl 5 (inside array)
   }
   //called inside Rectangle.js
   handleOtherEnemies2(rectangle) {
-    this.touchRectangle(rectangle);//called in lvl 5
+    this.touchRectangle(rectangle); //called in lvl 5
   }
 
   //START: referred to from exercise 5: juggle garden of CART253
@@ -82,10 +82,10 @@ class BouncingBall extends Levels {
   //check if the ball loses all currentLives
   //called in update
   checkDead() {
-      if (this.lives.currentLives === 0) {
-        state = new Lose();
-      }
+    if (this.lives.currentLives === 0) {
+      state = new Lose();
     }
+  }
 
   //check when the ball bounces.
   //called in handlePlatform
@@ -124,7 +124,10 @@ class BouncingBall extends Levels {
   passHole(platform) {
     let platformOffsetY = 80;
     //If the ball is underneath the platform,
-    if (this.y + this.size / 2 >platform.y - platform.height / 2 + platformOffsetY) {
+    if (
+      this.y + this.size / 2 >
+      platform.y - platform.height / 2 + platformOffsetY
+    ) {
       //take out that platform
       platform.active = false;
       return true;
@@ -152,7 +155,7 @@ class BouncingBall extends Levels {
       this.x + this.size / 2 > square.x - square.size / 2 &&
       this.x - this.size / 2 < square.x + square.size / 2
     ) {
-      this.lives.currentLives --;
+      this.lives.currentLives--;
       //once in contact, have the square reset it's position (bottom of screen)
       square.y = height;
     }
@@ -168,7 +171,7 @@ class BouncingBall extends Levels {
         this.x + this.size / 2 > rectangle.x - rectangle.width / 2 &&
         this.x - this.size / 2 < rectangle.x + rectangle.width / 2
       ) {
-        this.lives.currentLives --;
+        this.lives.currentLives--;
         //once contact, have the rectangle reset it's position
         rectangle.y = rectangle.initialY;
         rectangle.active = false;

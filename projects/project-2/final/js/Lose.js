@@ -18,7 +18,7 @@ class Lose extends Scenes {
 
   //Display the text
   displayTitle() {
-    push()
+    push();
     noStroke();
     fill(255);
     textSize(50);
@@ -26,7 +26,7 @@ class Lose extends Scenes {
     text(this.titleString, width / 2, height / 2);
     pop();
 
-    push()
+    push();
     noStroke();
     fill(255);
     textSize(30);

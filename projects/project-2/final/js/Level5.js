@@ -4,12 +4,12 @@ class Level5 extends Level4 {
   constructor(previousLevelLives) {
     super();
     //display the level as timer, calls all objects (ball falls down, floating squares, falling rectangle, player controls (8) platforms)
-    this.timer = 25;//25 second timer
+    this.timer = 25; //25 second timer
     this.timerActive = true;
     this.square;
     this.squares = [];
-    this.maxSquares = random(2, 5);//randomize # of squares
-    this.createSquares();//create squares once before checking to create array again
+    this.maxSquares = random(2, 5); //randomize # of squares
+    this.createSquares(); //create squares once before checking to create array again
     this.rectangle;
     bouncingBall;
     this.platforms = [];
@@ -21,23 +21,23 @@ class Level5 extends Level4 {
       let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i; //spacing out b/w each platform
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
-      platform.danger.width = random(70, 100);//smaller size range
+      platform.danger.width = random(70, 100); //smaller size range
       platform.hole.width = random(70, 100);
     }
     bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the ball
     this.rectangle = new Rectangle(random(0, width)); //create falling rectangle
-    loadBar = new LoadBar(30, 100);//create the bar to heal
-    bossMusic.play();//change the music to bossMusic
+    loadBar = new LoadBar(30, 100); //create the bar to heal
+    bossMusic.play(); //change the music to bossMusic
     levelMusic.stop();
   }
 
   //updates all functions in the class
   update() {
     super.update();
-    loadBar.update();//annyang behavior called in script.js
-    this.rectangle.update(bouncingBall);//updates from rectangle class
+    loadBar.update(); //annyang behavior called in script.js
+    this.rectangle.update(bouncingBall); //updates from rectangle class
     for (let i = 0; i < this.maxSquares; i++) {
-      this.squares[i].update(bouncingBall);//updates EACH square from square class
+      this.squares[i].update(bouncingBall); //updates EACH square from square class
     }
     this.checkTimer();
     this.displayTimer();
@@ -85,7 +85,7 @@ class Level5 extends Level4 {
 
   //when the ball reaches the bottom of screen, switch to the win state.
   changeScenes() {
-    if (bouncingBall.y > height- 20) {
+    if (bouncingBall.y > height - 20) {
       state = new Win();
     }
   }

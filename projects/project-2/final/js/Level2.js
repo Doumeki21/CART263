@@ -12,18 +12,18 @@ class Level2 extends Level1 {
     this.firstPlatformY = windowHeight / 4;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
-      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
+      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i; //spacing out b/w each platform
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
-      platform.danger.width = random(70,200);//randomizing the size of platform areas
-      platform.hole.width = random(70,300);
+      platform.danger.width = random(70, 200); //randomizing the size of platform areas
+      platform.hole.width = random(70, 300);
     }
     bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the bouncing ball from the top of the canvas.
   }
 
   //updates all functions in the class
   update() {
-    bouncingBall.update();//updates from bouncingBall class
+    bouncingBall.update(); //updates from bouncingBall class
     this.handleInput();
     this.levelDisplay();
     this.changeLevels();
@@ -45,7 +45,9 @@ class Level2 extends Level1 {
         if (next) {
           // Check if the next platform's hole color matches the ball color-
           //*tostring is to see the color*
-          if (next.hole.color.toString() !== bouncingBall.currentStroke.toString()) {
+          if (
+            next.hole.color.toString() !== bouncingBall.currentStroke.toString()
+          ) {
             // -If it doesn't, then swap the identities of the hole and danger for the next
             // platform so the ball passes through the correctly colored area
             let hole = next.hole;
@@ -64,7 +66,7 @@ class Level2 extends Level1 {
     fill(255);
     textSize(36);
     textAlign(CENTER);
-    text(this.currentLevel, width/2, 50);
+    text(this.currentLevel, width / 2, 50);
     pop();
   }
 

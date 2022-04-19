@@ -15,14 +15,14 @@ class Platform {
       y: this.y,
       width: random(65, 300),
       height: this.height,
-      color: color(255, 117, 138)//pippin's code: Use the color object instead of individual properties
+      color: color(255, 117, 138), //pippin's code: Use the color object instead of individual properties
     };
     //hole
     this.hole = {
       x: random(0, width),
       y: this.y,
       width: random(65, 200),
-      color: color(100, 100, 100),//part of pippin's code ""
+      color: color(100, 100, 100), //part of pippin's code ""
       height: this.height,
     };
   }
@@ -31,7 +31,7 @@ class Platform {
   update(normal) {
     if (this.active) {
       this.regenerate();
-      this.move(normal);//in lvl 3 when platform directions start to alternate
+      this.move(normal); //in lvl 3 when platform directions start to alternate
       this.displayPlatform();
       this.displayHole();
       this.displayDanger();
@@ -43,8 +43,7 @@ class Platform {
     if (
       this.hole.x - this.hole.width / 2 <
         this.danger.x + this.danger.width / 2 &&
-      this.hole.x + this.hole.width / 2 >
-        this.danger.x - this.danger.width / 2
+      this.hole.x + this.hole.width / 2 > this.danger.x - this.danger.width / 2
     ) {
       this.danger.x = random(0, width);
       this.hole.x = random(0, width);
@@ -95,7 +94,7 @@ class Platform {
   displayHole() {
     push();
     noStroke();
-    fill(this.hole.color);//part of pippin's code
+    fill(this.hole.color); //part of pippin's code
     rectMode(CENTER);
     rect(this.hole.x, this.hole.y, this.hole.width, this.hole.height);
     pop();
@@ -105,14 +104,9 @@ class Platform {
   displayDanger() {
     push();
     noStroke();
-    fill(this.danger.color);//part of pippin's code
+    fill(this.danger.color); //part of pippin's code
     rectMode(CENTER);
-    rect(
-      this.danger.x,
-      this.danger.y,
-      this.danger.width,
-      this.danger.height
-    );
+    rect(this.danger.x, this.danger.y, this.danger.width, this.danger.height);
     pop();
   }
 }
