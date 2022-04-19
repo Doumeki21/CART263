@@ -4,8 +4,8 @@ class Title extends Scenes{
   constructor() {
     super();
     //displays the text for the state and starts music.
-    this.titleString = `START`;
-    this.subtitleString = `(Use Arrow Keys)`;
+    this.titleString = `READY OR NOT,\nHERE THEY COME`;
+    this.subtitleString = `(Use arrow keys to play)`;
     this.continueString = `Click to Start`;
     levelMusic.play();
     levelMusic.loop();
@@ -30,9 +30,9 @@ class Title extends Scenes{
     push()
     noStroke();
     fill(255);
-    textSize(30);
+    textSize(25);
     textAlign(CENTER);
-    text(this.subtitleString, width / 2, height / 2 + 100);
+    text(this.subtitleString, width / 2, height / 2 + 200);
     pop();
 
     push()
@@ -40,7 +40,7 @@ class Title extends Scenes{
     fill(255);
     textSize(30);
     textAlign(CENTER);
-    text(this.continueString, width / 2, height - 100);
+    text(this.continueString, width / 2, height - 50);
     pop();
   }
 

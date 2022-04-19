@@ -42,7 +42,7 @@ function setup() {
     alert(`Please visit this page on Google Chrome\nto use the mic!`); //Pop up alert if user isn't using Chrome browser.
   }
 
-  state = new Level4(5);//begin from the Title screen.
+  state = new Title();//begin from the Title screen.
 }
 
 //Start/ execute the program

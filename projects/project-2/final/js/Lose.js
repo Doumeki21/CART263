@@ -5,7 +5,7 @@ class Lose extends Scenes {
     super();
     //displays the text for the state and stops all music.
     this.titleString = `YOU LOSE`;
-    this.subtitleString = `CLICK TO CONTINUE`;
+    this.subtitleString = `Click to Continue`;
     levelMusic.stop();
     bossMusic.stop();
   }
@@ -31,7 +31,7 @@ class Lose extends Scenes {
     fill(255);
     textSize(30);
     textAlign(CENTER);
-    text(this.subtitleString, width / 2, height - 100);
+    text(this.subtitleString, width / 2, height - 50);
     pop();
   }
 
