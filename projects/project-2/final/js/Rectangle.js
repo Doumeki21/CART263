@@ -1,5 +1,5 @@
 //rectangle class
-//this code from project 1
+//most of this code is from CART263:project 1 except the rectangleControl(), the activate(), and timer + bouncingBall elements
 //Randomly appears and drops fast to the bottom of the canvas
 class Rectangle {
   constructor(x) {

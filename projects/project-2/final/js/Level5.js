@@ -74,9 +74,9 @@ class Level5 extends Level4 {
   displayTimer() {
     push();
     fill(255);
-    textSize(60);
+    textSize(36);
     textAlign(CENTER, CENTER);
-    text(round(this.timer), width / 2, 100);
+    text(round(this.timer), width / 2, 50);
     pop();
   }
 

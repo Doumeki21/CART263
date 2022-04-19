@@ -37,15 +37,14 @@ class Level4 extends Level3 {
     fill(255);
     textSize(36);
     textAlign(CENTER);
-    text(this.currentLevel, width/2, 100);
+    text(this.currentLevel, width/2, 50);
     pop();
   }
 
   //when the ball reaches the bottom of screen, change Levels + keep track of lives.
   changeLevels() {
     if (bouncingBall.y > height) {
-      // state = new Level5(bouncingBall.lives.currentLives);
-      state = new Win();
+      state = new Level5(bouncingBall.lives.currentLives);
     }
   }
 }

@@ -48,7 +48,7 @@ class Level1 extends Levels {
     fill(255);
     textSize(36);
     textAlign(CENTER);
-    text(this.currentLevel, width/2, 100);
+    text(this.currentLevel, width/2, 50);
     pop();
   }
 

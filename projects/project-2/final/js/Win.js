@@ -4,7 +4,7 @@ class Win extends Scenes {
   constructor() {
     super();
     //displays the text for the state and stops all music.
-    this.titleString = `YOU WIN`;
+    this.titleString = `You survived 'til the end`;
     this.subtitleString = `Click to Continue`;
     levelMusic.stop();
     bossMusic.stop();

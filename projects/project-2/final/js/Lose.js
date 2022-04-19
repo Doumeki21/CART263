@@ -4,7 +4,7 @@ class Lose extends Scenes {
   constructor() {
     super();
     //displays the text for the state and stops all music.
-    this.titleString = `YOU LOSE`;
+    this.titleString = `You didn't survive`;
     this.subtitleString = `Click to Continue`;
     levelMusic.stop();
     bossMusic.stop();
