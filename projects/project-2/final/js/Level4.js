@@ -13,20 +13,20 @@ class Level4 extends Level3 {
     this.firstPlatformY = windowHeight / 5;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
-      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i; //spacing out b/w each platform
+      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
-      platform.danger.width = random(70, 150); //smaller size range
-      platform.hole.width = random(70, 150);
+      platform.danger.width = random(70,150);//smaller size range
+      platform.hole.width = random(70,150);
     }
     bouncingBall = new BouncingBall(windowWidth / 2, -50, previousLevelLives); //create the Ball
-    this.square = new Square(width / 2, height - 100); //create square
+    this.square = new Square(width / 2, height - 100);//create square
   }
 
   //updates all functions in the class
   update() {
     super.update();
-    this.square.update(bouncingBall); //updates from square class
+    this.square.update(bouncingBall);//updates from square class
     this.levelDisplay();
     this.changeLevels();
   }
@@ -37,7 +37,7 @@ class Level4 extends Level3 {
     fill(255);
     textSize(36);
     textAlign(CENTER);
-    text(this.currentLevel, width / 2, 50);
+    text(this.currentLevel, width/2, 50);
     pop();
   }
 

@@ -12,20 +12,18 @@ A game where you have to get the ball to reach the bottom of the screen within t
 
 "use strict";
 
-let state = undefined; //states changes throughout the game: Title, Win, Lose, (Level)
+let state = undefined;//states changes throughout the game: Title, Win, Lose, (Level)
 let levelMusic;
 let bossMusic;
-let loadBar = undefined; //called in level 5
-let bouncingBall = undefined; //universal variable called in every level
+let loadBar = undefined;//called in level 5
+let bouncingBall = undefined;//universal variable called in every level
 let customFontBold;
 
 //load all the sounds first
 function preload() {
-  levelMusic = loadSound(
-    `assets/sounds/alex-productions-extreme-trap-racing-music-power.mp3`
-  );
+  levelMusic = loadSound(`assets/sounds/alex-productions-extreme-trap-racing-music-power.mp3`);
   bossMusic = loadSound(`assets/sounds/BoxCat-Games-Epic-Song.mp3`);
-  customFontBold = loadFont(`assets/fonts/poppins-bold.ttf`);
+  customFontBold = loadFont(`assets/fonts/poppins-bold.ttf`)
 }
 
 //setup the canvas and annyang, start music, and show first screen
@@ -45,14 +43,14 @@ function setup() {
   } else {
     alert(`Please visit this page on Google Chrome\nto use the mic!`); //Pop up alert if user isn't using Chrome browser.
   }
-  state = new Title(); //begin from the Title screen.
+  state = new Title();//begin from the Title screen.
 }
 
 //Start/ execute the program
 function draw() {
-  background(0, 90); // black background and alpha trail
+  background(0, 90);// black background and alpha trail
   textFont(customFontBold);
-  state.update(); //update the Title state. (and all other states as it changes.)
+  state.update();//update the Title state. (and all other states as it changes.)
 }
 
 //recover()
@@ -64,5 +62,5 @@ function recover(now) {
 
 //connected to the Scenes.js
 function mouseClicked() {
-  state.mouseClicked(); //called in Win, Lose, Title
+  state.mouseClicked();//called in Win, Lose, Title
 }

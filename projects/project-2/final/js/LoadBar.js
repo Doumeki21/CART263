@@ -13,23 +13,23 @@ class LoadBar {
     this.fillY = this.y;
     this.fillWidth = 0;
     this.fillHeight = 30;
-    (this.currentFill = {
+    this.currentFill = {
       r: undefined,
       g: undefined,
       b: undefined,
-    }),
-      //grey fill
-      (this.filling = {
-        r: 200,
-        g: 200,
-        b: 200,
-      }),
-      //green fill
-      (this.maxFill = {
-        r: 100,
-        g: 200,
-        b: 100,
-      });
+    },
+    //grey fill
+    this.filling = {
+      r: 200,
+      g: 200,
+      b: 200,
+    },
+    //green fill
+    this.maxFill = {
+      r: 100,
+      g: 200,
+      b: 100,
+    }
     this.fillSpeed = 2;
     this.activeBar = true;
   }
@@ -93,12 +93,7 @@ class LoadBar {
     noStroke();
     fill(this.currentFill.r, this.currentFill.g, this.currentFill.b);
     rectMode(CENTER);
-    rect(
-      this.fillX + this.fillWidth / 2,
-      this.fillY,
-      this.fillWidth,
-      this.fillHeight
-    );
+    rect(this.fillX + this.fillWidth / 2, this.fillY, this.fillWidth, this.fillHeight);
     pop();
   }
   //END: code from project1//

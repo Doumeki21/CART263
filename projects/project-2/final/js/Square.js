@@ -6,7 +6,7 @@ class Square {
     //speeds
     this.squareYSpeeds = [-5, -4, -3];
     this.squareXSpeeds = [-0.5, -0.4, -0.3, 0.3, 0.4, 0.5];
-    this.squareMovingSpeed = 10; //for when it's controlled
+    this.squareMovingSpeed = 10;//for when it's controlled
     //dimensions
     this.x = x;
     this.y = y;
@@ -28,7 +28,7 @@ class Square {
       this.squareControl();
       this.movingSquare();
       this.squareDisplay();
-      bouncingBall.handleOtherEnemies(this); //called in bouncingBall.js (checks if ball and rectangle touch)
+      bouncingBall.handleOtherEnemies(this);//called in bouncingBall.js (checks if ball and rectangle touch)
     }
   }
 

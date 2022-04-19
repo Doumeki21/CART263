@@ -26,12 +26,12 @@ class Rectangle {
 
   //A single function that contains everything from this object class to be called.
   update(bouncingBall) {
-    this.timer += 1 / 60; //count the number up by seconds
+    this.timer += 1/60;//count the number up by seconds
     //if the timer reaches the randomized time, activate the rectangle
     if (this.timer > this.randomizedTime) {
       this.activate();
     }
-    bouncingBall.handleOtherEnemies2(this); //called in bouncingBall.js (checks if ball and rectangle touch)
+    bouncingBall.handleOtherEnemies2(this);//called in bouncingBall.js (checks if ball and rectangle touch)
     this.checkActive();
     this.appearing();
     this.rectangleControl();
@@ -40,9 +40,9 @@ class Rectangle {
 
   //the moment of activation- (to display)
   activate() {
-    this.timer = 0; //reset the timer
+    this.timer = 0;//reset the timer
     this.randomizedTime = random(1, 3);
-    this.active = !this.active; //make the rectangle active and display it
+    this.active = !this.active;//make the rectangle active and display it
   }
 
   //checks what the rectangle should do when it's visible or not
@@ -89,7 +89,8 @@ class Rectangle {
     // Wrap the rectangle to the other side
     if (this.x + this.width < 0) {
       this.x += width + this.width;
-    } else if (this.x - this.width > width) {
+    }
+    else if (this.x - this.width > width) {
       this.x -= width + this.width;
     }
   }

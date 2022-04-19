@@ -65,4 +65,3 @@ class CutScene extends Level4 extends Scenes {
     // state = new Level5(bouncingBall.lives.currentLives);
   }
 }
-}

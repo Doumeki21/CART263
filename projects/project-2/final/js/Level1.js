@@ -12,10 +12,10 @@ class Level1 extends Levels {
     this.firstPlatformY = windowHeight / 3;
 
     for (let i = 0; i < this.maxPlatforms; i++) {
-      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i; //spacing out b/w each platform
+      let platformY = this.firstPlatformY + this.spaceBetweenPlatforms * i;//spacing out b/w each platform
       let platform = new Platform(windowWidth / 2, platformY); // A reasonably placed platform for the first one.
       this.platforms.push(platform); //put each platform inside the array
-      platform.danger.width = random(70, 100); //randomizing the size of platform areas
+      platform.danger.width = random(70, 100);//randomizing the size of platform areas
       platform.hole.width = random(100, 300);
     }
     bouncingBall = new BouncingBall(windowWidth / 2, -50, 5); //create the bouncing ball from the top of the canvas.
@@ -23,7 +23,7 @@ class Level1 extends Levels {
 
   //updates all functions in the class
   update() {
-    bouncingBall.update(); //updates from bouncingBall class (prevents lagging when called outside of the loop)
+    bouncingBall.update();//updates from bouncingBall class (prevents lagging when called outside of the loop)
     this.handleInput();
     this.levelDisplay();
     this.changeLevels();
@@ -34,7 +34,7 @@ class Level1 extends Levels {
     //for every platform, draw max # of platforms.
     for (let i = 0; i < this.platforms.length; i++) {
       this.platforms[i].update();
-      bouncingBall.handlePlatform(this.platforms[i]); //ball contacts every platform
+      bouncingBall.handlePlatform(this.platforms[i]);//ball contacts every platform
       if (this.platforms[i].active === false) {
         //at position i the get rid of 1 platform.
         this.platforms.splice(i, 1);
@@ -48,7 +48,7 @@ class Level1 extends Levels {
     fill(255);
     textSize(36);
     textAlign(CENTER);
-    text(this.currentLevel, width / 2, 50);
+    text(this.currentLevel, width/2, 50);
     pop();
   }
 
